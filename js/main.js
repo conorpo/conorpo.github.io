@@ -16,7 +16,7 @@ function init()
 
 function draw()
 {
-  context.clearRect(0,0, 300,300);
+  context.clearRect(0,0, 500,400);
   context.beginPath();
   context.fillStyle="#0000ff";
   // Draws a circle of radius 20 at the coordinates 100,100 on the canvas
