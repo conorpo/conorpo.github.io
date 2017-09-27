@@ -24,8 +24,8 @@ function draw()
   context.closePath();
   context.fill();
   // Boundary Logic
-if( x<0 || x>300) dx=-dx;
-if( y<0 || y>300) dy=-dy;
+if( x<20 || x>280) dx=-dx;
+if( y<20 || y>280) dy=-dy;
 x+=dx;
 y+=dy;
 }
