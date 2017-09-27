@@ -8,16 +8,16 @@ function addValue(){
   value = value + 1;
   document.getElementById("value").innerHTML = value;
   if(dx<0){
-    dx = -3 * (1.001*value);
+    dx = -3 * (1+(0.001*value));
   }
   else{
-    dx = 3 * (1.001*value);
+    dx = 3 * (1+(0.001*value));
   }
   if(dy<0){
-    dy = -3 * (1.001*value);
+    dy = -3 * (1+(0.001*value));
   }
   else{
-    dy = 3 * (1.001*value);
+    dy = 3 * (1+(0.001*value));
   }
 }
 function init()
