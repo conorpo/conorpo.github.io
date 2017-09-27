@@ -2,22 +2,22 @@ var value = 0;
 var context;
 var x=100;
 var y=200;
-var dx=5;
-var dy=5;
+var dx=3;
+var dy=3;
 function addValue(){
   value = value + 1;
   document.getElementById("value").innerHTML = value;
   if(dx<0){
-    dx = -5 * (0.001*value);
+    dx = -3 * (1.001*value);
   }
   else{
-    dx = 5 * (0.001*value);
+    dx = 3 * (1.001*value);
   }
   if(dy<0){
-    dy = -5 * (0.001*value);
+    dy = -3 * (1.001*value);
   }
   else{
-    dy = 5 * (0.001*value);
+    dy = 3 * (1.001*value);
   }
 }
 function init()
