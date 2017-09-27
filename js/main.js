@@ -1,2 +1,5 @@
 let d = new Date();
-document.body.innerHTML = "<h1>Today's date is " + d + " and hey Nick!</h1>"
+var x = document.createElement("P");
+var t = document.createTextNode("Todays date is " + d + " and hey Nick!");
+x.appendChild(t);
+document.body.appendChild(x);
