@@ -7,6 +7,7 @@ var dy=3;
 function addValue(){
   value = value + 1;
   document.getElementById("value").innerHTML = value;
+}
 var cursors = 0;
 
 function buyCursor(){
@@ -55,7 +56,5 @@ window.setInterval(function(){
   }
   else{
     dy = 3 * (1+(0.001*value));
-  }
-}
-	
+  }	
 }, 1000);
