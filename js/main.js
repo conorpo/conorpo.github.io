@@ -9,13 +9,13 @@ var balls = [
   {active:false,x:400,y:400,dx:-1,dy:-1,color:"#ffff00",radius:15,damage:13}
 ]
 var enemies = [
-  {x:50,y:50,health:100,active:true,color:"#000000",radius:30},
-  {x:50,y:120,health:100,active:false,color:"#000000",radius:30},
-  {x:50,y:200,health:100,active:true,color:"#000000",radius:30},
-  {x:650,y:50,health:200,active:true,color:"#000000",radius:30},
-  {x:650,y:200,health:200,active:true,color:"#000000",radius:30},
-  {x:850,y:500,health:300,active:true,color:"#000000",radius:30},
-  {x:850,y:600,health:300,active:true,color:"#000000",radius:30},
+  {x:50,y:50,health:100,sHealth:100,active:true,color:"#000000",radius:30},
+  {x:50,y:120,health:100,sHealth:100,active:false,color:"#000000",radius:30},
+  {x:50,y:200,health:100,sHealth:100,active:true,color:"#000000",radius:30},
+  {x:650,y:50,health:200,sHealth:200,active:true,color:"#000000",radius:30},
+  {x:650,y:200,health:200,sHealth:200,active:true,color:"#000000",radius:30},
+  {x:850,y:500,health:300,sHealth:300,active:true,color:"#000000",radius:30},
+  {x:850,y:600,health:300,sHealth:300,active:true,color:"#000000",radius:30},
 ]
 function addValue()
 {
@@ -26,6 +26,9 @@ function init()
 {
   context= myCanvas.getContext('2d');
   setInterval(draw,10);
+}
+function dec2hex(dec) {
+    return Number(parseInt( dec , 10)).toString(16);
 }
 
 function draw(){
@@ -55,6 +58,8 @@ function draw(){
             if(enemy.health>ball.damage)  
               {
                 enemy.health -= ball.damage;
+                var greycale = enemy.health/enemy.sHealth;
+                enemy.color = "#" + dec2hex(greyscale) + dec2hex(greyscale) + dec2hex(greyscale);
               } 
             else
               {
