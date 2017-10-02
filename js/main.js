@@ -64,6 +64,7 @@ function draw(){
             else
               {
                 enemy.active = false;
+                value+=enemy.sHealth
               }
             ball.dx = (ball.x - enemy.x)/Math.sqrt(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
             ball.dy = (ball.y - enemy.y)/Math.sqrt(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
