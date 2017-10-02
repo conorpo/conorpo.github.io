@@ -51,7 +51,7 @@ function draw()
       context.fill();
       if(ball.x<=ball.radius || ball.x>=(width-ball.radius)) ball.dx=-ball.dx;
       if(ball.y<=ball.radius || ball.y>=(height-ball.radius)) ball.dy=-ball.dy;
-      for(var e = 0; e<enemies.lengthl; e++){
+      for(var e = 0; e<enemies.length; e++){
         var enemy = enemies[e]
         if(((ball.x-enemy.x)^2)+((ball.y-enemy.y)^2)<=(enemy.radius+ball.radius)^2){
           ball.dx = (ball.x - enemy.x)/(((ball.x-enemy.x)^2)+((ball.y-enemy.y)^2));
