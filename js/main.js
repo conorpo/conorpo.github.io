@@ -53,8 +53,8 @@ function draw()
         var enemy = enemies[e];
         if(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2)<=Math.pow(enemy.radius+ball.radius,2)){
           console.log("Collision");
-          ball.dx = (ball.x - enemy.x)/(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
-          ball.dy = (ball.y - enemy.y)/(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
+          ball.dx = (ball.x - enemy.x)/Math.sqrt(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
+          ball.dy = (ball.y - enemy.y)/Math.sqrt(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
         }
       }
       if(ball.x<=ball.radius || ball.x>=(width-ball.radius)) ball.dx=-ball.dx;
