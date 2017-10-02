@@ -9,11 +9,11 @@ var balls = [
   {active:false,x:400,y:400,dx:-1,dy:-1,color:"#ffff00",radius:15,damage:0}
 ]
 var enemies = [
-  {x:50,y:50,health:100,active:true,color:"00ffff",radius:30},
-  {x:50,y:120,health:200,active:false,color:"00ffff",radius:30},
-  {x:50,y:200,health:100,active:true,color:"00ffff",radius:30},
-  {x:650,y:50,health:100,active:true,color:"00ffff",radius:30},
-  {x:650,y:200,health:100,active:true,color:"00ffff",radius:30},
+  {x:50,y:50,health:100,active:true,color:"000000",radius:30},
+  {x:50,y:120,health:200,active:false,color:"000000",radius:30},
+  {x:50,y:200,health:100,active:true,color:"000000",radius:30},
+  {x:650,y:50,health:100,active:true,color:"000000",radius:30},
+  {x:650,y:200,health:100,active:true,color:"000000",radius:30},
 ]
 function addValue()
 {
@@ -26,13 +26,11 @@ function init()
   setInterval(draw,10);
 }
 
-function draw()
-{
+function draw(){
   context.clearRect(0,0,width,height);
   for(var i = 0; i<enemies.length; i++){
     var enemyDraw = enemies[i];
-    if(enemyDraw.active)
-    {
+    if(enemyDraw.active){
       context.beginPath();
       context.fillStyle=enemyDraw.color;
       context.arc(enemyDraw.x,enemyDraw.y,enemyDraw.radius,0,Math.PI*2,true);
@@ -42,8 +40,7 @@ function draw()
   }
   for(var i = 0; i<balls.length; i++){
     var ball = balls[i]
-    if(ball.active)
-    {
+    if(ball.active){
       context.beginPath();
       context.fillStyle=ball.color;
       context.arc(ball.x,ball.y,ball.radius,0,Math.PI*2,true);
@@ -51,10 +48,12 @@ function draw()
       context.fill();
       for(var e = 0; e<enemies.length; e++){
         var enemy = enemies[e];
-        if(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2)<=Math.pow(enemy.radius+ball.radius,2)){
-          console.log("Collision");
-          ball.dx = (ball.x - enemy.x)/Math.sqrt(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
-          ball.dy = (ball.y - enemy.y)/Math.sqrt(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
+        if(enemy.active){
+          if(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2)<=Math.pow(enemy.radius+ball.radius,2)){
+            console.log("Collision");
+            ball.dx = (ball.x - enemy.x)/Math.sqrt(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
+            ball.dy = (ball.y - enemy.y)/Math.sqrt(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
+          }
         }
       }
       if(ball.x<=ball.radius || ball.x>=(width-ball.radius)) ball.dx=-ball.dx;
