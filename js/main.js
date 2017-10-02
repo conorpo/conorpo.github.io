@@ -14,6 +14,8 @@ var enemies = [
   {x:50,y:200,health:100,active:true,color:"#000000",radius:30},
   {x:650,y:50,health:100,active:true,color:"#000000",radius:30},
   {x:650,y:200,health:100,active:true,color:"#000000",radius:30},
+  {x:850,y:500,health:100,active:true,color:"#000000",radius:30},
+  {x:850,y:600,health:100,active:true,color:"#000000",radius:30},
 ]
 function addValue()
 {
