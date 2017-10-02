@@ -23,9 +23,10 @@ function init()
 function draw()
 {
   context.clearRect(0,0, 500,500);
-  for(var ball in balls){
+  for(var i = 0; i<balls.length; i++){
+    var ball = balls[i]
     context.beginPath();
-      context.fillStyle=ball.color;
+    context.fillStyle=ball.color;
     context.arc(ball.x,ball.y,20,0,Math.PI*2,true);
     context.closePath();
     context.fill();
