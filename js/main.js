@@ -51,10 +51,10 @@ function draw()
       context.fill();
       for(var e = 0; e<enemies.length; e++){
         var enemy = enemies[e];
-        if(((ball.x-enemy.x)^2)+((ball.y-enemy.y)^2)<=((enemy.radius+ball.radius)^2){
+        if(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2)<=Math.pow(enemy.radius+ball.radius,2)){
           console.log("Collision");
-          ball.dx = (ball.x - enemy.x)/(((ball.x-enemy.x)^2)+((ball.y-enemy.y)^2));
-          ball.dy = (ball.y - enemy.y)/(((ball.x-enemy.x)^2)+((ball.y-enemy.y)^2));
+          ball.dx = (ball.x - enemy.x)/(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
+          ball.dy = (ball.y - enemy.y)/(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
         }
       }
       if(ball.x<=ball.radius || ball.x>=(width-ball.radius)) ball.dx=-ball.dx;
