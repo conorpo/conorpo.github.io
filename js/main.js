@@ -17,15 +17,19 @@ var enemies = [
   {x:850,y:300,health:1000,sHealth:1000,active:true,color:"#000000",radius:100},
   {x:850,y:600,health:300,sHealth:300,active:true,color:"#000000",radius:30}
 ]
-function addValue(number)
-{
+function addValue(number) {
   value = value + number;
   document.getElementById("value").innerHTML = value;
 }
-function init()
-{
+function init() {
   context= myCanvas.getContext('2d');
   setInterval(draw,10);
+}
+function newLevel() {
+  enemies = [];
+  for(i = 0;i<5;i++){    
+    enemies.push();
+  }
 }
 function dec2hex(dec) {
     return Number(parseInt( dec , 10)).toString(16);
