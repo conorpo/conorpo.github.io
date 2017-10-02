@@ -3,10 +3,10 @@ var height = 700;
 var value = 0;
 var context;
 var balls = [
-  {active:true,x:200,y:200,dx:.707,dy:.707,color:"#0000ff",radius:20,damage=0},
-  {active:true,x:100,y:100,dx:-.707,dy:.707,color:"#ff0000",radius:10,damage=0},
-  {active:true,x:300,y:300,dx:.707,dy:-.707,color:"#00ff00",radius:30,damage=0},
-  {active:false,x:400,y:400,dx:-1,dy:-1,color:"#ffff00",radius:15,damage=0}
+  {active:true,x:200,y:200,dx:.707,dy:.707,color:"#0000ff",radius:20,damage:0},
+  {active:true,x:100,y:100,dx:-.707,dy:.707,color:"#ff0000",radius:10,damage:0},
+  {active:true,x:300,y:300,dx:.707,dy:-.707,color:"#00ff00",radius:30,damage:0},
+  {active:false,x:400,y:400,dx:-1,dy:-1,color:"#ffff00",radius:15,damage:0}
 ]
 var enemies = [
   {x:50,y:50,health:100,active:true,color:"00ffff",radius:30},
