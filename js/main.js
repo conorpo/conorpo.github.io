@@ -17,9 +17,9 @@ var enemies = [
   {x:850,y:300,health:1000,sHealth:1000,active:true,color:"#000000",radius:100},
   {x:850,y:600,health:300,sHealth:300,active:true,color:"#000000",radius:30}
 ]
-function addValue()
+function addValue(number)
 {
-  value = value + 1;
+  value = value + number;
   document.getElementById("value").innerHTML = value;
 }
 function init()
@@ -64,7 +64,7 @@ function draw(){
             else
               {
                 enemy.active = false;
-                value+=enemy.sHealth
+                addValue(enemy.sHealth);
               }
             ball.dx = (ball.x - enemy.x)/Math.sqrt(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
             ball.dy = (ball.y - enemy.y)/Math.sqrt(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
