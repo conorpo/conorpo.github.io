@@ -10,10 +10,10 @@ var balls = [
 ]
 var enemies = [
   {x:50,y:50,health:100,active:true,color:"00ffff",radius:30},
-  {x:50,y:70,health:200,active:false,color:"00ffff",radius:30},
-  {x:50,y:90,health:100,active:true,color:"00ffff",radius:30},
-  {x:150,y:50,health:100,active:true,color:"00ffff",radius:30},
-  {x:150,y:90,health:100,active:true,color:"00ffff",radius:30},
+  {x:50,y:120,health:200,active:false,color:"00ffff",radius:30},
+  {x:50,y:200,health:100,active:true,color:"00ffff",radius:30},
+  {x:650,y:50,health:100,active:true,color:"00ffff",radius:30},
+  {x:650,y:200,health:100,active:true,color:"00ffff",radius:30},
 ]
 function addValue()
 {
@@ -30,12 +30,12 @@ function draw()
 {
   context.clearRect(0,0,width,height);
   for(var i = 0; i<enemies.length; i++){
-    var enemy = enemies[i];
-    if(enemy.active)
+    var enemyDraw = enemies[i];
+    if(enemyDraw.active)
     {
       context.beginPath();
-      context.fillStyle=enemy.color;
-      context.arc(enemy.x,enemy.y,enemy.radius,0,Math.PI*2,true);
+      context.fillStyle=enemyDraw.color;
+      context.arc(enemyDraw.x,enemyDraw.y,enemyDraw.radius,0,Math.PI*2,true);
       context.closePath();
       context.fill();
     }
@@ -58,8 +58,8 @@ function draw()
           ball.dy = (ball.y - enemy.y)/(((ball.x-enemy.x)^2)+((ball.y-enemy.y)^2));
         }
       }
-      ball.x+=ball.dx;
-      ball.y+=ball.dy;
+      ball.x+=ball.dx*4;
+      ball.y+=ball.dy*4;
     }
   }
 }
