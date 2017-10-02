@@ -9,11 +9,11 @@ var balls = [
   {active:false,x:400,y:400,dx:-1,dy:-1,color:"#ffff00",radius:15,damage:0}
 ]
 var enemies = [
-  {x:50,y:50,health:100,active:true,color:"000000",radius:30},
-  {x:50,y:120,health:200,active:false,color:"000000",radius:30},
-  {x:50,y:200,health:100,active:true,color:"000000",radius:30},
-  {x:650,y:50,health:100,active:true,color:"000000",radius:30},
-  {x:650,y:200,health:100,active:true,color:"000000",radius:30},
+  {x:50,y:50,health:100,active:true,color:"#000000",radius:30},
+  {x:50,y:120,health:200,active:false,color:"#000000",radius:30},
+  {x:50,y:200,health:100,active:true,color:"#000000",radius:30},
+  {x:650,y:50,health:100,active:true,color:"#000000",radius:30},
+  {x:650,y:200,health:100,active:true,color:"#000000",radius:30},
 ]
 function addValue()
 {
