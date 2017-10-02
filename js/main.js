@@ -1,3 +1,5 @@
+var width = 1100;
+var height = 700;
 var value = 0;
 var context;
 var balls = [
@@ -22,7 +24,7 @@ function init()
 
 function draw()
 {
-  context.clearRect(0,0, 500,500);
+  context.clearRect(0,0,width,height);
   for(var i = 0; i<balls.length; i++){
     var ball = balls[i]
     context.beginPath();
@@ -30,8 +32,8 @@ function draw()
     context.arc(ball.x,ball.y,20,0,Math.PI*2,true);
     context.closePath();
     context.fill();
-    if(ball.x<=20 || ball.x>=480) ball.dx=-ball.dx;
-    if(ball.y<=20 || ball.y>=480) ball.dy=-ball.dy;
+    if(ball.x<=20 || ball.x>=(width-20)) ball.dx=-ball.dx;
+    if(ball.y<=20 || ball.y>=(height-20)) ball.dy=-ball.dy;
     ball.x+=ball.dx;
     ball.y+=ball.dy;
   }
