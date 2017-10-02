@@ -49,15 +49,15 @@ function draw()
       context.arc(ball.x,ball.y,ball.radius,0,Math.PI*2,true);
       context.closePath();
       context.fill();
-      if(ball.x<=ball.radius || ball.x>=(width-ball.radius)) ball.dx=-ball.dx;
-      if(ball.y<=ball.radius || ball.y>=(height-ball.radius)) ball.dy=-ball.dy;
       for(var e = 0; e<enemies.length; e++){
-        var enemy = enemies[e]
+        var enemy = enemies[e];
         if(((ball.x-enemy.x)^2)+((ball.y-enemy.y)^2)<=(enemy.radius+ball.radius)^2){
           ball.dx = (ball.x - enemy.x)/(((ball.x-enemy.x)^2)+((ball.y-enemy.y)^2));
           ball.dy = (ball.y - enemy.y)/(((ball.x-enemy.x)^2)+((ball.y-enemy.y)^2));
         }
       }
+      if(ball.x<=ball.radius || ball.x>=(width-ball.radius)) ball.dx=-ball.dx;
+      if(ball.y<=ball.radius || ball.y>=(height-ball.radius)) ball.dy=-ball.dy;
       ball.x+=ball.dx*4;
       ball.y+=ball.dy*4;
     }
