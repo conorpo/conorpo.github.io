@@ -58,7 +58,7 @@ function draw(){
             if(enemy.health>ball.damage)  
               {
                 enemy.health -= ball.damage;
-                var greycale = enemy.health/enemy.sHealth;
+                var greyscale = enemy.health/enemy.sHealth;
                 enemy.color = "#" + dec2hex(greyscale) + dec2hex(greyscale) + dec2hex(greyscale);
               } 
             else
