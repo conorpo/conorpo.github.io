@@ -32,7 +32,7 @@ function newLevel() {
   enemies = [];
   for(i = 0;i<5;i++){
     var healthTemp = Math.floor(Math.Pow(rand(100,200),level/2));
-    enemies.push({x:rand(300, 800),y:rand(200, 500),health:healthTemp,sHealth:healthTemp,active:true,color:"#000000",radius:rand(20,60});
+    enemies.push({x:rand(300, 800),y:rand(200, 500),health:healthTemp,sHealth:healthTemp,active:true,color:"#000000",radius:rand(20,60)});
   }
 }
 fuction rand(min,max){
