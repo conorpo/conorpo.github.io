@@ -35,7 +35,7 @@ function newLevel() {
     enemies.push({x:rand(300, 800),y:rand(200, 500),health:healthTemp,sHealth:healthTemp,active:true,color:"#000000",radius:rand(20,60)});
   }
 }
-fuction rand(min,max){
+function rand(min,max){
   return min + (Math.floor(Math.random() * (max-min)));
 }
 function dec2hex(dec) {
