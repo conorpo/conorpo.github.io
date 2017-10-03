@@ -57,7 +57,7 @@ function draw(){
       context.closePath();
       context.fill();
       context.font = "30px Arial";
-      context.fillText(Math.round((enemy.health/enemy.sHealth)*100)+"%",enemyDraw.x-10,enemyDraw.y+10);
+      context.fillText(Math.round((enemyDraw.health/enemyDraw.sHealth)*100)+"%",enemyDraw.x-10,enemyDraw.y+10);
     }
   }
   for(var i = 0; i<balls.length; i++){
