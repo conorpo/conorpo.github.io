@@ -8,22 +8,15 @@ var balls = [
   {active:true,x:100,y:100,dx:-.707,dy:.707,color:"#ff0000",radius:10,damage:20},
   {active:true,x:300,y:300,dx:.707,dy:-.707,color:"#00ff00",radius:30,damage:13},
   {active:false,x:400,y:400,dx:-1,dy:-1,color:"#ffff00",radius:15,damage:13}
-]
-var enemies = [
-  {x:50,y:50,health:100,sHealth:100,active:true,color:"#000000",radius:30},
-  {x:50,y:120,health:100,sHealth:100,active:false,color:"#000000",radius:30},
-  {x:50,y:200,health:100,sHealth:100,active:true,color:"#000000",radius:30},
-  {x:650,y:50,health:200,sHealth:200,active:true,color:"#000000",radius:30},
-  {x:650,y:200,health:200,sHealth:200,active:true,color:"#000000",radius:30},
-  {x:850,y:300,health:1000,sHealth:1000,active:true,color:"#000000",radius:100},
-  {x:850,y:600,health:300,sHealth:300,active:true,color:"#000000",radius:30}
-]
+];
+var enemies = [];
 function addValue(number) {
   value = value + number;
   document.getElementById("value").innerHTML = value;
 }
 function init() {
   context= myCanvas.getContext('2d');
+  newLevel();
   setInterval(draw,10);
 }
 function newLevel() {
@@ -32,7 +25,7 @@ function newLevel() {
   enemies = [];
   for(i = 0;i<5;i++){
     var healthTemp = Math.floor(Math.pow(rand(100,200),level/2));
-    enemies.push({x:rand(300, 800),y:rand(200, 500),health:healthTemp,sHealth:healthTemp,active:true,color:"#000000",radius:rand(20,60)});
+    enemies.push({x:rand(100, 1000),y:rand(100, 600),health:healthTemp,sHealth:healthTemp,active:true,color:"#000000",radius:rand(20,60)});
   }
 }
 function rand(min,max){
