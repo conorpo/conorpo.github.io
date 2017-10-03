@@ -56,7 +56,7 @@ function draw(){
       context.arc(enemyDraw.x,enemyDraw.y,enemyDraw.radius,0,Math.PI*2,true);
       context.closePath();
       context.fill();
-      ctx.font = "30px Arial";
+      context.font = "30px Arial";
       context.fillText(Math.round((enemy.health/enemy.sHealth)*100)+"%",enemyDraw.x-10,enemyDraw.y+10);
     }
   }
