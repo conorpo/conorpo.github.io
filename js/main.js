@@ -2,6 +2,7 @@ var width = 1100;
 var height = 700;
 var value = 0;
 var context;
+var level = 1; 
 var balls = [
   {active:true,x:200,y:200,dx:.707,dy:.707,color:"#0000ff",radius:20,damage:8},
   {active:true,x:100,y:100,dx:-.707,dy:.707,color:"#ff0000",radius:10,damage:20},
@@ -28,8 +29,11 @@ function init() {
 function newLevel() {
   enemies = [];
   for(i = 0;i<5;i++){    
-    enemies.push();
+    enemies.push({x:rand(300, 800),y:rand(200, 500),health:,sHealth:,active:,color:,radius:});
   }
+}
+fuction rand(min,max){
+  return min + (Math.floor(Math.random() * (max-min)));
 }
 function dec2hex(dec) {
     return Number(parseInt( dec , 10)).toString(16);
