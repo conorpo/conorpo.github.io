@@ -52,12 +52,12 @@ function draw(){
     var enemyDraw = enemies[i];
     if(enemyDraw.active){
       context.beginPath();
-      context.fillStyle="#000000"
+      context.fillStyle="#000000";
       context.arc(enemyDraw.x,enemyDraw.y,enemyDraw.radius,0,Math.PI*2,true);
       context.closePath();
       context.fill();
       ctx.font = "30px Arial";
-      context.fillText(Math.round((enemy.health/enemy.sHealth)*100)+"%",enemyDraw.x-10,enemyDraw.y+10)
+      context.fillText(Math.round((enemy.health/enemy.sHealth)*100)+"%",enemyDraw.x-10,enemyDraw.y+10);
     }
   }
   for(var i = 0; i<balls.length; i++){
