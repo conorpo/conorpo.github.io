@@ -27,9 +27,12 @@ function init() {
   setInterval(draw,10);
 }
 function newLevel() {
+  level++;
+  document.getElementById("level").innerHTML = level;
   enemies = [];
-  for(i = 0;i<5;i++){    
-    enemies.push({x:rand(300, 800),y:rand(200, 500),health:,sHealth:,active:,color:,radius:});
+  for(i = 0;i<5;i++){
+    var healthTemp = Math.floor(Math.Pow(rand(100,200),level/2));
+    enemies.push({x:rand(300, 800),y:rand(200, 500),health:healthTemp,sHealth:healthTemp,active:true,color:"#000000",radius:rand(20,60});
   }
 }
 fuction rand(min,max){
@@ -38,7 +41,18 @@ fuction rand(min,max){
 function dec2hex(dec) {
     return Number(parseInt( dec , 10)).toString(16);
 }
-
+function levelCheck(){
+  var allDisabled = true;
+  for(var l = 0; l<enemies.length; l++){
+    enemyCheck = enemies[l];
+    if(enemyCheck.active){
+      allDisabled = false;
+    }
+  }
+  if(allDisabled){
+    newLevel();
+  }
+}
 function draw(){
   context.clearRect(0,0,width,height);
   for(var i = 0; i<enemies.length; i++){
@@ -73,6 +87,7 @@ function draw(){
               {
                 enemy.active = false;
                 addValue(enemy.sHealth);
+                levelCheck();
               }
             ball.dx = (ball.x - enemy.x)/Math.sqrt(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
             ball.dy = (ball.y - enemy.y)/Math.sqrt(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
