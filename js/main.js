@@ -25,7 +25,7 @@ function newLevel() {
   enemies = [];
   for(i = 0;i<5;i++){
     var healthTemp = Math.floor(Math.pow(rand(100,200),level/2));
-    enemies.push({x:rand(100, 1000),y:rand(100, 600),health:healthTemp,sHealth:healthTemp,active:true,color:"#000000",radius:rand(20,60)});
+    enemies.push({x:rand(100, 1000),y:rand(100, 600),health:healthTemp,sHealth:healthTemp,active:true,radius:rand(20,60)});
   }
 }
 function rand(min,max){
@@ -52,10 +52,12 @@ function draw(){
     var enemyDraw = enemies[i];
     if(enemyDraw.active){
       context.beginPath();
-      context.fillStyle=enemyDraw.color;
+      context.fillStyle="#000000"
       context.arc(enemyDraw.x,enemyDraw.y,enemyDraw.radius,0,Math.PI*2,true);
       context.closePath();
       context.fill();
+      ctx.font = "30px Arial";
+      context.fillText(Math.round((enemy.health/enemy.sHealth)*100)+"%",enemyDraw.x-10,enemyDraw.y+10)
     }
   }
   for(var i = 0; i<balls.length; i++){
@@ -73,8 +75,6 @@ function draw(){
             if(enemy.health>ball.damage)  
               {
                 enemy.health -= ball.damage;
-                var greyscale = 255-((enemy.health/enemy.sHealth)*255);
-                enemy.color = "#" + dec2hex(greyscale) + dec2hex(greyscale) + dec2hex(greyscale);
               } 
             else
               {
