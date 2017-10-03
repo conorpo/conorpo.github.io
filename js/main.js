@@ -56,9 +56,9 @@ function draw(){
       context.arc(enemyDraw.x,enemyDraw.y,enemyDraw.radius,0,Math.PI*2,true);
       context.closePath();
       context.fill();
-      context.font = "30px Arial";
+      context.font = (enemyDraw.radius/2)+"px Arial";
       context.fillStyle="#FFFFFF";
-      context.fillText(Math.round((enemyDraw.health/enemyDraw.sHealth)*100)+"%",enemyDraw.x-10,enemyDraw.y+10);
+      context.fillText(Math.round((enemyDraw.health/enemyDraw.sHealth)*100)+"%",enemyDraw.x-20,enemyDraw.y+(enemyDraw.radius/4));
     }
   }
   for(var i = 0; i<balls.length; i++){
