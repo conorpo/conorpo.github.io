@@ -31,9 +31,6 @@ function newLevel() {
 function rand(min,max){
   return min + (Math.floor(Math.random() * (max-min)));
 }
-function dec2hex(dec) {
-    return Number(parseInt( dec , 10)).toString(16);
-}
 function levelCheck(){
   var allDisabled = true;
   for(var l = 0; l<enemies.length; l++){
@@ -56,9 +53,10 @@ function draw(){
       context.arc(enemyDraw.x,enemyDraw.y,enemyDraw.radius,0,Math.PI*2,true);
       context.closePath();
       context.fill();
-      context.font = (enemyDraw.radius/2)+"px Arial";
+      context.font = Math.floor(enemyDraw.radius/1.7)+"px Arial";
+      context.textAlign="center"; 
       context.fillStyle="#FFFFFF";
-      context.fillText(Math.round((enemyDraw.health/enemyDraw.sHealth)*100)+"%",enemyDraw.x-20,enemyDraw.y+(enemyDraw.radius/4));
+      context.fillText(Math.ceil((enemyDraw.health/enemyDraw.sHealth)*100)+"%",enemyDraw.x,enemyDraw.y+(enemyDraw.radius/3));
     }
   }
   for(var i = 0; i<balls.length; i++){
