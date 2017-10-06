@@ -2,7 +2,7 @@ var width = 1100;
 var height = 700;
 var value = 0;
 var context;
-var level = 1;
+var level = 0;
 var balls = [
   {active:true,x:200,y:200,dx:.707,dy:.707,color:"#0000ff",radius:20,damage:8},
   {active:true,x:100,y:100,dx:-.707,dy:.707,color:"#ff0000",radius:10,damage:20},
