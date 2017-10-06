@@ -24,7 +24,7 @@ function newLevel() {
   document.getElementById("level").innerHTML = level;
   enemies = [];
   for(i = 0;i<5;i++){
-    var healthTemp = 100*Math.pow(1.07,level-1);
+    var healthTemp = Math.floor(100*Math.pow(1.07,level-1));
     enemies.push({x:rand(100, 1000),y:rand(100, 600),health:healthTemp,sHealth:healthTemp,active:true,radius:rand(20,60)});
   }
 }
