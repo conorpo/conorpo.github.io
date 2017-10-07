@@ -79,7 +79,7 @@ function draw(){
             else
               {
                 enemy.active = false;
-                addValue(100*Math.pow(1.02,level-1));
+                addValue(Math.floor(100*Math.pow(1.02,level-1)));
                 levelCheck();
               }
             ball.dx = (ball.x - enemy.x)/Math.sqrt(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
