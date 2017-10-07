@@ -16,14 +16,21 @@
       <title>Incremental Balls</title>
       <link rel="stylesheet" href="css/style.css">
   </head>
-
   <body onLoad="init()">
     <h1>
-      <button type = "button" onClick = "addValue(1)" >Test Click</button>
+      <button class = "click" type = "button" onClick = "addValue(1)" >Add Value!</button>
       You have <span id = "value">0</span> numbers !
     </h1>
-    	<canvas id="myCanvas" width="1100" height="700" style="border: 3px solid black;">
-    	</canvas>
+    <div class="screen" id="screen">
+      <canvas id="myCanvas" width="1100" height="700" style="border: 3px solid black;"></canvas>
+    </div>
+    <div class="shop"id="shop">
+      <button class = "upgrade" type = "button" onClick = "levelBall(0)">Buy Blue Ball <b>Cost: <span id="0C">10</span></b><i> You have <span id="0A">0</span></i></button>
+      <button class = "upgrade" type = "button" onClick = "levelBall(1)">Buy Green Ball <b>Cost: <span id="1C">100</span></b><i> You have <span id="1A">0</span></i></button>
+      <button class = "upgrade" type = "button" onClick = "levelBall(2)">Buy Red Ball <b>Cost: <span id="2C">1000</span></b><i> You have <span id="2A">0</span></i></button>
+      <button class = "upgrade" type = "button" onClick = "levelBall(3)">Buy Yellow Ball <b>Cost: <span id="3C">10000</span></b><i> You have <span id="3A">0</span></i></button>
+    </div>
+    <div class="clearfix"></div>
     <h1>
 	    You are on Level <span id = "level">1</span>!
     </h1>

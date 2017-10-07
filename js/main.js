@@ -4,15 +4,28 @@ var value = 0;
 var context;
 var level = 0;
 var balls = [
-  {active:true,x:200,y:200,dx:.707,dy:.707,color:"#0000ff",radius:20,damage:8},
-  {active:true,x:100,y:100,dx:-.707,dy:.707,color:"#ff0000",radius:10,damage:20},
-  {active:true,x:300,y:300,dx:.707,dy:-.707,color:"#00ff00",radius:30,damage:13},
-  {active:false,x:400,y:400,dx:-1,dy:-1,color:"#ffff00",radius:15,damage:13}
+  {active:false,x:200,y:200,dx:.707,dy:.707,color:"#0000ff",radius:20,bDamage:8,rank:0,cost:10},
+  {active:false,x:300,y:300,dx:.707,dy:-.707,color:"#00ff00",radius:30,bDamage:45,rank:0,cost:100},
+  {active:false,x:100,y:100,dx:-.707,dy:.707,color:"#ff0000",radius:10,bDamage:200,rank:0,cost:1000},
+  {active:false,x:400,y:400,dx:-1,dy:-1,color:"#ffff00",radius:15,bDamage:2012,rank:0,cost:10000}
 ];
 var enemies = [];
 function addValue(number) {
   value = value + number;
   document.getElementById("value").innerHTML = value;
+}
+function levelBall(id){
+  var tempBall = balls[id];
+  if(value>=Math.floor(tempBall.cost*Math.pow(1.07,tempBall.rank))){
+    if(tempBall.rank == 0){
+      tempBall.active = true;
+    }
+    value -= Math.floor(tempBall.cost*Math.pow(1.07,tempBall.rank));
+    tempBall.rank += 1;
+    document.getElementById(id+"C").innerHTML = Math.floor(tempBall.cost*Math.pow(1.07,tempBall.rank));
+    document.getElementById(id+"A").innerHTML = tempBall.rank;
+    document.getElementById("value").innerHTML = value;
+  }
 }
 function init() {
   context= myCanvas.getContext('2d');
@@ -72,9 +85,9 @@ function draw(){
         var enemy = enemies[e];
         if(enemy.active){
           if(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2)<=Math.pow(enemy.radius+ball.radius,2)){
-            if(enemy.health>ball.damage)
+            if(enemy.health>ball.bDamage*ball.rank)
               {
-                enemy.health -= ball.damage;
+                enemy.health -= ball.bDamage*ball.rank;
               }
             else
               {
