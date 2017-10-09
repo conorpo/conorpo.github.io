@@ -3,12 +3,12 @@ var height = 700;
 var value = 0;
 var context;
 var level = 0;
-var click = {rank:1 ,bDamage:1,cost:10,multi:1.15};
+var click = {rank:1 ,bDamage:1,cost:10,multi:1.2};
 var balls = [
   {active:false,x:200,y:200,dx:.707,dy:.707,color:"#0000ff",radius:20,bDamage:8,rank:0,cost:10},
-  {active:false,x:300,y:300,dx:.707,dy:-.707,color:"#00ff00",radius:30,bDamage:45,rank:0,cost:100},
-  {active:false,x:100,y:100,dx:-.707,dy:.707,color:"#ff0000",radius:10,bDamage:200,rank:0,cost:1000},
-  {active:false,x:400,y:400,dx:-1,dy:-1,color:"#ffff00",radius:15,bDamage:2012,rank:0,cost:10000}
+  {active:false,x:300,y:300,dx:.707,dy:-.707,color:"#00ff00",radius:30,bDamage:200,rank:0,cost:1000},
+  {active:false,x:100,y:100,dx:-.707,dy:.707,color:"#ff0000",radius:10,bDamage:15000,rank:0,cost:100000},
+  {active:false,x:400,y:400,dx:-1,dy:-1,color:"#ffff00",radius:15,bDamage:6666666,rank:0,cost:10000000}
 ];
 var enemies = [];
 function clickAdd(number) {
@@ -48,7 +48,7 @@ function newLevel() {
   document.getElementById("level").innerHTML = level;
   enemies = [];
   if(level%10 == 0){
-    var healthTemp = Math.floor(2000*Math.pow(1.07,level-1));
+    var healthTemp = Math.floor(10000*Math.pow(1.07,level-1));
     enemies.push({x:width/2,y:height/2,health:healthTemp,sHealth:healthTemp,active:true,radius:(height/2)-100});
     for(var b = 0; b<balls.length;b++){
       if(rand(0,100)>=50){
@@ -117,7 +117,7 @@ function draw(){
             else
               {
                 enemy.active = false;
-                value += (Math.floor(100*Math.pow(1.02,level-1)));
+                value += enemy.sHealth;
                 levelCheck();
                 document.getElementById("value").innerHTML = value;
               }
