@@ -52,3 +52,21 @@ h1 {
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
+.multi {
+  padding: 10px 15px;
+  font-size: 10px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #BC3F50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+.multi:hover {background-color: #3e8e41}
+.multi:active {
+  background-color: #AC2F30;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}

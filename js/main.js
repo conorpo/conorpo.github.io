@@ -3,6 +3,7 @@ var height = 700;
 var value = 0;
 var context;
 var level = 0;
+var purchaseMulti = 1;
 var click = {rank:1 ,bDamage:1,cost:10,multi:1.2};
 var balls = [
   {active:false,x:200,y:200,dx:.707,dy:.707,color:"#0000ff",radius:20,bDamage:8,rank:0,cost:10},
@@ -11,32 +12,39 @@ var balls = [
   {active:false,x:400,y:400,dx:-1,dy:-1,color:"#ffff00",radius:15,bDamage:6666666,rank:0,cost:10000000}
 ];
 var enemies = [];
+function purchaseMultiChange(amount){
+  purchaseMulti = amount;
+}
 function clickAdd(number) {
   value+= number*click.rank;
   document.getElementById("value").innerHTML = value;
 }
 function clickRankUp(){
-  if(value>=Math.floor(click.cost*Math.pow(click.multi,click.rank))){
-      value -= Math.floor(click.cost*Math.pow(click.multi,click.rank));
-      click.rank++;
-      document.getElementById("CC").innerHTML = Math.floor(click.cost*Math.pow(click.multi,click.rank));
-      document.getElementById("CA").innerHTML = click.rank;
-      document.getElementById("value").innerHTML = value;
+  for(var c = 0; c < purchaseMulti; c++){
+    if(value>=Math.floor(click.cost*Math.pow(click.multi,click.rank))){
+        value -= Math.floor(click.cost*Math.pow(click.multi,click.rank));
+        click.rank += 1;
+    }
   }
+  document.getElementById("CC").innerHTML = Math.floor(click.cost*Math.pow(click.multi,click.rank));
+  document.getElementById("CA").innerHTML = click.rank;
+  document.getElementById("value").innerHTML = value;
 }
 function levelBall(id){
   var tempBall = balls[id];
-  if(value>=Math.floor(tempBall.cost*Math.pow(1.07,tempBall.rank))){
-    if(tempBall.rank == 0){
-      tempBall.active = true;
-      document.getElementById(id+"T").innerHTML = "Upgrade";
+  for(var m = 0; m < purchaseMulti; m++){
+    if(value>=Math.floor(tempBall.cost*Math.pow(1.07,tempBall.rank))){
+      if(tempBall.rank == 0){
+        tempBall.active = true;
+        document.getElementById(id+"T").innerHTML = "Upgrade";
+      }
+      value -= Math.floor(tempBall.cost*Math.pow(1.07,tempBall.rank));
+      tempBall.rank += 1;
     }
-    value -= Math.floor(tempBall.cost*Math.pow(1.07,tempBall.rank));
-    tempBall.rank += 1;
-    document.getElementById(id+"C").innerHTML = Math.floor(tempBall.cost*Math.pow(1.07,tempBall.rank));
-    document.getElementById(id+"A").innerHTML = tempBall.rank;
-    document.getElementById("value").innerHTML = value;
   }
+  document.getElementById(id+"C").innerHTML = Math.floor(tempBall.cost*Math.pow(1.07,tempBall.rank));
+  document.getElementById(id+"A").innerHTML = tempBall.rank;
+  document.getElementById("value").innerHTML = value;
 }
 function init() {
   context= myCanvas.getContext('2d');
