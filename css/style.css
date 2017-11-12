@@ -6,11 +6,29 @@ h1 {
     color: #000000;
     font-family: Arial, Helvetica, sans-serif;
 }
-.screen {
-  float: left;
+canvas{
+    border: 3px solid black;
+    margin: auto;
+    display: block;
+}
+.small{
+    font-size: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.largeR{
+    float: right;
+    text-align: right;
+    font-size: 160%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.largeL{
+    float: left;
+    text-align: left;
+    font-size: 160%;
+    font-family: Arial, Helvetica, sans-serif;
 }
 .shop {
-  float: left;
+    float: left;
 }
 .clearfix{
     clear:both
@@ -33,7 +51,6 @@ h1 {
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
-
 .upgrade {
   padding: 15px 25px;
   font-size: 18px;
@@ -49,24 +66,6 @@ h1 {
 .upgrade:hover {background-color: #3e8e41}
 .upgrade:active {
   background-color: #3e8e41;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-}
-.multi {
-  padding: 10px 15px;
-  font-size: 10px;
-  text-align: center;
-  cursor: pointer;
-  outline: none;
-  color: #fff;
-  background-color: #BC3F50;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 9px #999;
-}
-.multi:hover {background-color: #3e8e41}
-.multi:active {
-  background-color: #AC2F30;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
