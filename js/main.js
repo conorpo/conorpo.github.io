@@ -2,7 +2,7 @@ var width = 1900;
 var height = 800;
 var value = 0;
 var context;
-var level = 0;
+var level = 1;
 var click = {rank:1 ,bDamage:1,cost:10,multi:1.2};
 var balls = [
   {active:false,x:200,y:200,dx:.707,dy:.707,color:"#0000ff",radius:20,bDamage:8,rank:0,cost:10,id:0,clone:false},
@@ -51,9 +51,40 @@ function levelBall(id){
 }
 function init() {
   context= myCanvas.getContext('2d');
+  var savegame = JSON.parse(localStorage.getItem("save"));
+  if(savegame){
+    if (typeof savegame.value !== "undefined") value = savegame.value;
+    if (typeof savegame.level !== "undefined") level = savegame.level;
+    if (typeof savegame.ranks !== "undefined"){
+      for(var l = 0; l < 4;l++){
+        var loadBall = balls[l];
+        var loadData = savegame.ranks[l];
+        loadBall.rank = loadData;
+        if(loadData > 0){
+          loadBall.active = true;
+          document.getElementById(loadBall.id+"T").innerHTML = "Upgrade";
+        }
+        for(var r = 1; r <= (loadData/100); r++){
+          loadBall.bDamage *= r + 1;
+        }
+        for(var c = 1; c <= (loadData/50); c++){
+          ball.push({active:true,x:rand(100,width-100),y:rand(100,height-100),dx:.707,dy:-.707,color:loadBall.color,
+            radius:loadBall.radius,id:loadBall.id,clone:true});
+        }
+        document.getElementById(loadBall.id+"C").innerHTML = Math.floor(loadBall.cost*Math.pow(1.07,loadBall.rank));
+        document.getElementById(loadBall.id+"A").innerHTML = loadBall.rank;
+      }
+    }
+    if (typeof savegame.click !== "undefined") click.rank = savegame.click;
+    document.getElementById("CC").innerHTML = Math.floor(click.cost*Math.pow(click.multi,click.rank));
+    document.getElementById("CA").innerHTML = click.rank;
+    document.getElementById("value").innerHTML = value;
+  }
+  level--;
   newLevel();
   spawnEnemies();
   setInterval(draw,10);
+  setInterval(save,300000);
 }
 function newLevel() {
   level++;
@@ -180,4 +211,22 @@ function draw(){
       ball.y+=ball.dy*4;
     }
   }
+}
+function save(){
+  var ranks = [];
+  for(var s = 0; s < 4; s++){
+    ranks.push(balls[s].rank)
+  }
+  var save = {
+    value: value,
+    level: level,
+    ranks: ranks,
+    click: click.rank
+  }
+  localStorage.setItem("save",JSON.stringify(save));
+  document.getElementById("save").innerHTML = "Saved!";
+  window.setTimeout(reAddSave,3000);
+}
+function reAddSave(){
+  document.getElementById("save").innerHTML = "Save Game";
 }
