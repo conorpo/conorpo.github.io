@@ -270,7 +270,7 @@ function toggleNightMode(){
 }
 function wipeSave(){
   if(confirm("Are you sure you want to wipe your save? THIS WILL RESET EVERYTHING AND YOU WILL HAVE NOTING") == true){
-    localStorage.setItem("save","");
+    localStorage.setItem("save",null);
     location.reload();
   }
 }
