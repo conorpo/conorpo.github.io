@@ -117,10 +117,10 @@ function spawnEnemies(){
     for(var b = 0; b<balls.length;b++){
       if(balls[b].active){
         if(rand(0,100)>=50){
-          balls[b].x = 50;
+          balls[b].x = 52;
         }
         else{
-          balls[b].x = width-50;
+          balls[b].x = width-52;
         }
       }
     }
