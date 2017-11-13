@@ -18,25 +18,32 @@
           <meta name="viewport" content="width=device-width, initial-scale=1">
       </div>
   </head>
-  <body onLoad="init()">
-    <p class = "largeL">
+  <body onLoad="init()" id="body">
+    <p class = "largeL" id="p1">
       <button class = "click" type = "button" onClick = "clickAdd(1)" >Add Value!</button>
       You have <b><span id = "value">0</span></b> numbers.
     </p>
-    <p class = "largeR">
+    <p class = "largeR" id="p2">
       You are on Level <b><span id = "level">1</span></b>.
     </p>
     <div class = "clearfix"></div>
-    <canvas id="myCanvas" width="1900" height="800"></canvas>
-    <div class="shop">
-      <button class = "upgrade" type = "button" onClick = "clickRankUp()">Upgrade Click <b>Cost: <span id="CC">10</span></b><i> Rank: <span id="CA">1</span></i></button>
-      <button class = "upgrade" type = "button" onClick = "levelBall(0)"><span id="0T">Buy</span> Blue Ball <b>Cost: <span id="0C">10</span></b><i> Rank: <span id="0A">0</span></i></button>
-      <button class = "upgrade" type = "button" onClick = "levelBall(1)"><span id="1T">Buy</span> Green Ball <b>Cost: <span id="1C">1000</span></b><i> Rank: <span id="1A">0</span></i></button>
-      <button class = "upgrade" type = "button" onClick = "levelBall(2)"><span id="2T">Buy</span> Red Ball <b>Cost: <span id="2C">100000</span></b><i> Rank: <span id="2A">0</span></i></button>
-      <button class = "upgrade" type = "button" onClick = "levelBall(3)"><span id="3T">Buy</span> Yellow Ball <b>Cost: <span id="3C">100000000</span></b><i> Rankl: <span id="3A">0</span></i></button>
-      <p class = "small">Your ball clones every 50 levels and gets much stronger every 100 levels. The latter also applies for your clicks. Your game saves automatically evey 5 minutes.</p>
+    <canvas id="myCanvas" width="1900" height="700"></canvas>
+    <div style="border:1px solid black;width:1850px;height:110px;overflow-y:hidden;overflow-x:scroll;">
+      <div class="shop" style="width:125%;">
+        <button class = "upgrade" type = "button" onClick = "clickRankUp()">Upgrade Click <br><b>Cost: <span id="CC">10</span></b><br><i>Rank: <span id="CA">1</span></i></button>
+        <button class = "upgrade" type = "button" onClick = "levelBall(0)"><span id="0T">Buy</span> Blue Ball <br><b>Cost: <span id="0C">10</span></b><br><i>Rank: <span id="0A">0</span></i></button>
+        <button class = "upgrade" type = "button" onClick = "levelBall(1)"><span id="1T">Buy</span> Green Ball <br><b>Cost: <span id="1C">1000</span></b><br><i>Rank: <span id="1A">0</span></i></button>
+        <button class = "upgrade" type = "button" onClick = "levelBall(2)"><span id="2T">Buy</span> Red Ball <br><b>Cost: <span id="2C">100000</span></b><br><i>Rank: <span id="2A">0</span></i></button>
+        <button class = "upgrade" type = "button" onClick = "levelBall(3)"><span id="3T">Buy</span> Yellow Ball <br><b>Cost: <span id="3C">10000000</span></b><br><i>Rank: <span id="3A">0</span></i></button>
+        <button class = "upgrade" type = "button" onClick = "levelBall(4)"><span id="4T">Buy</span> Orange Ball <br><b>Cost: <span id="4C">1000000000</span></b><br><i>Rank: <span id="4A">0</span></i></button>
+        <button class = "upgrade" type = "button" onClick = "levelBall(5)"><span id="5T">Buy</span> Purple Ball <br><b>Cost: <span id="5C">100000000000</span></b><br><i>Rank: <span id="5A">0</span></i></button>
+      </div>
     </div>
+    <p class = "small" id="p3">Your ball clones every 50 levels and gets much stronger every 100 levels. The latter also applies for your clicks. Your game saves automatically evey 5 minutes.</p>
     <div class = "clearfix"></div>
-   <button class = "click" type="button" onClick = "save()" id = "save">Save Game</button>
+   <button class = "click" type="button" onClick = "save()" id = "save" style = "float:left;">Save Game</button>
+   <button class = "click" type="button" onClick = "toggleNightMode()" id = "night" style = "float:left;">Toggle Night Mode</button>
+   <button class = "click" type="button" onClick = "wipeSave()" id = "wipe" style = "float:right;">WIPE SAVE</button>
+
   </body>
 </html>
