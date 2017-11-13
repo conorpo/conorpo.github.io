@@ -68,7 +68,7 @@ function init() {
           loadBall.bDamage *= r + 1;
         }
         for(var c = 1; c <= (loadData/50); c++){
-          ball.push({active:true,x:rand(100,width-100),y:rand(100,height-100),dx:.707,dy:-.707,color:loadBall.color,
+          balls.push({active:true,x:rand(100,width-100),y:rand(100,height-100),dx:.707,dy:-.707,color:loadBall.color,
             radius:loadBall.radius,id:loadBall.id,clone:true});
         }
         document.getElementById(loadBall.id+"C").innerHTML = Math.floor(loadBall.cost*Math.pow(1.07,loadBall.rank));
