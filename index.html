@@ -27,23 +27,38 @@
       You are on Level <b><span id = "level">1</span></b>.
     </p>
     <div class = "clearfix"></div>
-    <canvas id="myCanvas" width="1900" height="700"></canvas>
-    <div style="border:1px solid black;width:1900px;height:110px;overflow-y:hidden;overflow-x:scroll;">
-      <div class="shop" style="width:125%;">
-        <button class = "upgrade" type = "button" onClick = "clickRankUp()">Upgrade Click <br><b>Cost: <span id="CC">10</span></b><br><i>Rank: <span id="CA">1</span></i></button>
+    <canvas id="myCanvas" width="1200" height="900"></canvas>
+    <div class="menu">
+      <div class="tab">
+        <button class="tablinks" onclick="switchTab(event, 'Balls')" id="defaultOpen">Balls</button>
+        <button class="tablinks" onclick="switchTab(event, 'Achievements')">Achievements</button>
+        <button class="tablinks" onclick="switchTab(event, 'Prestige')">Prestige</button>
+        <button class="tablinks" onclick="switchTab(event, 'Options')">Options</button>
+      </div>
+      <div id="Balls" class="tabcontent">
+        <button class = "click" type = "button" onClick = "clickRankUp()" style = "width: 40%">Upgrade Click <br><b>Cost: <span id="CC">12</span></b><br><i>Rank: <span id="CA">1</span></i></button><br><br>
         <button class = "upgrade" type = "button" onClick = "levelBall(0)"><span id="0T">Buy</span> Blue Ball <br><b>Cost: <span id="0C">10</span></b><br><i>Rank: <span id="0A">0</span></i></button>
         <button class = "upgrade" type = "button" onClick = "levelBall(1)"><span id="1T">Buy</span> Green Ball <br><b>Cost: <span id="1C">1000</span></b><br><i>Rank: <span id="1A">0</span></i></button>
         <button class = "upgrade" type = "button" onClick = "levelBall(2)"><span id="2T">Buy</span> Red Ball <br><b>Cost: <span id="2C">100000</span></b><br><i>Rank: <span id="2A">0</span></i></button>
         <button class = "upgrade" type = "button" onClick = "levelBall(3)"><span id="3T">Buy</span> Yellow Ball <br><b>Cost: <span id="3C">10000000</span></b><br><i>Rank: <span id="3A">0</span></i></button>
         <button class = "upgrade" type = "button" onClick = "levelBall(4)"><span id="4T">Buy</span> Orange Ball <br><b>Cost: <span id="4C">1000000000</span></b><br><i>Rank: <span id="4A">0</span></i></button>
         <button class = "upgrade" type = "button" onClick = "levelBall(5)"><span id="5T">Buy</span> Purple Ball <br><b>Cost: <span id="5C">100000000000</span></b><br><i>Rank: <span id="5A">0</span></i></button>
+        <button class = "upgrade" type = "button" onClick = "levelBall(6)"><span id="6T">Buy</span> Cyan Ball <br><b>Cost: <span id="6C">10000000000000</span></b><br><i>Rank: <span id="6A">0</span></i></button>
+        <p class = "small" id="p3">Your ball clones every 50 levels and gets much stronger every 100 levels. The latter also applies for your clicks. Your game saves automatically evey 5 minutes.</p>
+      </div>
+      <div id="Achievements" class="tabcontent">
+        <p class = "small" id="p5">Coming Soon!</p>
+      </div>
+      <div id="Prestige" class="tabcontent">
+        <p class="large" id="p4">You have <b><span id="BP">0</span></b> Ball Points making you <b><span id="IncomeMulti">0</span>%</b> more income.</p>
+        <button class = "click" type = "button" onClick = "prestige()">Prestige</button>
+      </div>
+      <div id="Options" class="tabcontent">
+        <button class = "click" type="button" onClick = "save()" id = "save">Save Game</button><br><br><br>
+        <button class = "click" type="button" onClick = "toggleNightMode()" id = "night">Toggle Night Mode</button><br><br><br>
+        <button class = "click" type="button" onClick = "wipeSave()" id = "wipe">WIPE SAVE</button>
       </div>
     </div>
-    <p class = "small" id="p3">Your ball clones every 50 levels and gets much stronger every 100 levels. The latter also applies for your clicks. Your game saves automatically evey 5 minutes.</p>
     <div class = "clearfix"></div>
-   <button class = "click" type="button" onClick = "save()" id = "save" style = "float:left;">Save Game</button>
-   <button class = "click" type="button" onClick = "toggleNightMode()" id = "night" style = "float:left;">Toggle Night Mode</button>
-   <button class = "click" type="button" onClick = "wipeSave()" id = "wipe" style = "float:right;">WIPE SAVE</button>
-
   </body>
 </html>
