@@ -3,19 +3,26 @@ var height = 900;
 var value = 0;
 var context;
 var level = 1;
+var click = {multi: 1.07,rank: 0, bCost: 10,bDamage:10}
 var baseCostMulti = 1.07;
 var baseHealthMulti = 1.07;
-var click = {rank:1 ,bDamage:1,cost:10,multi:1.07};
 var startingBalls = 7;
 var balls = [
-  {active:false,x:200,y:200,dx:.707,dy:.707,color:"#5555ff",radius:20,bDamage:8,rank:0,cost:10,id:0,clone:false,speed:4},
+  {active:true,x:200,y:200,dx:.707,dy:.707,color:"#5555ff",radius:20,bDamage:8,rank:1,cost:10,id:0,clone:false,speed:4},
   {active:false,x:300,y:300,dx:.707,dy:-.707,color:"#00ff00",radius:30,bDamage:300,rank:0,cost:1000,id:1,clone:false,speed:4},
   {active:false,x:100,y:100,dx:-.707,dy:.707,color:"#ff0000",radius:10,bDamage:50000,rank:0,cost:100000,id:2,clone:false,speed:3},
   {active:false,x:400,y:400,dx:-.707,dy:-.707,color:"#ffff00",radius:15,bDamage:800000,rank:0,cost:10000000,id:3,clone:false,speed:6},
   {active:false,x:900,y:300,dx:-.707,dy:.707,color:"#FFA500",radius:48,bDamage:40000000,rank:0,cost:1000000000,id:4,clone:false,speed:2},
   {active:false,x:1000,y:200,dx:-.707,dy:-.707,color:"#800080",radius:5,bDamage:5000000000,rank:0,cost:100000000000,id:5,clone:false,speed:8},
-  {active:false,x:300,y:500,dx:.707,dy:.707,color:"#00C7D1",radius:15,bDamage:185000000000,rank:0,cost:10000000000000,id:6,clone:false,speed:4}
+  {active:false,x:1200,y:300,dx:.707,dy:.707,color:"#00C7D1",radius:15,bDamage:185000000000,rank:0,cost:10000000000000,id:6,clone:false,speed:4}
 ];
+var clickBalls = [
+  {active:false,x:200,y:200,dx:-.707,dy:.707,color:"#333333",radius:20,bDamage:10,rank:1,cost:10,id:100,clone:false,speed:4},
+  {active:false,x:200,y:200,dx:-.707,dy:.707,color:"#333333",radius:20,bDamage:10,rank:1,cost:10,id:101,clone:false,speed:4},
+  {active:false,x:200,y:200,dx:-.707,dy:.707,color:"#333333",radius:20,bDamage:10,rank:1,cost:10,id:102,clone:false,speed:4},
+  {active:false,x:200,y:200,dx:-.707,dy:.707,color:"#333333",radius:20,bDamage:10,rank:1,cost:10,id:103,clone:false,speed:4},
+  {active:false,x:200,y:200,dx:-.707,dy:.707,color:"#333333",radius:20,bDamage:10,rank:1,cost:10,id:104,clone:false,speed:4}
+]
 var enemies = [];
 var shrink = false;
 var nightMode = false;
@@ -23,24 +30,104 @@ var ballPoints = 0;
 var prestiged = 0;
 var normalWidth = 1200;
 var zoomed = false;
-function clickAdd(number) {
-  value+= number*click.rank*click.bDamage*(ballPoints+1);
-  document.getElementById("value").innerHTML = value;
+var pUpgrades = [0,0,0,0,0,0,0,0,0,0,0,0];
+var pDamageMulti = 1;
+var pCountMulti = 1;
+var strengthBoost = 10;
+var speedMulti = 1;
+var radiusMulti = 1;
+var animationSpeed = 0;
+var strengthBoostReq = 100;
+var cloneReq = 50;
+var enemyRadiusMulti = 1;
+var ballPointMulti = 1;
+var notationScientfic = false;
+//CPS stuff
+var cps = document.getElementById("cps");
+var count = 0;
+var numSec = 1;
+var start = 0;
+getCPS();
+function getCPS() {
+  setTimeout(function() {
+    if(count>20){
+      clickBalls[0].active = true;
+      clickBalls[1].active = true;
+      clickBalls[2].active = true;
+      clickBalls[3].active = true;
+      clickBalls[4].active = true;
+    }
+    else if(count>15){
+      clickBalls[0].active = true;
+      clickBalls[1].active = true;
+      clickBalls[2].active = true;
+      clickBalls[3].active = true;
+      clickBalls[4].active = false;
+    }
+    else if(count>10){
+      clickBalls[0].active = true;
+      clickBalls[1].active = true;
+      clickBalls[2].active = true;
+      clickBalls[3].active = false;
+      clickBalls[4].active = false;
+    }
+    else if(count>5){
+      clickBalls[0].active = true;
+      clickBalls[1].active = true;
+      clickBalls[2].active = false;
+      clickBalls[3].active = false;
+      clickBalls[4].active = false;
+    }
+    else if(count>1){
+      clickBalls[0].active = true;
+      clickBalls[1].active = false;
+      clickBalls[2].active = false;
+      clickBalls[3].active = false;
+      clickBalls[4].active = false;
+    }
+    else{
+      clickBalls[0].active = false;
+      clickBalls[1].active = false;
+      clickBalls[2].active = false;
+      clickBalls[3].active = false;
+      clickBalls[4].active = false;
+    }
+    cps.innerHTML = count;
+    count = 0;
+    getCPS();
+  }, numSec*1000);
 }
-function clickRankUp(){
-  if(value>=Math.floor(click.cost*Math.pow(click.multi,click.rank))){
-      value -= Math.floor(click.cost*Math.pow(click.multi,click.rank));
-      click.rank += 1;
-      if(click.rank%100 == 0){
-        click.bDamage *= 50;
-      }
-      document.getElementById("CC").innerHTML = Math.floor(click.cost*Math.pow(click.multi,click.rank));
-      document.getElementById("CA").innerHTML = click.rank;
-      document.getElementById("value").innerHTML = value;
+function bond(){
+  count++;
+  start++;
+  document.getElementById("clicks").innerHTML = start;
+}
+function clickLevel(){
+  if(value>=Math.floor(click.bCost*Math.pow(click.multi,click.rank))){
+    value-=Math.floor(click.bCost*Math.pow(click.multi,click.rank));
+    valueSet();
+    click.rank++;
+    if(click.rank%strengthBoostReq == 0){
+      click.bDamage *= 5 * strengthBoost;
+    }
+    for(var y = 0; y < 5;y++){
+      clickBalls[y].rank = click.rank;
+      clickBalls[y].bDamage = click.bDamage;
+    }
+    if(notationScientfic){
+        document.getElementById("CC").innerHTML = numberformat.format(Math.floor(click.bCost*Math.pow(click.multi,click.rank)),{format: 'scientific'});
+    }
+    else{
+        document.getElementById("CC").innerHTML = numberformat.format(Math.floor(click.bCost*Math.pow(click.multi,click.rank)));
+    }
+    document.getElementById("CA").innerHTML = click.rank;
   }
 }
 function levelBall(id){
   var tempBall = balls[id];
+  strengthBoost = 10+pUpgrades[3];
+  strengthBoostReq = 100-pUpgrades[2];
+  cloneReq = 50-pUpgrades[7];
   if(value>=Math.floor(tempBall.cost*Math.pow(baseCostMulti,tempBall.rank))){
     if(tempBall.rank == 0){
       tempBall.active = true;
@@ -48,28 +135,91 @@ function levelBall(id){
     }
     value -= Math.floor(tempBall.cost*Math.pow(baseCostMulti,tempBall.rank));
     tempBall.rank += 1;
-    if(tempBall.rank%100 == 0){
-      tempBall.bDamage *= 10;
+    if(tempBall.rank%strengthBoostReq == 0){
+      tempBall.bDamage *= strengthBoost;
     }
-    if(tempBall.rank%50 == 0){
+    if(tempBall.rank%cloneReq == 0){
       balls.push({active:true,x:rand(100,width-100),y:rand(100,height-100),dx:.707,dy:-.707,color:tempBall.color,
         radius:tempBall.radius,id:tempBall.id,clone:true,speed:tempBall.speed});
     }
-    document.getElementById(id+"C").innerHTML = Math.floor(tempBall.cost*Math.pow(1.07,tempBall.rank));
+    if(notationScientfic){
+        document.getElementById(id+"C").innerHTML = numberformat.format(Math.floor(tempBall.cost*Math.pow(1.07,tempBall.rank)),{format: 'scientific'});
+    }
+    else{
+        document.getElementById(id+"C").innerHTML = numberformat.format(Math.floor(tempBall.cost*Math.pow(1.07,tempBall.rank)));
+    }
     document.getElementById(id+"A").innerHTML = tempBall.rank;
-    document.getElementById("value").innerHTML = value;
+    valueSet();
   }
+  var deactiveBalls = 0;
+  for(var k = 0; k<startingBalls;k++){
+    if (balls[k].active == false){
+      deactiveBalls++;
+    }
+  }
+  pCountMulti = (((Math.floor((balls.length-deactiveBalls)/5))*(0.3*pUpgrades[1]))+1);
 }
 function init(){
   context= myCanvas.getContext('2d');
   document.getElementById("defaultOpen").click();
   var savegame = JSON.parse(localStorage.getItem("save"));
   if(savegame){
+    if (typeof savegame.pUpgrades !== "undefined"){
+      pUpgrades = savegame.pUpgrades;
+      pDamageMulti = 1 + (0.2*pUpgrades[0]);
+      var deactiveBalls = 0;
+      for(var k = 0; k<startingBalls;k++){
+        if (balls[k].active == false){
+          deactiveBalls++;
+        }
+      }
+      pCountMulti = (((Math.floor((balls.length-deactiveBalls)/5))*(0.3*pUpgrades[1]))+1);
+      strengthBoostReq = 100-pUpgrades[2];
+      strengthBoost = 10+pUpgrades[3];
+      speedMulti = (0.1*pUpgrades[4])+1;
+      radiusMulti = 1 +(0.1*pUpgrades[5]);
+      animationSpeed = (0.02*pUpgrades[6]);
+      cloneReq = 50-pUpgrades[7];
+      enemyRadiusMulti = 1 + (0.1 * pUpgrades[9]);
+      ballPointMulti = 1 + (0.1 * pUpgrades[11]);
+      document.getElementById("1p").innerHTML = Math.round(100*pDamageMulti);
+      document.getElementById("2p").innerHTML = Math.round(((0.3*pUpgrades[1])+1)*100);
+      document.getElementById("3p").innerHTML = strengthBoostReq;
+      document.getElementById("4p").innerHTML = strengthBoost;
+      document.getElementById("5p").innerHTML = Math.round(100*speedMulti);
+      document.getElementById("6p").innerHTML = Math.round(100*radiusMulti);
+      document.getElementById("7p").innerHTML = 100 + (10*pUpgrades[6]);
+      document.getElementById("8p").innerHTML = cloneReq;
+      document.getElementById("9p").innerHTML = 10*(Math.pow(10,pUpgrades[8]))
+      document.getElementById("10p").innerHTML = Math.round(100*enemyRadiusMulti);
+      document.getElementById("11p").innerHTML = 5*pUpgrades[10];
+      document.getElementById("12p").innerHTML = Math.round(100*ballPointMulti);
+    }
     if (typeof savegame.nightMode !== "undefined" && savegame.nightMode){
       toggleNightMode();
     }
-    if (typeof savegame.value !== "undefined") value = savegame.value;
+    if (typeof savegame.notation !== "undefined" && savegame.notation){
+      changeNotation();
+    }
+    if (typeof savegame.value !== "undefined") value = Math.round(savegame.value);
     if (typeof savegame.level !== "undefined") level = savegame.level;
+    if (typeof savegame.clickObject !== "undefined"){
+      click.rank = savegame.clickObject.rank;
+      for(var n = 1; n <= (click.rank/strengthBoostReq); n++){
+        click.bDamage *= 5*strengthBoost;
+      }
+      for(var y = 0; y < 5;y++){
+        clickBalls[y].rank = click.rank;
+        clickBalls[y].bDamage = click.bDamage;
+      }
+      if(notationScientfic){
+          document.getElementById("CC").innerHTML = numberformat.format(Math.floor(click.bCost*Math.pow(click.multi,click.rank)),{format: 'scientific'});
+      }
+      else{
+          document.getElementById("CC").innerHTML = numberformat.format(Math.floor(click.bCost*Math.pow(click.multi,click.rank)));
+      }
+      document.getElementById("CA").innerHTML = click.rank;
+    }
     for(var l = 0; l < startingBalls;l++){
       if (typeof savegame.ranks[l] !== "undefined"){
         var loadBall = balls[l];
@@ -79,21 +229,20 @@ function init(){
           loadBall.active = true;
           document.getElementById(loadBall.id+"T").innerHTML = "Upgrade";
         }
-        for(var r = 1; r <= (loadData/100); r++){
-          loadBall.bDamage *= 10;
+        for(var r = 1; r <= (loadData/strengthBoostReq); r++){
+          loadBall.bDamage *= strengthBoost;
         }
         for(var c = 1; c <= (loadData/50); c++){
           balls.push({active:true,x:rand(100,width-100),y:rand(100,height-100),dx:.707,dy:-.707,color:loadBall.color,
             radius:loadBall.radius,id:loadBall.id,clone:true,speed:loadBall.speed});
         }
-        document.getElementById(loadBall.id+"C").innerHTML = Math.floor(loadBall.cost*Math.pow(1.07,loadBall.rank));
+        if(notationScientfic){
+            document.getElementById(loadBall.id+"C").innerHTML = numberformat.format(Math.floor(loadBall.cost*Math.pow(1.07,loadBall.rank)),{format: 'scientific'});
+        }
+        else{
+            document.getElementById(loadBall.id+"C").innerHTML = numberformat.format(Math.floor(loadBall.cost*Math.pow(1.07,loadBall.rank)));
+        }
         document.getElementById(loadBall.id+"A").innerHTML = loadBall.rank;
-      }
-    }
-    if (typeof savegame.click !== "undefined"){
-      click.rank = savegame.click;
-      for(var r = 1; r <= (savegame.click/100); r++){
-        click.bDamage *= 50;
       }
     }
     if (typeof savegame.zoomed !== "undefined"){
@@ -109,11 +258,19 @@ function init(){
     }
     if (typeof savegame.prestiged !== "undefined") prestiged = savegame.prestiged;
     if (typeof savegame.ballPoints !== "undefined") ballPoints = savegame.ballPoints;
-    document.getElementById("BP").innerHTML = ballPoints;
-    document.getElementById("IncomeMulti").innerHTML = ballPoints*100;
-    document.getElementById("CC").innerHTML = Math.floor(click.cost*Math.pow(click.multi,click.rank));
-    document.getElementById("CA").innerHTML = click.rank;
-    document.getElementById("value").innerHTML = value;
+    if(notationScientfic){
+      document.getElementById("BP").innerHTML = numberformat.format(ballPoints);
+      document.getElementById("IncomeMulti").innerHTML = numberformat.format(ballPoints*100);
+    }
+    else{
+      document.getElementById("BP").innerHTML = numberformat.format(ballPoints, {format: 'scientific'});
+      document.getElementById("IncomeMulti").innerHTML = numberformat.format(ballPoints*100, {format: 'scientific'});
+    }
+    if(typeof savegame.clicks !== "undefined"){
+      start = savegame.clicks;
+      document.getElementById("clicks").innerHTML = start;
+    }
+    valueSet();
   }
   level--;
   newLevel();
@@ -122,19 +279,17 @@ function init(){
   setInterval(save,60000);
 }
 function newLevel() {
-  if(level < 400){
-    level++;
-    document.getElementById("level").innerHTML = level;
-    enemies = [];
-    if(level%10 == 0){
-      shrink = true;
-    }
-    else if(level%10 == 1){
-      shrink = false;
-    }
-    else{
-      spawnEnemies();
-    }
+  level++;
+  document.getElementById("level").innerHTML = level;
+  enemies = [];
+  if(level%10 == 0){
+    shrink = true;
+  }
+  else if(level%10 == 1){
+    shrink = false;
+  }
+  else{
+    spawnEnemies();
   }
 }
 function spawnEnemies(){
@@ -156,7 +311,7 @@ function spawnEnemies(){
   else{
     for(i = 0;i<5;i++){
       var healthTemp = Math.floor(100*Math.pow(baseHealthMulti,level-1));
-      enemies.push({x:rand(100, width-100),y:rand(100, height-100),health:healthTemp,sHealth:healthTemp,active:true,radius:rand(20,60)});
+      enemies.push({x:rand(100, width-100),y:rand(100, height-100),health:healthTemp,sHealth:healthTemp,active:true,radius:rand(20,60)*enemyRadiusMulti});
     }
   }
 }
@@ -177,8 +332,8 @@ function levelCheck(){
 }
 function draw(){
   if(shrink == true&&myCanvas.width > height){
-    myCanvas.width *= 0.9953
-    width *= 0.9953
+    myCanvas.width *= 0.995 - animationSpeed;
+    width *= 0.995 - animationSpeed;
   }
   else if(shrink == true&&myCanvas.width < height){
     myCanvas.width = height;
@@ -186,8 +341,8 @@ function draw(){
     spawnEnemies();
   }
   else if(shrink == false&&myCanvas.width < normalWidth){
-    myCanvas.width *= 1.005
-    width *= 1.005
+    myCanvas.width *= 1.005 + animationSpeed;
+    width *= 1.005 + animationSpeed;
   }
   else if(shrink == false&&myCanvas.width > normalWidth){
     myCanvas.width = normalWidth;
@@ -195,21 +350,6 @@ function draw(){
     spawnEnemies();
   }
   context.clearRect(0,0,width,height);
-  if(level == 400){
-    for(var t = 0; t < balls.length;t++){
-      balls[t].active = false;
-    }
-    if(nightMode){
-      context.fillStyle="#ffffff";
-    }
-    else{
-      context.fillStyle="#000000";
-    }
-    context.font = "40px Arial";
-    context.textAlign="center";
-    context.textBaseline="middle";
-    context.fillText("You are on Level 400, go prestige!",width/2,height/2);
-  }
   for(var i = 0; i<enemies.length; i++){
     var enemyDraw = enemies[i];
     if(enemyDraw.active){
@@ -235,42 +375,61 @@ function draw(){
       context.fillText(Math.ceil((enemyDraw.health/enemyDraw.sHealth)*100)+"%",enemyDraw.x,enemyDraw.y);
     }
   }
-  for(var i = 0; i<balls.length; i++){
-    var ball = balls[i]
+  for(var i = 0; i<balls.length+clickBalls.length; i++){
+    if(i>(balls.length-1)){
+      var ball = clickBalls[i-balls.length];
+    }
+    else{
+      var ball = balls[i];
+    }
     if(ball.active){
       context.beginPath();
       context.fillStyle=ball.color;
-      context.arc(ball.x,ball.y,ball.radius,0,Math.PI*2,true);
+      context.arc(ball.x,ball.y,ball.radius*radiusMulti,0,Math.PI*2,true);
       context.closePath();
       context.fill();
       for(var e = 0; e<enemies.length; e++){
         var enemy = enemies[e];
         if(enemy.active){
-          if(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2)<=Math.pow(enemy.radius+ball.radius,2)){
+          if(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2)<=Math.pow(enemy.radius+(ball.radius*radiusMulti),2)){
             if(ball.clone){
               ball = balls[ball.id];
             }
-            if(enemy.health>ball.bDamage*ball.rank)
+            if(enemy.health>ball.bDamage*ball.rank*pDamageMulti*pCountMulti)
               {
-                enemy.health -= ball.bDamage*ball.rank;
+                enemy.health -= ball.bDamage*ball.rank*pDamageMulti*pCountMulti;
               }
             else
               {
                 enemy.active = false;
-                value += (enemy.sHealth * (ballPoints+1));
+                value += Math.round(enemy.sHealth * Math.round((ballPoints+1)*ballPointMulti));
+                valueSet();
                 levelCheck();
-                document.getElementById("value").innerHTML = value;
               }
-            ball = balls[i];
+            if(ball.id<100){
+              var ball = balls[i]
+            }
             ball.dx = (ball.x - enemy.x)/Math.sqrt(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
             ball.dy = (ball.y - enemy.y)/Math.sqrt(Math.pow(ball.x-enemy.x,2)+Math.pow(ball.y-enemy.y,2));
           }
         }
       }
-      if(ball.x<=ball.radius || ball.x>=(width-ball.radius)) ball.dx=-ball.dx;
-      if(ball.y<=ball.radius || ball.y>=(height-ball.radius)) ball.dy=-ball.dy;
-      ball.x+=ball.dx*ball.speed;
-      ball.y+=ball.dy*ball.speed;
+      if(ball.x<=(ball.radius*radiusMulti) || ball.x>=(width-(ball.radius*radiusMulti))) ball.dx=-ball.dx;
+      if(ball.y<=(ball.radius*radiusMulti) || ball.y>=(height-(ball.radius*radiusMulti))) ball.dy=-ball.dy;
+      if(ball.x<(ball.radius*radiusMulti)){
+        ball.x = ball.radius*radiusMulti;
+      }
+      else if (ball.x>(width-(ball.radius*radiusMulti))){
+        ball.x = width-ball.radius*radiusMulti;
+      }
+      if(ball.y<(ball.radius*radiusMulti)){
+        ball.y = ball.radius*radiusMulti;
+      }
+      else if (ball.y>(height-(ball.radius*radiusMulti))){
+        ball.y = height-ball.radius*radiusMulti;
+      }
+      ball.x+=ball.dx*ball.speed*speedMulti;
+      ball.y+=ball.dy*ball.speed*speedMulti;
     }
   }
 }
@@ -283,11 +442,14 @@ function save(){
     value: value,
     level: level,
     ranks: ranks,
-    click: click.rank,
     nightMode: nightMode,
     ballPoints: ballPoints,
     zoomed: zoomed,
-    prestiged: prestiged
+    prestiged: prestiged,
+    pUpgrades: pUpgrades,
+    clickObject: click,
+    clicks: start,
+    notation: notationScientfic
   }
   localStorage.setItem("save",JSON.stringify(save));
   document.getElementById("save").innerHTML = "Saved!";
@@ -305,11 +467,18 @@ function toggleNightMode(){
     document.getElementById("p3").style.color = "#000000";
     document.getElementById("p4").style.color = "#000000";
     document.getElementById("p5").style.color = "#000000";
+    document.getElementById("p6").style.color = "#000000";
+    document.getElementById("p7").style.color = "#000000";
+    document.getElementById("p8").style.color = "#000000";
+    document.getElementById("p8").style.color = "#000000";
+    document.getElementById("p9").style.color = "#000000";
     document.getElementById("myCanvas").style.border = "3px solid #000000";
     document.getElementById("Balls").style.border = "1px solid #000000";
     document.getElementById("Achievements").style.border = "1px solid #000000";
     document.getElementById("Prestige").style.border = "1px solid #000000";
     document.getElementById("Options").style.border = "1px solid #000000";
+    document.getElementById("Stats").style.border = "1px solid #000000";
+    document.getElementById("Leaderboard").style.border = "1px solid #000000";
   }
   else{
     nightMode = true;
@@ -319,11 +488,17 @@ function toggleNightMode(){
     document.getElementById("p3").style.color = "#ffffff";
     document.getElementById("p4").style.color = "#ffffff";
     document.getElementById("p5").style.color = "#ffffff";
+    document.getElementById("p6").style.color = "#ffffff";
+    document.getElementById("p7").style.color = "#ffffff";
+    document.getElementById("p8").style.color = "#ffffff";
+    document.getElementById("p9").style.color = "#ffffff";
     document.getElementById("myCanvas").style.border = "3px solid #ffffff";
     document.getElementById("Balls").style.border = "1px solid #ffffff";
     document.getElementById("Achievements").style.border = "1px solid #ffffff";
     document.getElementById("Prestige").style.border = "1px solid #ffffff";
     document.getElementById("Options").style.border = "1px solid #ffffff";
+    document.getElementById("Stats").style.border = "1px solid #ffffff";
+    document.getElementById("Leaderboard").style.border = "1px solid #ffffff";
   }
 }
 function wipeSave(){
@@ -335,20 +510,18 @@ function wipeSave(){
 function prestige(){
   if(level >= 400){
     if(confirm("Are you sure you want to Prestige? This will get rid of all your numbers, all your levels and all your ball upgrades/clones. It will not get rid of Achievements or Prestige Upgrades. By prestiging you will get 1 Ball Point which gives you 100% more income (additive)") == true){
-      ballPoints++;
+      ballPoints += Math.pow(2,(Math.floor((level-400)/100)));
       prestiged++;
       level = 0;
-      value = 0;
-      click.bDamage = 1;
-      click.rank = 1;
+      value = 10 * Math.pow(10,pUpgrades[8]);
       balls = [
-        {active:false,x:200,y:200,dx:.707,dy:.707,color:"#5555ff",radius:20,bDamage:8,rank:0,cost:10,id:0,clone:false,speed:4},
+        {active:true,x:200,y:200,dx:.707,dy:.707,color:"#5555ff",radius:20,bDamage:8,rank:1,cost:10,id:0,clone:false,speed:4},
         {active:false,x:300,y:300,dx:.707,dy:-.707,color:"#00ff00",radius:30,bDamage:300,rank:0,cost:1000,id:1,clone:false,speed:4},
         {active:false,x:100,y:100,dx:-.707,dy:.707,color:"#ff0000",radius:10,bDamage:50000,rank:0,cost:100000,id:2,clone:false,speed:3},
         {active:false,x:400,y:400,dx:-.707,dy:-.707,color:"#ffff00",radius:15,bDamage:800000,rank:0,cost:10000000,id:3,clone:false,speed:6},
         {active:false,x:900,y:300,dx:-.707,dy:.707,color:"#FFA500",radius:48,bDamage:40000000,rank:0,cost:1000000000,id:4,clone:false,speed:2},
         {active:false,x:1000,y:200,dx:-.707,dy:-.707,color:"#800080",radius:5,bDamage:5000000000,rank:0,cost:100000000000,id:5,clone:false,speed:8},
-        {active:false,x:300,y:500,dx:.707,dy:.707,color:"#00C7D1",radius:15,bDamage:185000000000,rank:0,cost:10000000000000,id:6,clone:false,speed:4}
+        {active:false,x:1200,y:300,dx:.707,dy:.707,color:"#00C7D1",radius:15,bDamage:185000000000,rank:0,cost:10000000000000,id:6,clone:false,speed:4}
       ];
       for(var p = 0; p < startingBalls; p++){
           document.getElementById(p+"T").innerHTML = "Buy";
@@ -357,9 +530,7 @@ function prestige(){
       }
       document.getElementById("BP").innerHTML = ballPoints;
       document.getElementById("IncomeMulti").innerHTML = ballPoints*100;
-      document.getElementById("value").innerHTML = value;
-      document.getElementById("CC").innerHTML = 12;
-      document.getElementById("CA").innerHTML = 1;
+      valueSet();
       newLevel();
       spawnEnemies();
     }
@@ -387,4 +558,128 @@ function switchTab(evt, tabName) {
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
+}
+function prestigeUpgrade(id){
+  switch(id){
+    case 1:
+        if(ballPoints >= 1){
+            pUpgrades[id-1]++;
+            ballPoints -= 1;
+            pDamageMulti = 1 + (0.2*pUpgrades[id-1]);
+            document.getElementById(id+"p").innerHTML = Math.round(100*pDamageMulti);
+        }
+        break;
+    case 2:
+        if(ballPoints >= 1){
+            pUpgrades[id-1]++;
+            ballPoints -= 1;
+            var deactiveBalls = 0;
+            for(var k = 0; k<startingBalls;k++){
+              if (balls[k].active == false){
+                deactiveBalls++;
+              }
+            }
+            pCountMulti = (((Math.floor((balls.length-deactiveBalls)/5))*(0.3*pUpgrades[id-1]))+1);
+            document.getElementById(id+"p").innerHTML = Math.round(((0.3*pUpgrades[id-1])+1)*100);
+        }
+        break;
+    case 3:
+        if(ballPoints >= 2 && pUpgrades[id-1]<90){
+            pUpgrades[id-1]++;
+            ballPoints -= 2;
+            strengthBoostReq = 100-pUpgrades[id-1];
+            document.getElementById(id+"p").innerHTML = strengthBoostReq;
+        }
+        break;
+    case 4:
+        if(ballPoints >= 4){
+            pUpgrades[id-1]++;
+            ballPoints -= 4;
+            strengthBoost = 10+pUpgrades[id-1];
+            document.getElementById(id+"p").innerHTML = 10*strengthBoost;
+        }
+        break;
+    case 5:
+        if(ballPoints >= 1 && pUpgrades[id-1]<20){
+            pUpgrades[id-1]++;
+            ballPoints -= 1;
+            speedMulti = (0.1*pUpgrades[id-1])+1;
+            document.getElementById(id+"p").innerHTML = Math.round(100*speedMulti);
+        }
+        break;
+    case 6:
+        if(ballPoints >= 1 && pUpgrades[id-1]<20){
+            pUpgrades[id-1]++;
+            ballPoints -= 1;
+            radiusMulti = 1 +(0.1*pUpgrades[id-1]);
+            document.getElementById(id+"p").innerHTML = Math.round(100*radiusMulti);
+        }
+        break;
+    case 7:
+        if(ballPoints >= 1){
+            pUpgrades[id-1]++;
+            ballPoints -= 1;
+            animationSpeed = (0.02*pUpgrades[id-1]);
+            document.getElementById(id+"p").innerHTML = 100 + (10*pUpgrades[id-1]);
+        }
+        break;
+    case 8:
+        if(ballPoints >= 5 && pUpgrades[id-1]<40){
+            pUpgrades[id-1]++;
+            ballPoints -= 5;
+            cloneReq = 50-pUpgrades[id-1];
+            document.getElementById(id+"p").innerHTML = cloneReq;
+        }
+        break;
+    case 9:
+        if(ballPoints >= Math.pow(2,pUpgrades[id-1])){
+            ballPoints -= Math.pow(2,pUpgrades[id-1])
+            pUpgrades[id-1]++;;
+            document.getElementById(id+"p").innerHTML = 10*(Math.pow(10,pUpgrades[id-1]))
+            document.getElementById(id+"b").innerHTML = Math.pow(2,pUpgrades[id-1]);
+        }
+        break;
+    case 10:
+        if(ballPoints >= 1 && pUpgrades[id-1]<10){
+            pUpgrades[id-1]++;
+            ballPoints -= 1;
+            enemyRadiusMulti = 1 + (0.1 * pUpgrades[id-1]);
+            document.getElementById(id+"p").innerHTML = Math.round(100*enemyRadiusMulti);
+        }
+        break;
+    case 11:
+        if(ballPoints >= 10){
+            pUpgrades[id-1]++;
+            ballPoints -= 10;
+            document.getElementById(id+"p").innerHTML = 5*pUpgrades[id-1];
+        }
+        break;
+    case 12:
+        if(ballPoints >= 5){
+            pUpgrades[id-1]++;
+            ballPoints -= 5;
+            ballPointMulti = 1 + (0.1 * pUpgrades[id-1]);
+            document.getElementById(id+"p").innerHTML = Math.round(100*ballPointMulti);
+        }
+    }
+    document.getElementById("BP").innerHTML = ballPoints;
+    document.getElementById("IncomeMulti").innerHTML = Math.round(ballPoints*100*ballPointMulti);
+}
+function valueSet(){
+  if(notationScientfic){
+      document.getElementById("value").innerHTML = numberformat.format(value, {format: 'scientific'})
+  }
+  else{
+      document.getElementById("value").innerHTML = numberformat.format(value);
+  }
+}
+function changeNotation(){
+  if(notationScientfic){
+    notationScientfic = false;
+    document.getElementById("notation").innerHTML = "Change Notation to Scientific";
+  }
+  else{
+    notationScientfic = true;
+    document.getElementById("notation").innerHTML = "Change Notation to Standard";
+  }
 }

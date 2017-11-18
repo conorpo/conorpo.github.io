@@ -119,3 +119,23 @@ div.tab button.active {
     border-top: none;
     height: 847px;
 }
+.prestige {
+  width: 49%;
+  padding: 10px 15px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #CC1F30;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  margin-bottom: 10px;
+}
+.prestige:hover {background-color: #9C0F10}
+.prestige:active {
+  background-color: #9C0F10;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
