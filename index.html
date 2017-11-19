@@ -42,11 +42,14 @@
         <button class = "click" type = "button" onClick = "clickLevel()" style="width:48%;">Upgrade Click Balls<br><b>Cost: <span id="CC">10</span></b><br><i>Rank: <span id="CA">0</span></i></button><br><br>
         <button class = "upgrade" type = "button" onClick = "levelBall(0)"><span id="0T">Buy</span> Blue Ball <br><b>Cost: <span id="0C">10</span></b><br><i>Rank: <span id="0A">0</span></i></button>
         <button class = "upgrade" type = "button" onClick = "levelBall(1)"><span id="1T">Buy</span> Green Ball <br><b>Cost: <span id="1C">1000</span></b><br><i>Rank: <span id="1A">0</span></i></button>
-        <button class = "upgrade" type = "button" onClick = "levelBall(2)"><span id="2T">Buy</span> Red Ball <br><b>Cost: <span id="2C">100000</span></b><br><i>Rank: <span id="2A">0</span></i></button>
-        <button class = "upgrade" type = "button" onClick = "levelBall(3)"><span id="3T">Buy</span> Yellow Ball <br><b>Cost: <span id="3C">10000000</span></b><br><i>Rank: <span id="3A">0</span></i></button>
-        <button class = "upgrade" type = "button" onClick = "levelBall(4)"><span id="4T">Buy</span> Orange Ball <br><b>Cost: <span id="4C">1000000000</span></b><br><i>Rank: <span id="4A">0</span></i></button>
-        <button class = "upgrade" type = "button" onClick = "levelBall(5)"><span id="5T">Buy</span> Purple Ball <br><b>Cost: <span id="5C">100000000000</span></b><br><i>Rank: <span id="5A">0</span></i></button>
-        <button class = "upgrade" type = "button" onClick = "levelBall(6)"><span id="6T">Buy</span> Cyan Ball <br><b>Cost: <span id="6C">10000000000000</span></b><br><i>Rank: <span id="6A">0</span></i></button>
+        <button class = "upgrade" type = "button" onClick = "levelBall(2)"><span id="2T">Buy</span> Red Ball <br><b>Cost: <span id="2C">100 thousand</span></b><br><i>Rank: <span id="2A">0</span></i></button>
+        <button class = "upgrade" type = "button" onClick = "levelBall(3)"><span id="3T">Buy</span> Yellow Ball <br><b>Cost: <span id="3C">10 million</span></b><br><i>Rank: <span id="3A">0</span></i></button>
+        <button class = "upgrade" type = "button" onClick = "levelBall(4)"><span id="4T">Buy</span> Orange Ball <br><b>Cost: <span id="4C">1 billion</span></b><br><i>Rank: <span id="4A">0</span></i></button>
+        <button class = "upgrade" type = "button" onClick = "levelBall(5)"><span id="5T">Buy</span> Purple Ball <br><b>Cost: <span id="5C">100 billion</span></b><br><i>Rank: <span id="5A">0</span></i></button>
+        <button class = "upgrade" type = "button" onClick = "levelBall(6)"><span id="6T">Buy</span> Cyan Ball <br><b>Cost: <span id="6C">10 trillion</span></b><br><i>Rank: <span id="6A">0</span></i></button>
+        <button class = "upgrade" type = "button" onClick = "levelBall(7)"><span id="7T">Buy</span> Pink Ball <br><b>Cost: <span id="7C">1 quadrillion</span></b><br><i>Rank: <span id="7A">0</span></i></button>
+        <button class = "upgrade" type = "button" onClick = "levelBall(8)"><span id="8T">Buy</span> Turquoise Ball <br><b>Cost: <span id="8C">100 quadrillion</span></b><br><i>Rank: <span id="8A">0</span></i></button>
+        <button class = "upgrade" type = "button" onClick = "levelBall(9)"><span id="9T">Buy</span> Maroon Ball <br><b>Cost: <span id="9C">10 quintillion</span></b><br><i>Rank: <span id="9A">0</span></i></button>
         <p class = "small" id="p3">Your ball clones every 50 ranks and gets much stronger every 100 ranks. The latter also applies for your clicks. Your game saves automatically evey 1 minute.</p>
       </div>
       <div id="Achievements" class="tabcontent">
@@ -54,12 +57,13 @@
       </div>
       <div id="Prestige" class="tabcontent">
         <p class="small" id="p4" style="float: left;">You have <b><span id="BP">0</span></b> Ball Points and <b><span id="IncomeMulti">0</span>%</b> more income.</p>
-        <button class = "click" type = "button" onClick = "prestige()" style = "float: right; margin-right: 30px;">Destroy the Bonds</button><br><br>
+        <button class = "click" type = "button" onClick = "prestige()" style = "float: right; margin-right: 30px;">Destroy the Bonds</button><br><div class="clearfix"></div>
+        <p class ="small" id="p10" style="margin-bottom: 0px;">You get double the BP for every 100 levels past 400. (500 gives 2),(600 gives 4), etc...</p>
         <p class ="large" id = "p6">Orb of Strength Upgrades</p>
         <button class = "prestige" type = "button" onClick = "prestigeUpgrade(1)">Increase damage of all balls by 20%<br><b>Costs: <span id = "1b">1</span> BP</b><br><i>Current multiplier is <span id = "1p">100</span>%</i></button>
         <button class = "prestige" type = "button" onClick = "prestigeUpgrade(2)">Get 30% more damage per 5 total balls<br><b>Costs: <span id = "2b">1</span> BP</b><br><i>Current multiplier is <span id = "2p">100</span>%</i></button>
         <button class = "prestige" type = "button" onClick = "prestigeUpgrade(3)">Decrease ranks per strength boost by 1<br><b>Costs: <span id = "3b">2</span> BP</b><br><i>Ranks needed is currently <span id = "3p">100</span></i></button>
-        <button class = "prestige" type = "button" onClick = "prestigeUpgrade(4)">Increase your you strength boost by 20%<br><b>Costs: <span id = "4b">4</span> BP</b><br><i>Current strength boost multiplier is <span id = "4p">100</span>%</i></button>
+        <button class = "prestige" type = "button" onClick = "prestigeUpgrade(4)">Increase your you strength boost by 10%<br><b>Costs: <span id = "4b">4</span> BP</b><br><i>Current strength boost multiplier is <span id = "4p">100</span>%</i></button>
         <p class ="large" id = "p7">Orb of Agility Upgrades</p>
         <button class = "prestige" type = "button" onClick = "prestigeUpgrade(5)">Increase the speed of your balls by 10%<br><b>Costs: <span id = "5b">1</span> BP</b><br><i>Current speed is <span id = "5p">100</span>%</i></button>
         <button class = "prestige" type = "button" onClick = "prestigeUpgrade(6)">Increase the radius of your balls by 10%<br><b>Costs: <span id = "6b">1</span> BP</b><br><i>Current radius multiplier is <span id = "6p">100</span>%</i></button>
