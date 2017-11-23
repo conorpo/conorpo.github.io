@@ -34,7 +34,7 @@
         <button class="tablinks" onclick="switchTab(event, 'Balls')" id="defaultOpen">Balls</button>
         <button class="tablinks" onclick="switchTab(event, 'Achievements')">Achievements</button>
         <button class="tablinks" onclick="switchTab(event, 'Prestige')">Prestige</button>
-        <button class="tablinks" onclick="switchTab(event, 'Stats')">Stats</button>
+        <button class="tablinks" onclick="switchTab(event, 'Changelog')">Changelog</button>
         <button class="tablinks" onclick="switchTab(event, 'Leaderboard')">Leaderboard</button>
         <button class="tablinks" onclick="switchTab(event, 'Options')">Options</button>
       </div>
@@ -62,7 +62,7 @@
         <p class ="large" id = "p6">Orb of Strength Upgrades</p>
         <button class = "prestige" type = "button" onClick = "prestigeUpgrade(1)">Increase damage of all balls by 20%<br><b>Costs: <span id = "1b">1</span> BP</b><br><i>Current multiplier is <span id = "1p">100</span>%</i></button>
         <button class = "prestige" type = "button" onClick = "prestigeUpgrade(2)">Get 30% more damage per 5 total balls<br><b>Costs: <span id = "2b">1</span> BP</b><br><i>Current multiplier is <span id = "2p">100</span>%</i></button>
-        <button class = "prestige" type = "button" onClick = "prestigeUpgrade(3)">Decrease ranks per strength boost by 1<br><b>Costs: <span id = "3b">2</span> BP</b><br><i>Ranks needed is currently <span id = "3p">100</span></i></button>
+        <button class = "prestige" type = "button" onClick = "prestigeUpgrade(3)">Decrease ranks per strength boost by 1<br><b>Costs: <span id = "3b">3</span> BP</b><br><i>Ranks needed is currently <span id = "3p">100</span></i></button>
         <button class = "prestige" type = "button" onClick = "prestigeUpgrade(4)">Increase your you strength boost by 10%<br><b>Costs: <span id = "4b">4</span> BP</b><br><i>Current strength boost multiplier is <span id = "4p">100</span>%</i></button>
         <p class ="large" id = "p7">Orb of Agility Upgrades</p>
         <button class = "prestige" type = "button" onClick = "prestigeUpgrade(5)">Increase the speed of your balls by 10%<br><b>Costs: <span id = "5b">1</span> BP</b><br><i>Current speed is <span id = "5p">100</span>%</i></button>
@@ -75,8 +75,17 @@
         <button class = "prestige" type = "button" onClick = "prestigeUpgrade(11)">Increase your starting level by 5<br><b>Costs: <span id = "11b">10</span> BP</b><br><i>Current starting level is <span id = "11p">0</span></i></button>
         <button class = "prestige" type = "button" onClick = "prestigeUpgrade(12)">Increase Bonus per Ball Point by 10%<br><b>Costs: <span id = "12b">5</span> BP</b><br><i>Current income bonus is <span id = "12p">100</span>%</i></button>
       </div>
-      <div class="tabcontent" id="Stats">
-        <p class="small" id="p9">You have clicked <span id="clicks">0</span> times.</p>
+      <div class="tabcontent" id="Changelog">
+        <h1>11/23/2017</h1>
+        <p>Fixed various notation errors, changed the maxes of Clone and Streng Boost Req Upgrades,clicks now reset after prestige, increased the price of Streng Boost Req to 3</p>
+        <h1>11/20/2017</h1>
+        <p>Added 3 balls, added info to prestige</p>
+        <h1>11/18/2017</h1>
+        <p>Completely changed clicks; now you get temporary balls based on your clicks per second. Added 12 prestige upgrades all with different bonuses, added notation to all nubmers.</p>
+        <h1>11/17/2017</h1>
+        <p>Added Night Mode toggle, added save wiping, added 3 more balls,  cleaned up overall design, added different speeds, added the prestige system, added saving and loading, added tabs, various other fixes.</p>
+        <h1>11/16/2017</h1>
+        <p>Added boss animations, added ball clones, added strengh boosts, imporved design.</p>
       </div>
       <div class="tabcontent" id="Leaderboard">
         <p class="small"> Will have to host an entirely new server for this so might take a while</p>

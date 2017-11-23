@@ -103,7 +103,6 @@ function getCPS() {
 function bond(){
   count++;
   start++;
-  document.getElementById("clicks").innerHTML = start;
 }
 function clickLevel(){
   if(value>=Math.floor(click.bCost*Math.pow(click.multi,click.rank))){
@@ -263,7 +262,7 @@ function init(){
     if (typeof savegame.ballPoints !== "undefined") ballPoints = savegame.ballPoints;
     if(notationScientfic){
       document.getElementById("BP").innerHTML = numberformat.format(ballPoints);
-      document.getElementById("IncomeMulti").innerHTML = numberformat.format(ballPoints*100);
+      document.getElementById("IncomeMulti").innerHTML = numberformat.format(ballPoints*100*ballPointMulti);
     }
     else{
       document.getElementById("BP").innerHTML = numberformat.format(ballPoints, {format: 'scientific'});
@@ -271,7 +270,6 @@ function init(){
     }
     if(typeof savegame.clicks !== "undefined"){
       start = savegame.clicks;
-      document.getElementById("clicks").innerHTML = start;
     }
     valueSet();
   }
@@ -480,7 +478,7 @@ function toggleNightMode(){
     document.getElementById("Achievements").style.border = "1px solid #000000";
     document.getElementById("Prestige").style.border = "1px solid #000000";
     document.getElementById("Options").style.border = "1px solid #000000";
-    document.getElementById("Stats").style.border = "1px solid #000000";
+    document.getElementById("Changelog").style.border = "1px solid #000000";
     document.getElementById("Leaderboard").style.border = "1px solid #000000";
   }
   else{
@@ -500,7 +498,7 @@ function toggleNightMode(){
     document.getElementById("Achievements").style.border = "1px solid #ffffff";
     document.getElementById("Prestige").style.border = "1px solid #ffffff";
     document.getElementById("Options").style.border = "1px solid #ffffff";
-    document.getElementById("Stats").style.border = "1px solid #ffffff";
+    document.getElementById("Changelog").style.border = "1px solid #ffffff";
     document.getElementById("Leaderboard").style.border = "1px solid #ffffff";
   }
 }
@@ -516,6 +514,8 @@ function prestige(){
       ballPoints += Math.pow(2,(Math.floor((level-400)/100)));
       prestiged++;
       level = 0;
+      click.rank = 1;
+      click.bDamage = 10;
       value = 10 * Math.pow(10,pUpgrades[8]);
       balls = [
         {active:true,x:200,y:200,dx:.707,dy:.707,color:"#5555ff",radius:20,bDamage:8,rank:1,cost:10,id:0,clone:false,speed:4},
@@ -526,11 +526,22 @@ function prestige(){
         {active:false,x:1000,y:200,dx:-.707,dy:-.707,color:"#800080",radius:5,bDamage:5000000000,rank:0,cost:100000000000,id:5,clone:false,speed:8},
         {active:false,x:1200,y:300,dx:.707,dy:.707,color:"#00C7D1",radius:15,bDamage:185000000000,rank:0,cost:10000000000000,id:6,clone:false,speed:4}
       ];
-      for(var p = 0; p < startingBalls; p++){
-          document.getElementById(p+"T").innerHTML = "Buy";
-          document.getElementById(p+"C").innerHTML = (Math.pow(100,p+1))/10;
-          document.getElementById(p+"A").innerHTML = 0;
+      if(notationScientfic){
+          for(var p = 0; p < startingBalls; p++){
+              document.getElementById(p+"T").innerHTML = "Buy";
+              document.getElementById(p+"C").innerHTML = numberformat.format((Math.pow(100,p+1))/10,{format: 'scientific'});
+              document.getElementById(p+"A").innerHTML = 0;
+          }
       }
+      else{
+          for(var p = 0; p < startingBalls; p++){
+              document.getElementById(p+"T").innerHTML = "Buy";
+              document.getElementById(p+"C").innerHTML = numberformat.format((Math.pow(100,p+1))/10);
+              document.getElementById(p+"A").innerHTML = 0;
+          }
+      }
+      document.getElementById("CC").innerHTML = 10;
+      document.getElementById("CA").innerHTML = 1;
       document.getElementById("BP").innerHTML = ballPoints;
       document.getElementById("IncomeMulti").innerHTML = ballPoints*100;
       valueSet();
@@ -587,9 +598,9 @@ function prestigeUpgrade(id){
         }
         break;
     case 3:
-        if(ballPoints >= 2 && pUpgrades[id-1]<90){
+        if(ballPoints >= 3 && pUpgrades[id-1]<50){
             pUpgrades[id-1]++;
-            ballPoints -= 2;
+            ballPoints -= 3;
             strengthBoostReq = 100-pUpgrades[id-1];
             document.getElementById(id+"p").innerHTML = strengthBoostReq;
         }
@@ -627,7 +638,7 @@ function prestigeUpgrade(id){
         }
         break;
     case 8:
-        if(ballPoints >= 5 && pUpgrades[id-1]<40){
+        if(ballPoints >= 5 && pUpgrades[id-1]<25){
             pUpgrades[id-1]++;
             ballPoints -= 5;
             cloneReq = 50-pUpgrades[id-1];
