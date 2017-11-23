@@ -472,7 +472,6 @@ function toggleNightMode(){
     document.getElementById("p7").style.color = "#000000";
     document.getElementById("p8").style.color = "#000000";
     document.getElementById("p8").style.color = "#000000";
-    document.getElementById("p9").style.color = "#000000";
     document.getElementById("myCanvas").style.border = "3px solid #000000";
     document.getElementById("Balls").style.border = "1px solid #000000";
     document.getElementById("Achievements").style.border = "1px solid #000000";
@@ -492,7 +491,6 @@ function toggleNightMode(){
     document.getElementById("p6").style.color = "#ffffff";
     document.getElementById("p7").style.color = "#ffffff";
     document.getElementById("p8").style.color = "#ffffff";
-    document.getElementById("p9").style.color = "#ffffff";
     document.getElementById("myCanvas").style.border = "3px solid #ffffff";
     document.getElementById("Balls").style.border = "1px solid #ffffff";
     document.getElementById("Achievements").style.border = "1px solid #ffffff";
