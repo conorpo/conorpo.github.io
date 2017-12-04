@@ -309,18 +309,22 @@ function init(){
     valueSet();
   }
   level--;
-  newLevel();
+  newLevel(false);
   spawnEnemies();
   autoBonds = setInterval(function(){ bond() },1000/bondRate);
   autoExcites = setInterval(function(){ excite() },60000/exciteRate);
   setInterval(function(){ draw() },20);
   setInterval(function(){ save() },60000);
 }
-function newLevel() {
+function newLevel(prest) {
   level++;
   document.getElementById("level").innerHTML = level;
   enemies = [];
-  if(level%10 == 0){
+  if(prest){
+    spawnEnemies();
+  }
+  else{
+      if(level%10 == 0){
     shrink = true;
   }
   else if(level%10 == 1){
@@ -328,6 +332,7 @@ function newLevel() {
   }
   else{
     spawnEnemies();
+  }
   }
 }
 function spawnEnemies(){
@@ -365,7 +370,7 @@ function levelCheck(){
     }
   }
   if(allDisabled){
-    newLevel();
+    newLevel(false);
   }
 }
 function draw(){
@@ -548,7 +553,7 @@ function prestige(){
     if(confirm("Are you sure you want to Prestige? This will get rid of all your numbers, all your levels and all your ball upgrades/clones. It will not get rid of Achievements or Prestige Upgrades. By prestiging you will get 1 Ball Point which gives you 100% more income (additive)") == true){
       ballPoints += Math.pow(2,(Math.floor((level-400)/100)));
       prestiged++;
-      level = 0;
+      level = (5*pUpgrades[10]);
       click.rank = 1;
       click.bDamage = 10;
       value = 10 * Math.pow(10,pUpgrades[8]);
@@ -582,9 +587,9 @@ function prestige(){
       document.getElementById("CA").innerHTML = 1;
       document.getElementById("BP").innerHTML = ballPoints;
       document.getElementById("IncomeMulti").innerHTML = ballPoints*100;
+      document.getElementById("level").innerHTML = 5*pUpgrades[10];
       valueSet();
-      newLevel();
-      spawnEnemies();
+      newLevel(true);
     }
   }
   else{
