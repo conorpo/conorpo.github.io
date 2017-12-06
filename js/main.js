@@ -321,7 +321,12 @@ function newLevel(prest) {
   document.getElementById("level").innerHTML = level;
   enemies = [];
   if(prest){
-    spawnEnemies();
+    if(shrink){
+      shrink = false;
+    }
+    else{
+      spawnEnemies();
+    }
   }
   else{
       if(level%10 == 0){
@@ -381,7 +386,7 @@ function draw(){
   else if(shrink == true&&myCanvas.width < height){
     myCanvas.width = height;
     width = height;
-    spawnEnemies(true);
+    spawnEnemies();
   }
   else if(shrink == false&&myCanvas.width < normalWidth){
     myCanvas.width *= 1.005 + (0.05*Math.min(ballPoints/50,1));
@@ -390,7 +395,7 @@ function draw(){
   else if(shrink == false&&myCanvas.width > normalWidth){
     myCanvas.width = normalWidth;
     width = normalWidth;
-    spawnEnemies(true);
+    spawnEnemies();
   }
   context.clearRect(0,0,width,height);
   for(var i = 0; i<enemies.length; i++){
@@ -711,9 +716,10 @@ function prestigeUpgrade(id){
         }
         break;
     case 11:
-        if(ballPoints >= 10){
+        if(ballPoints >= 10 + pUpgrades[id-1]){
             pUpgrades[id-1]++;
-            ballPoints -= 10;
+            ballPoints -=  + pUpgrades[id-1];
+            document.getElementById(id+"b").innerHTML = 10 + pUpgrades[id-1];
             document.getElementById(id+"p").innerHTML = 5*pUpgrades[id-1];
         }
         break;
