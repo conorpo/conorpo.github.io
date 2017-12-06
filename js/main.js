@@ -321,7 +321,12 @@ function newLevel(prest) {
   document.getElementById("level").innerHTML = level;
   enemies = [];
   if(prest){
-    spawnEnemies();
+    if(shrink){
+      shrink = false;
+    }
+    else{
+      spawnEnemies();
+    }
   }
   else{
       if(level%10 == 0){
@@ -711,9 +716,10 @@ function prestigeUpgrade(id){
         }
         break;
     case 11:
-        if(ballPoints >= 10){
+        if(ballPoints >= 10 + pUpgrades[id-1]){
             pUpgrades[id-1]++;
-            ballPoints -= 10;
+            ballPoints -=  + pUpgrades[id-1];
+            document.getElementById(id+"b").innerHTML = 10 + pUpgrades[id-1];
             document.getElementById(id+"p").innerHTML = 5*pUpgrades[id-1];
         }
         break;
