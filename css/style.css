@@ -1,3 +1,11 @@
+.grid{
+  display: grid;
+  grid-template-columns: 1fr 800px 400px 1fr;
+  grid-template-rows: 140px auto;
+  grid-template-areas:
+  "white header header"
+  "white main sidebar";
+}
 h1.title{
   font-family: "Courier New", Courier, monospace;
   text-align:center;
@@ -5,12 +13,13 @@ h1.title{
   margin: 20px auto;
 }
 div.header{
-  border-bottom-style:solid;
+  border-bottom-style:double;
+  border-width: thick;
   grid-area: header
 }
 div.sidebar{
-  padding: 5px;
-  border-left-style:solid;
+  padding-left: 10px;
+  border-left-style:double;
   grid-area: sidebar
 }
 div.main{
@@ -56,14 +65,6 @@ div.main{
 }
 .clearfix {
   clear: both;
-}
-.grid{
-  display: grid;
-  grid-template-columns: 1fr 800px 400px 1fr;
-  grid-template-rows: 140px auto;
-  grid-template-areas:
-  "white header header"
-  "white main sidebar";
 }
 @media only screen and (max-width: 1210px) {
   .grid{
