@@ -1,10 +1,32 @@
 <!DOCTYPE html>
 <html lang="en-US">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <head>
-    <a href="/textadventure"> Text Adventure  (NOT IN PLAYABLE STATE YET) </a> <br>
-    <a href="/incrementalballs"> Incremental Balls </a> <br>
-    <a href="/urbanization-game"> URBAN GAME</a>
+    <link rel = "stylesheet" type = "text/css" href = "css/style.css" />
+     <script src="main.js"></script>
   </head>
-  <body>
+  <body onload="init()" onresize="init()"><div class="grid">
+  <div class="header">
+      <h1 class="title">conorpo.github.io</h1>
+  </div>
+  <div class="sidebar">
+    <p> When I first brought my cat home from the humane society she was a mangy, pitiful animal. It cost a lot to adopt her: forty dollars. And then I had to buy litter, a litterbox, food, and dishes for her to eat out of. Two days after she came home with me she got taken to the pound by the animal warden. There's a leash law for cats in Fort Collins. If they're not in your yard they have to be on a leash. Anyway, my cat is my best friend. I'm glad I got her. She sleeps under the covers with me when it's cold. Sometimes she meows a lot in the middle of the night and wakes me up, though. (unfocused)
+    </p>
+  </div>
+  <div class="main">
+    <button onclick="location.href='/incremental-balls';" id="incremental_balls" class="project">
+      <img src="assets/incremental_balls.png" alt="Incremental Balls">
+      <b> Incremental Balls </b>
+      <p>11/13/2017- 12/5/2017 </p>
+      <div class="clearfix"></div>
+    </button>
+    <button  onclick="location.href='/textadventure';"id="text_adventure" class="project">
+      <img src="assets/incremental_balls.png" alt="Incremental Balls">
+      <b> Text Adventure</b>
+      <p>2/1/2018-3/1/2018 Co-Dev: Aldiery Gonzalez</p>
+      <div class="clearfix"></div>
+    </button>
+  </div>
+  </div>
   </body>
 </html>
