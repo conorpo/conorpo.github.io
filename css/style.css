@@ -1,3 +1,10 @@
+span.shrink{
+  font-size: 0.9em
+}
+ul{
+  margin-top:3px;
+  padding-left:20px;
+}
 .grid{
   display: grid;
   grid-template-columns: 1fr 800px 400px 1fr;
@@ -15,15 +22,16 @@ h1.title{
 div.header{
   border-bottom-style:double;
   border-width: thick;
-  grid-area: header
+  grid-area: header;
 }
 div.sidebar{
-  padding-left: 10px;
+  padding: 10px;
   border-left-style:double;
-  grid-area: sidebar
+  grid-area: sidebar;
 }
 div.main{
-  grid-area: main
+  grid-area: main;
+  padding-bottom: 5px;
 }
 .project{
   font-family:"Courier New", Courier, monospace;
@@ -66,6 +74,15 @@ div.main{
 .clearfix {
   clear: both;
 }
+.sidebar img{
+  float: left;
+  margin-right: 5px;
+  border-style: solid;
+  border-width: 2px;
+}
+.sidebar p{
+  margin: 0px;
+}
 @media only screen and (max-width: 1210px) {
   .grid{
     grid-template-columns: auto 800px auto;
@@ -77,6 +94,10 @@ div.main{
   }
   .project{
     margin: 10px 2.5%;
+  }
+  .sidebar{
+    border-left:0;
+    border-top:thick double black;
   }
 }
 @media only screen and (max-width: 810px) {
@@ -98,6 +119,7 @@ div.main{
     float: none;
   }
   .project p{
+    font-size: 3vw;
     margin: 0px;
     padding: 3px;
     width:100%;
@@ -106,5 +128,15 @@ div.main{
   }
   .project img{
     display:none;
+  }
+}
+@media only screen and (max-width: 300px) {
+  .sidebar{
+    text-align:center;
+  }
+  .sidebar img{
+    float:none;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
