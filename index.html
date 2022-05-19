@@ -1,62 +1,25 @@
 <!DOCTYPE html>
-<html lang="en-US">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <head>
-    <link rel = "stylesheet" type = "text/css" href = "css/style.css" />
-    <script src="main.js"></script>
-  </head>
-  <body onload="init()" onresize="init()"><div class="grid">
-  <div class="header">
-      <h1 class="title">conorpo.github.io</h1>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel = "stylesheet" type = "text/css" href = "style.css"/>
+  <script src="main.js"></script>
+  <title>conorpo.github.io</title>
+</head>
+<body onload="init()">
+  <div class="global-container">
+    <div class="playing-area">
+      <div class="card-slot">
+        Drag a Card here to begin.
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="info-area"></div>
   </div>
-  <div class="sidebar">
-    <img src="assets/conor.jpg" height="216px";></img>
-    <p> Hey! I'm Conor O'Malley, I'm 16, and I love programming. I mainly work in JavaScript but I know other languages like HTML, CSS, C#, and Python.
-      I am mostly self-taught, which means I'm pretty bad at most stuff. However, I guess some of my stuff is pretty cool. My biggest project so far has
-      been Incremental Balls. Currently, I'm learning some more advanced stuff like TypeScript, Machine Learning, and Rust. </p>
-    <div class="clearfix"></div>
-    <br><br><b>Contact Information</b>
-    <ul>
-      <li>Email: <a href="mailto:conor4arms@gmail.com">conor4arms@gmail.com</a> </li>
-      <li>P.O. Box: </li>
-      <li>Phone: <b>407-435-0184</b></li>
-    </ul>
-    <br><b> Other <span class="shrink">Links <span class="shrink"> that <span class="shrink"> relate <span class="shrink">
-      to <span class="shrink"> me <span class="shrink"> in <span class="shrink"> one <span class="shrink">  way  <span class="shrink">  or
-      <span class="shrink">  another</span></span></span></span></span></span></span></span></span></span></b>
-    <ul>
-      <li><a href="https://www.twitch.tv/conorpo"> twitch.tv/conorpo</a> </li>
-      <li> <a href="https://steamcommunity.com/id/Conor_Po/">Steam Profile</a> </li>
-      <li> <a href="https://https://www.youtube.com/channel/UC90tYYJk2Aa5ei6HlVmzljg?view_as=subscriber">Youtube Channel</a> </li>
-    </ul>
+  <div class="card-layer" id="card-layer">
 
   </div>
-  <div class="main">
-    <button onclick="location.href='/ball-physics';" id="ball-physics" class="project">
-      <img src="assets/ball-physics.gif" alt="ball-physics">
-      <b> Ball Physics </b>
-      <p> 1/08/2019 - 1/11/2019 </p>
-      <div class="clearfix"></div>
-    </button>
-    <button onclick="location.href='https://first-socketio.herokuapp.com/';" id="first-socketio" class="project">
-      <img src="assets/chatroom.png" alt="chatroom">
-      <b> Simple Chatroom </b>
-      <p> 8/26/2018 - 9/9/2018 </p>
-      <div class="clearfix"></div>
-    </button>
-    <button onclick="location.href='/incrementalballs';" id="incremental_balls" class="project">
-      <img src="assets/incremental_balls.png" alt="Incremental Balls">
-      <b> Incremental Balls </b>
-      <p>11/13/2017- 12/5/2017 </p>
-      <div class="clearfix"></div>
-    </button>
-    <button  onclick="location.href='/textadventure';"id="text_adventure" class="project">
-      <img src="assets/text_adventure.png" alt="Incremental Balls">
-      <b> Text Adventure</b>
-      <p>2/1/2018-3/1/2018 Co-Dev: Aldiery Gonzalez</p>
-      <div class="clearfix"></div>
-    </button>
-  </div>
-  </div>
-  </body>
+</body>
 </html>
