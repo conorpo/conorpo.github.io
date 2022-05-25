@@ -10,7 +10,7 @@
 
 import {config, elements, state} from './config.js'
 import {getTransformStringDrag, getTransformStringHand} from './transformHelper.js';
-import {Card} from './card.js';
+import {Card} from './Card.js';
 
 
 function init(){
