@@ -5,27 +5,44 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel = "stylesheet" type = "text/css" href = "style.css"/>
-  <script src="main.js"></script>
+  <script src="js/config.js" type="module"></script>
+  <script src="js/main.js" type="module"></script>
   <title>conorpo.github.io</title>
 </head>
-<body onload="init()">
+<body>
   <div class="global-container" id="global-container">
+    <img src="assets/background.png" class="background" alt="">
     <h1>conorpo.github.io</h1>
+    <img src="assets/corner.svg" class="corner bottom-right" alt="">
+    <img src="assets/corner.svg" class="corner bottom-left"alt="">
+    <img src="assets/corner2.svg" class="corner top-left"alt="">
+    <img src="assets/corner.svg" class="corner top-right"alt="">
+    <span class="footer">Made from scratch in HTML / CSS / Javascript</span>
     <div class="playing-area" id="playing-area">
-      <div class="card-slot">
+      <div class="card-slot" id="card-slot">
         Drag a Card here to begin.
       </div>
     </div>
-    <div class="divider"></div>
+    <img src="assets/line.svg" alt="" class="divider">
     <div class="info-area">
       <div class="info about hidden">
         About Me Section
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos error pariatur, voluptas maxime eum non officiis tempora odio aspernatur tempore quo ad minus voluptatibus exercitationem aliquid nemo, consequatur expedita placeat?</p>
+        <br>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos error pariatur, voluptas maxime eum non officiis tempora odio aspernatur tempore quo ad minus voluptatibus exercitationem aliquid nemo, consequatur expedita placeat?</p>
       </div>
       <div class="info projects hidden">
         Projects
       </div>
       <div class="info school hidden">
         School
+      </div>
+      <div class="info this_site hidden">
+        <iframe id="this_site"></iframe>
+      </div>
+      <div class="info mandelbulb hidden">
+          <a href="https://conorpo.github.io/webgl_mandelbulb/" target="_blank"></a>
+          <iframe id="mandelbulb"></iframe>
       </div>
     </div>
   </div>
