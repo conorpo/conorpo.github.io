@@ -47,9 +47,8 @@ function init(){
   })
 
   window.addEventListener("keypress",(evt) => {
-    console.log(evt.key)
     if(evt.key == 'k'){
-      if(state.tableMode){
+      if(!state.tableMode){
         elements.globalContainer.classList.add("global-container2");
       }else{
         elements.globalContainer.classList.remove("global-container2");
