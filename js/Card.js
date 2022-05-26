@@ -15,19 +15,17 @@ export class Card {
         this.element.style.height = config.cardHeight + "px";
         this.element.style.width = config.cardWidth + "px";
         this.element.style.bottom = "-" + (config.cardHandRadius + 2) + "px";
-        this.element.style.backgroundImage = `url(assets/${name}.jpg)`;
-        // this.element.style.backgroundSize = "101%";
-        this.element.style.backgroundPosition = "center"
+        this.element.style.backgroundImage = `url(assets/cards/${name}.png)`;
+        this.element.style.backgroundPosition = "center";
         this.element.style.backgroundColor = "#CCCCCC";
+        this.element.addEventListener("mousedown", () => {this.pickUp()});
+        this.element.addEventListener("mouseup", () => {if(this.status == 2) {elements.playingArea.dispatchEvent(new Event('mouseup'))}});
 
         this.infoElement = document.getElementsByClassName(name)?.[0];
         if(this.infoElement) this.infoElement.style.transform = getRandomTransform();
 
         this.hasIframe = this.infoElement?.lastElementChild?.tagName?.toLowerCase() == "iframe";
         this.iframeTimeout = null;
-
-        this.element.addEventListener("mousedown", () => {this.pickUp()})
-        this.element.addEventListener("mouseup", () => {if(this.status == 2) {elements.playingArea.dispatchEvent(new Event('mouseup'))}})
 
         elements.globalContainer.appendChild(this.element);
 
@@ -44,7 +42,7 @@ export class Card {
     }
 
 
-    setStatus(code){
+    setStatus(code){ //So you can do optional left hand chaining
         this.status = code;
     }
 
