@@ -1,37 +1,11 @@
-import {config, elements, state} from './config.js';
+import {config, elements} from './config.js';
+import {state} from './state.js';
 import { getTransformStringDrag,getRandomTransform } from './transformHelper.js';
 
 
-export class Card {
-    constructor(name){
-        this.index = state.cards.length;
-        
-        this.name = name;
-
-        this.status = 0; //0 is in hand, 1 is dragging, 2 is in active slot
-
-        this.element = document.createElement("div");
-        this.element.classList.add("card");
-        this.element.style.height = config.cardHeight + "px";
-        this.element.style.width = config.cardWidth + "px";
-        this.element.style.bottom = "-" + (config.cardHandRadius + 2) + "px";
-        this.element.style.backgroundImage = `url(assets/cards/${name}.png)`;
-        this.element.style.backgroundPosition = "center";
-        this.element.style.backgroundColor = "#CCCCCC";
-        this.element.addEventListener("mousedown", () => {this.pickUp()});
-        this.element.addEventListener("mouseup", () => {if(this.status == 2) {elements.playingArea.dispatchEvent(new Event('mouseup'))}});
-
-        this.infoElement = document.getElementsByClassName(name)?.[0];
-        if(this.infoElement) this.infoElement.style.transform = getRandomTransform();
-
-        this.hasIframe = this.infoElement?.lastElementChild?.tagName?.toLowerCase() == "iframe";
-        this.iframeTimeout = null;
-
-        elements.globalContainer.appendChild(this.element);
-
-    };
-
-    activate(){
+const card_proto = {
+    activate() {
+        console.log(this);
         this.status = 2;
 
         this.element.classList.remove("drag");
@@ -39,13 +13,14 @@ export class Card {
         this.element.style.transform = `translate(calc(4vw + (21vw - ${config.cardWidth }px)/2), calc(20vh + (60vh - ${config.cardHeight}px)/2)) scale(${config.activeScale})`;
 
         this.showInfo();
-    }
-
-
-    setStatus(code){ //So you can do optional left hand chaining
+    },
+    /**
+     * Status setter so that optional chaning can be used
+     * @param {number} code The code to set, (0 is in hand, 1 is dragging, 2 is in active slot) 
+     */
+    setStatus(code){ 
         this.status = code;
-    }
-
+    },
     pickUp(){
         state.draggedCard = this;
 
@@ -60,8 +35,7 @@ export class Card {
         }
 
         this.status = 1;
-    };
-    
+    },
     hideInfo(){
         if(this.hasIframe){
             this.iframeTimeout = setTimeout(() => {
@@ -71,14 +45,12 @@ export class Card {
 
         this.infoElement.style.transform = getRandomTransform();
         this.infoElement.classList.add("hidden");
-    };
-
+    },
     backToHand(){
         this.status = 0;
         this.element.classList.remove("active");
         this.element.classList.remove("drag");
-    }
-
+    },
     showInfo(){
         if(this.hasIframe){
             clearTimeout(this.iframeTimeout);
@@ -87,5 +59,35 @@ export class Card {
 
         this.infoElement.style.transform = "";
         this.infoElement.classList.remove("hidden");
-    };
+    }
+}
+
+export function create_card(name) {
+    const card = Object.create(card_proto);
+
+    card.index = state.cards.length;
+    
+    /** This is what's used to find the corresponding image and info element */
+    card.name = name;
+    
+    /** 0 is in hand, 1 is being dragged, 2 is active in slot */
+    card.status = 0; 
+
+    /** The actual HTML element of the card */
+    card.element = elements.cardTemplate.cloneNode(true);
+    card.element.id = `${name}Card`;
+    card.element.style.setProperty('--image-url', `center/100% url(assets/cards/${name}.png)`);
+    card.element.addEventListener("mousedown", () => {card.pickUp()});
+    card.element.addEventListener("mouseup", () => {if(card.status == 2) {elements.playingArea.dispatchEvent(new Event('mouseup'))}});
+
+    /** The corresponding html info element that is revealed when card is active */
+    card.infoElement = document.getElementsByClassName(name)?.[0];
+    if(card.infoElement?.classList.contains("hidden")) card.infoElement.style.transform = getRandomTransform();
+
+    card.hasIframe = card.infoElement?.lastElementChild?.tagName?.toLowerCase() == "iframe";
+    card.iframeTimeout = null;
+
+    elements.globalContainer.appendChild(card.element);
+
+    return card;
 }

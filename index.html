@@ -6,13 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel = "stylesheet" type = "text/css" href = "./style.css"/>
   <script src="./js/config.js" type="module"></script>
+  <script src="./js/state.js" type="module"></script>
   <script src="./js/Card.js" type="module"></script>
   <script src="./js/transformHelper.js" type="module"></script>
   <script src="./js/main.js" type="module"></script>
   <title>conorpo.github.io</title>
 </head>
 <body>
-  <div class="global-container" id="global-container">
+  <div class="global-container" id="globalContainer">
     <img src="./assets/background.png" class="background" alt="">
     <h1>conorpo.github.io</h1>
     <img src="./assets/corner.svg" class="corner bottom-right" alt="">
@@ -20,34 +21,38 @@
     <img src="./assets/corner2.svg" class="corner top-left"alt="">
     <img src="./assets/corner.svg" class="corner top-right"alt="">
     <span class="footer">Made from scratch in HTML / CSS / Javascript</span>
-    <div class="playing-area" id="playing-area">
-      <div class="card-slot" id="card-slot">
+    <div class="playing-area" id="playingArea">
+      <div class="card-slot" id="cardSlot">
         Drag a Card here to begin.
       </div>
     </div>
     <img src="./assets/line.svg" alt="" class="divider">
     <div class="info-area">
-      <div class="info">Press K to toggle display modes (temp)</div>
-      <div class="info about hidden">
-        About Me Section
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos error pariatur, voluptas maxime eum non officiis tempora odio aspernatur tempore quo ad minus voluptatibus exercitationem aliquid nemo, consequatur expedita placeat?</p>
-        <br>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos error pariatur, voluptas maxime eum non officiis tempora odio aspernatur tempore quo ad minus voluptatibus exercitationem aliquid nemo, consequatur expedita placeat?</p>
+      <div class="info about">
+        <h2>About Me</h2>
+        <p>Test</p>
+        
       </div>
       <div class="info projects hidden">
         Projects
       </div>
-      <div class="info school hidden">
+      <div class="info resume hidden">
         School
       </div>
-      <div class="info this_site hidden">
-        <iframe id="this_site"></iframe>
+      <div class="info contact hidden">
+        School
+      </div>
+      <div class="info thisSite hidden">
+        <iframe id="thisSite-iframe"></iframe>
       </div>
       <div class="info mandelbulb hidden">
           <a href="https://conorpo.github.io/webgl_mandelbulb/" target="_blank"></a>
-          <iframe id="mandelbulb"></iframe>
+          <iframe id="mandelbulb-iframe"></iframe>
       </div>
     </div>
+  </div>
+  <div id="cardTemplate" class="card-container">
+    <div class="card"></div>
   </div>
 </body>
 </html>

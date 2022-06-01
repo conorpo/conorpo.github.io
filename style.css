@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 
 * {
-    font-family: 'MedievalSharp', cursive;
     box-sizing: border-box;
 }
 
@@ -63,6 +62,9 @@ h1 {
     filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.4)) blur(0.5px);
 }
 
+
+
+
 .footer {
     font: 12px sans-serif;
     position: absolute;
@@ -104,40 +106,71 @@ h1 {
 }
 
 /* Cards */
-.card{
+
+.card-container{
     position: absolute;
-    border-radius: 6px;
     z-index: 2;
     top: 0px;
     left: 0px;
-    transition: transform 0.5s, filter 0.5s;
+    transition: 0.4s;
     transform: translate(40vw,150vh);
-    filter: sepia(0.8) drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.662));
+    filter: sepia(0.3) drop-shadow(13px 13px 13px rgba(0,0,0,0.5));
     user-select: none;
-    background-size: 104%;
 }
 
-
-.card.drag{
+.card-container.drag{
     transition: 0.1s;
     z-index: 4;
-    bottom: auto;
-    filter: sepia(0.5) drop-shadow(13px 13px 10px rgba(0, 0, 0, 0.662));
     pointer-events: none;
 }
 
-.card.active{
+.card-container.active{
     z-index: 3;
 }
 
-.card:hover{
+.card-container:hover{
     cursor: pointer;
 }
 
+#cardTemplate {
+    display: none;
+}
+
+.card{
+    transition: 0.4s;
+    transform-style: preserve-3d;
+}
+
+.card-container.drag > .card {
+    transform: rotateY(180deg);
+}
+
+.card::before{
+    content: "";
+    border-radius: 12px;
+    background: var(--image-url);
+    display: block;
+    filter: sepia(0.3);
+    height: 300px;
+    width: 180px;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+.card::after{
+    content: "";
+    border-radius: 13px;
+    background: center/105% url("./assets/card_backing_temp.jpg");
+    display: block;
+    margin-top: -300px;
+    height: 300px;
+    width: 180px;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
 
 /* Main Board */
-
-
 .playing-area{
     width: 21vw;
     height: 60vh;
@@ -164,6 +197,7 @@ h1 {
     opacity: 0.63;
     filter: blur(0.8px);
 }
+
 
 /*Info*/
 .info-area{
@@ -200,6 +234,14 @@ iframe {
 p {
     font-size: 12px;
     font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+
+/*About Me Page*/
+.about > .about-pic-1 {
+    height: 500px;
+    filter: grayscale(0.5) sepia(0.5);
+    mix-blend-mode:darken;
 }
 
 /* Global Attributes */

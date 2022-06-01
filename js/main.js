@@ -6,28 +6,56 @@
   Make Card Placement Dynamic
 
   Implement Draw Pile (Figure out how this will work with Card Hand System)
+
+  Turn Card into Nested Div for Shadows, move parent, rotate child
 */
 
-import {config, elements, state} from './config.js'
+import {config, elements} from './config.js'
+import {state} from './state.js'
 import {getTransformStringDrag, getTransformStringHand} from './transformHelper.js';
-import {Card} from './Card.js';
+import {create_card} from './Card.js';
 
+/**
+ * Loads any possible state data from local storage
+ * @todo Implement this function
+ */
+function load_data(){
 
+}
+
+/**
+ * Saves state data to local storage
+ * @todo Implement this function
+ */
+function save_data(){
+  localStorage.cards = JSON.stringify(state.cards.map(card => card.name));
+  localStorage.activeCard = state.activeCard.name;
+}
+
+/**
+ * Initiates the whole site
+ */
 function init(){
-  elements.globalContainer = document.getElementById("global-container");
-  elements.playingArea = document.getElementById("playing-area");
-  elements.cardSlot = document.getElementById("card-slot");
+  load_data();
 
+  Object.keys(elements).forEach(key => {
+    elements[key] = document.getElementById(key);
+  });
+
+  //Updates DOM to any specific config elements
   elements.cardSlot.style.height = config.cardHeight + "px";
   elements.cardSlot.style.width = config.cardWidth + "px";
   elements.cardSlot.style.transform = `scale(${config.activeScale*0.98})`
   elements.cardSlot.style.marginLeft = `calc((21vw - ${config.cardWidth }px)/2)`;
   elements.cardSlot.style.marginTop =  `calc((60vh - ${config.cardHeight}px)/2)`;
+  elements.cardTemplate.style.height = config.cardHeight + "px";
+  elements.cardTemplate.style.width = config.cardWidth + "px";
 
   elements.playingArea.addEventListener("mouseup", evt => {   
     state.activeCard?.hideInfo();
     state.activeCard?.backToHand();
 
+    console.log(state.draggedCard);
     state.draggedCard?.activate();
     state.activeCard = state.draggedCard;
     state.draggedCard = null;
@@ -57,22 +85,24 @@ function init(){
     }
   })
 
-  state.cardQueue = ["about", "projects", "school", "this_site", "mandelbulb"];
+  state.cardQueue = ["about", "projects", "contact", "resume", "thisSite", "mandelbulb"];
   setInterval(updateCardPositions, config.updateInterval);
 };
 window.addEventListener("load",init);
 
-let frame = 0;
+/**
+ * Updates the transform of every card (doesnt have to be too often thanks to css transitions)
+ */
 function updateCardPositions(){
-  frame += config.updateInterval;
+  state.frame += config.updateInterval;
 
   //Dragged Card
   if(state.draggedCard) {
-    state.draggedCard.element.style.transform = getTransformStringDrag(frame);
+    state.draggedCard.element.style.transform = getTransformStringDrag();
   }
 
   //Cards in Hand
-  const amountOfCards = state.cards.length - (state.draggedCardIndex != -1) - (state.activeCardIndex != -1) - 1 + (state.draggedCardIndex != -1 && state.mouse.distance < 300);
+  const amountOfCards = state.cards.length - (!!state.activeCard) - (state.draggedCard && state.mouse.distance > 300) - 1;
   const angleDif = (amountOfCards) ? config.cardHandAngle/amountOfCards : 0;
   let currentAngle = (amountOfCards) ? -config.cardHandAngle/2 : 0;
   let draggedCardSkipped = false;
@@ -86,8 +116,8 @@ function updateCardPositions(){
     currentAngle+=angleDif;
   };
 
-  if(state.cardQueue.length && frame%(config.updateInterval*config.cardDealSpeed) == 0){
-    const new_card = new Card(state.cardQueue[0]);
+  if(state.cardQueue.length && state.frame%(config.updateInterval*config.cardDealSpeed) == 0){
+    const new_card = create_card(state.cardQueue[0]);
     state.cards.push(new_card);
     state.cardQueue.shift();
   };
