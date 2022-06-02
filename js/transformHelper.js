@@ -17,7 +17,6 @@ export function getTransformStringHand(angle){
 export function getTransformStringDrag(){
     const angle = (state.frame*config.wobbleSpeed/1000)%(2*Math.PI);
     return `translate(${state.mouse.x - config.cardWidth/2}px, ${state.mouse.y - config.cardHeight/2}px) scale(${config.activeScale})`;
-    return `translate(${state.mouse.x - config.cardWidth/2}px, ${state.mouse.y - config.cardHeight/2}px) scale(${config.activeScale})  rotate3d(${Math.sin(angle)},${Math.cos(angle)},0, ${config.wobbleIntensity}deg)`;
 }
 
 /**
