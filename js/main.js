@@ -15,8 +15,6 @@ import {state} from './state.js'
 import {getTransformStringDrag, getTransformStringHand} from './transformHelper.js';
 import {create_card} from './Card.js';
 
-window.config = config;
-
 /**
  * Loads any possible state data from local storage
  * @todo Implement this function
