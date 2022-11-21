@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kaisei+Tokumin&display=swap');
 
 * {
     box-sizing: border-box;
@@ -9,8 +10,6 @@ body {
     overflow: hidden;
     transform-style: preserve-3d;
     filter: blur(0.0px);
-    background-image: url("assets/wood-background.jpg");
-    background-size: 70%;
 }
 
 .global-container{
@@ -22,26 +21,36 @@ body {
     display: flex;
     align-items: center;
     background: repeat top/40% url("assets/paper_texture.jpg");
-    filter: saturate(0.5) contrast(0.9) brightness(1.12);
+    filter: saturate(0.8) contrast(0.9) brightness(1.06);
 }
-.global-container2{
-    filter: saturate(0.6) contrast(0.9) brightness(1.12) drop-shadow(4px 4px 20px rgba(0,0,0,.9));
-    background: none;
-    transform: scale(0.9) rotate(2deg);
+
+.global-container > * {
+    transition: opacity 1.6s;
 }
+
+.global-container.start > .playing-area {
+    opacity: 0;
+}
+
+
+.global-container.start > .divider {
+    opacity: 0;
+}
+
+.global-container.start > .info-area {
+    opacity: 0;
+}
+
+.global-container.start > .corner {
+    opacity: 0.0;
+}
+
+
 
 .global-container > .background {
     display: none;
 }
 
-.global-container2 > .background {
-    position: absolute;
-    width: 104vw;
-    height: 110vh;
-    left:-2vw;
-    top: -5vh;
-    display: block;
-}
 
 /* Z-Index Overview
 0: Base
@@ -52,17 +61,15 @@ body {
 */
 
 /* Overlay */
-h1 {
+.title {
     position: absolute;
     top: 0px;
     z-index: 1;
-    text-align: center;
-    width: 100vw;
-    opacity: 0.8;
-    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.4)) blur(0.5px);
+    margin-left: 40vw;
+    margin-top: 3vh;
+    width: 20vw;
+    mix-blend-mode: multiply;
 }
-
-
 
 
 .footer {
@@ -80,6 +87,7 @@ h1 {
     width: 22vh;
     height: 22vh;
     filter: blur(0.8px);
+    mix-blend-mode: multiply;
 }
 
 .corner.top-left{
@@ -109,17 +117,27 @@ h1 {
 
 .card-container{
     position: absolute;
-    z-index: 2;
     top: 0px;
     left: 0px;
-    transition: 0.4s;
-    transform: translate(40vw,150vh);
-    filter: sepia(0.3) drop-shadow(13px 13px 13px rgba(0,0,0,0.5));
+    filter: sepia(0.3) drop-shadow(0px 0px 5px rgba(0,0,0, 0.8));
+    transition: 2.0s;
+    z-index: 1;
+}
+
+.card-container.down > .card{
+    transform: rotateY(180deg);
+}
+
+.card-container.hand{
+    transition: 0.6s;
     user-select: none;
+    filter: sepia(0.3) drop-shadow(5px 5px 7px rgba(0,0,0, 0.6));
+    z-index: 2;
 }
 
 .card-container.drag{
-    transition: 0.1s;
+    transition: 0.1s ease-out;
+    filter: sepia(0.3) drop-shadow(13px 13px 16px rgba(0,0,0, 0.6));
     z-index: 4;
     pointer-events: none;
 }
@@ -137,13 +155,13 @@ h1 {
 }
 
 .card{
-    transition: 0.4s;
+    transition: 0.5s;
     transform-style: preserve-3d;
 }
-
+/* 
 .card-container.drag > .card {
     transform: rotateY(180deg);
-}
+} */
 
 .card::before{
     content: "";
@@ -160,7 +178,7 @@ h1 {
 .card::after{
     content: "";
     border-radius: 13px;
-    background: center/105% url("./assets/card_backing_temp.jpg");
+    background: center/100% url("./assets/cards/card_backing.png");
     display: block;
     margin-top: -300px;
     height: 300px;
@@ -179,16 +197,10 @@ h1 {
 }
 
 .card-slot{
-    width: 120px;
-    height: 200px;
-    border: 1px dashed black;
-    border-radius: 5px;
+    width: 1vw;
     text-align: center;
-    padding-top: 100px;
-    padding-left: 20px;
-    padding-right: 20px;
-    opacity: 0.6;
-    transform: scale(1.1);
+    margin: 5vh 3vw;
+    mix-blend-mode: multiply;
 }
 
 .divider{
@@ -205,6 +217,7 @@ h1 {
     height: 100vh;
     padding: 15vh 5vw;
     padding-right: 10vw;
+    font-family: 'Kaisei Tokumin', serif;
 }
 
 .info {
@@ -223,7 +236,7 @@ a {
 
 iframe {
     /* Will end up being 65vw 70vh*/
-    width: 100vw;
+    width: 90vw;
     height: 107.6923vh;
     border: 2px black solid;
     border-radius: 20px;
@@ -238,14 +251,44 @@ p {
 
 
 /*About Me Page*/
-.about > .about-pic-1 {
-    height: 500px;
-    filter: grayscale(0.5) sepia(0.5);
-    mix-blend-mode:darken;
+.about {
+    width: 55vw;
+    height: 70vh;
+}
+
+.aboutImage1 {
+    position: absolute;
+    mix-blend-mode: multiply;
+    top:0px;
+    right:25vw;
+    width:25vw;
+}
+
+.aboutImage2 {
+    position: absolute;
+    mix-blend-mode: multiply;
+    bottom: 0px;
+    left: 0px;
+    width:15vw;
+}
+
+
+
+.aboutText {
+    position: absolute;
+    right: 0px;
+    font-size: 16px;
+    text-align: right;
+    width: 21vw;
 }
 
 /* Global Attributes */
-.info.hidden {
+.hidden {
     opacity: 0.0;
     pointer-events: none;
+    z-index: -2;
+}
+
+.sound {
+    display: none;
 }

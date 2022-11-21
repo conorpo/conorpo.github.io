@@ -26,12 +26,11 @@ export const state = {
     cards: [],
     activeCard: null,
     draggedCard: null,
-    cardQueue: [],
+    mouse_over_card: null,
     tableMode: false,
     frame: 0
 }
   
-
 
 export const save = {
     tableMode: false,

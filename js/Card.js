@@ -1,12 +1,14 @@
 import {config, elements} from './config.js';
 import {state} from './state.js';
-import { getTransformStringDrag,getRandomTransform } from './transformHelper.js';
+import { getTransformStringDrag } from './transformHelper.js';
+import {sounds} from './Sound.js'
 
 
 const card_proto = {
     activate() {
-        console.log(this);
         this.status = 2;
+
+        sounds.place.play();
 
         this.element.classList.remove("drag");
         this.element.classList.add("active");
@@ -22,6 +24,8 @@ const card_proto = {
         this.status = code;
     },
     pickUp(){
+        sounds.pickup.play();
+
         state.draggedCard = this;
 
         this.element.classList.add("drag");
@@ -36,6 +40,25 @@ const card_proto = {
 
         this.status = 1;
     },
+    backToHand(){
+        this.status = 0;
+        state.mouse_over_card = null;
+        this.element.classList.remove("active");
+        this.element.classList.remove("drag");
+    },
+    showInfo(){
+        if(this.hasIframe){
+            console.log("test");
+            clearTimeout(this.iframeTimeout);
+            this.infoElement.lastElementChild.src = config[this.name]();
+        }
+
+        this.infoElement.classList.remove("hidden");
+        this.infoElement.getAttribute("data-cardsheld")?.split(" ").forEach(str => {
+            console.log(str);
+            document.getElementById(str+"Card")?.classList.remove("hidden");
+        });
+    },
     hideInfo(){
         if(this.hasIframe){
             this.iframeTimeout = setTimeout(() => {
@@ -43,51 +66,49 @@ const card_proto = {
             }, 500);
         }
 
-        this.infoElement.style.transform = getRandomTransform();
         this.infoElement.classList.add("hidden");
+        this.infoElement.getAttribute("data-cardsheld")?.split(" ").forEach(str => {
+            document.getElementById(str+"Card")?.classList.add("hidden");
+        });
     },
-    backToHand(){
-        this.status = 0;
-        this.element.classList.remove("active");
-        this.element.classList.remove("drag");
-    },
-    showInfo(){
-        if(this.hasIframe){
-            clearTimeout(this.iframeTimeout);
-            this.infoElement.lastElementChild.src = config[this.name]();
-        }
-
-        this.infoElement.style.transform = "";
-        this.infoElement.classList.remove("hidden");
+    sameAs(other){
+        if(other == null || other == undefined) return false;
+        return this.index == other.getAttribute("data-cardindex");
     }
 }
 
-export function create_card(name) {
+export function activate_card(ele) {
     const card = Object.create(card_proto);
-
-    card.index = state.cards.length;
+    
+    sounds.flip.play();
+    
+    card.index = ele.getAttribute("data-cardindex");
     
     /** This is what's used to find the corresponding image and info element */
-    card.name = name;
+    card.name = ele.getAttribute("data-cardname");
     
     /** 0 is in hand, 1 is being dragged, 2 is active in slot */
-    card.status = 0; 
-
+    card.setStatus(0);
+    
     /** The actual HTML element of the card */
-    card.element = elements.cardTemplate.cloneNode(true);
-    card.element.id = `${name}Card`;
-    card.element.style.setProperty('--image-url', `center/100% url(assets/cards/${name}.png)`);
+    card.element = ele;
+    card.element.style.setProperty('--image-url', `center/100% url(assets/cards/${card.name}.png)`);
+    card.element.classList.add("hand");
+    card.element.classList.remove("down");
     card.element.addEventListener("mousedown", () => {card.pickUp()});
     card.element.addEventListener("mouseup", () => {if(card.status == 2) {elements.playingArea.dispatchEvent(new Event('mouseup'))}});
-
+    
     /** The corresponding html info element that is revealed when card is active */
-    card.infoElement = document.getElementsByClassName(name)?.[0];
-    if(card.infoElement?.classList.contains("hidden")) card.infoElement.style.transform = getRandomTransform();
-
+    card.infoElement = document.getElementById(card.name+"Info");
     card.hasIframe = card.infoElement?.lastElementChild?.tagName?.toLowerCase() == "iframe";
     card.iframeTimeout = null;
 
-    elements.globalContainer.appendChild(card.element);
+    /** Remove the Card from any assocaited info elements */
+    if(state.activeCard){
+        let cardsHeldString = state.activeCard?.infoElement.getAttribute("data-cardsheld");
+        cardsHeldString = cardsHeldString.replace(card.name,"").replace("  "," ").trim();
+        state.activeCard?.infoElement.setAttribute("data-cardsheld", cardsHeldString);
+    }
 
     return card;
 }

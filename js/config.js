@@ -16,7 +16,7 @@
  * @todo Move the 2 iframe url makers to a differnt object
  */
 export const config = {
-  updateInterval: 20,
+  updateInterval: 15,
   cardDealSpeed: 8,
 
   cardHandAngle: 40, 
@@ -30,7 +30,8 @@ export const config = {
   activeScale: 1.20,
 
   thisSite: () => `index.html?${!location.search ? 1 : Number(location.search.split("?").pop()) + 1}`,
-  mandelbulb: () => `https://conorpo.github.io/webgl_mandelbulb/`
+  mandelbulb: () => `https://conorpo.github.io/webgl_mandelbulb/`,
+  resume: () => `./assets/resume.pdf`,
 };
 
 
@@ -48,6 +49,6 @@ export const config = {
  * @type {Elements}
  */
 export const elements = {
-  globalContainer: null, playingArea:null , thisSite:null , cardSlot:null, cardTemplate:null
+  globalContainer: null, playingArea:null , thisSite:null , cardSlot:null, soundContainer:null
 }
 
