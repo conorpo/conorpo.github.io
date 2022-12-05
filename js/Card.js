@@ -15,6 +15,8 @@ const card_proto = {
         this.element.style.transform = `translate(calc(4vw + (21vw - ${config.cardWidth }px)/2), calc(20vh + (60vh - ${config.cardHeight}px)/2)) scale(${config.activeScale})`;
 
         this.showInfo();
+
+        window.location.hash = `#${this.name}`;
     },
     /**
      * Status setter so that optional chaning can be used

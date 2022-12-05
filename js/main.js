@@ -93,6 +93,16 @@ function init(){
     state.mouse.distance = Math.sqrt(Math.pow((state.mouse.x-window.innerWidth/2),2) + Math.pow(window.innerHeight-state.mouse.y,2));
   })
   requestAnimationFrame(updateCardPositions);
+
+  console.log(window.location.hash)
+  if(window.location.hash) {
+    const hash = window.location.hash.substring(1);
+    console.log("hash");
+    state.cards.push(activate_card(document.getElementById(`${hash}Card`)));
+    elements.globalContainer.classList.remove("start");
+    document.getElementById(`${hash}Card`).classList.remove("hidden");
+    state.cards[0].activate();
+  }
 };
 window.addEventListener("load",init);
 
