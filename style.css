@@ -320,10 +320,19 @@ p {
 
 .instructions > img {
     width: 90vw;
-    height: 107.6923vh;
+    height: 100vh;
     border: 2px black solid;
     border-radius: 20px;
-    transform: scale(0.65);
+    transform: translateY(20px) scale(0.65);
+    transform-origin: 0.0 0.0;
+}
+
+.proposal > iframe {
+    width: 90vw;
+    height: 100vh;
+    border: 2px black solid;
+    border-radius: 20px;
+    transform: translateY(20px) scale(0.65);
     transform-origin: 0.0 0.0;
 }
 

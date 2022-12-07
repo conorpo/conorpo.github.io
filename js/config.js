@@ -33,6 +33,8 @@ export const config = {
   mandelbulb: () => `https://conorpo.github.io/webgl_mandelbulb/`,
   resume: () => `./assets/resume.pdf`,
   instructions: () => `https://medium.com/@conorpo/how-to-create-a-portfolio-website-from-scratch-5287d30cc9fd`,
+  application: () => `./assets/combinepdf.pdf`,
+  proposal: () => `./assets/proposal.pdf`
 };
 
 
