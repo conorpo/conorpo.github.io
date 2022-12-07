@@ -20,9 +20,9 @@ export const config = {
   cardDealSpeed: 8,
 
   cardHandAngle: 40, 
-  cardHandRadius: 500,
-  cardWidth: 180,//(window.innerHeight/4)*(3/5),
-  cardHeight: 300,//window.innerHeight/4,
+  cardHandRadius: 700,
+  cardWidth: window.matchMedia("(max-width:1399px)").matches ? 120 : 180,//(window.innerHeight/4)*(3/5),
+  cardHeight: window.matchMedia("(max-width:1399px)").matches ? 200 : 300,//window.innerHeight/4,
 
   wobbleIntensity: 17,
   wobbleSpeed: 3,
@@ -32,6 +32,7 @@ export const config = {
   thisSite: () => `index.html?${!location.search ? 1 : Number(location.search.split("?").pop()) + 1}`,
   mandelbulb: () => `https://conorpo.github.io/webgl_mandelbulb/`,
   resume: () => `./assets/resume.pdf`,
+  instructions: () => `https://medium.com/@conorpo/how-to-create-a-portfolio-website-from-scratch-5287d30cc9fd`,
 };
 
 

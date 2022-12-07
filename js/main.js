@@ -49,11 +49,7 @@ function init(){
   })
 
   //Updates DOM to any specific config elements
-  elements.cardSlot.style.height = config.cardHeight + "px";
-  elements.cardSlot.style.width = config.cardWidth + "px";
   elements.cardSlot.style.transform = `scale(${config.activeScale*0.98})`
-  elements.cardSlot.style.marginLeft = `calc((21vw - ${config.cardWidth }px)/2)`;
-  elements.cardSlot.style.marginTop =  `calc((60vh - ${config.cardHeight}px)/2)`;
 
   for(const ele of document.getElementsByClassName("card-container")){
     ele.style.width = config.cardWidth + "px";
@@ -99,9 +95,17 @@ function init(){
     const hash = window.location.hash.substring(1);
     console.log("hash");
     state.cards.push(activate_card(document.getElementById(`${hash}Card`)));
+    if(hash.localeCompare("about") != 0) state.cards.push(activate_card(document.getElementById(`aboutCard`)));
+    if(hash.localeCompare("projects") != 0) state.cards.push(activate_card(document.getElementById(`projectsCard`)));
+    if(hash.localeCompare("resume") != 0) state.cards.push(activate_card(document.getElementById(`resumeCard`)));
     elements.globalContainer.classList.remove("start");
     document.getElementById(`${hash}Card`).classList.remove("hidden");
+    state.activeCard = state.cards[0];
     state.cards[0].activate();
+    state.cards.sort((a,b) => {
+      return a.index - b.index;
+    })
+    
   }
 };
 window.addEventListener("load",init);

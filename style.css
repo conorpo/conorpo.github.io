@@ -1,6 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kaisei+Tokumin&display=swap');
 
+::root{
+    --cardWidth: 120px;
+    --cardHeight: 200px;
+}
+
+@media screen and (min-width: 1400px) {
+    :root{
+        --cardWidth: 180px;
+        --cardHeight: 300px;
+    }   
+}
+@media screen and (max-width: 1399px) {
+    :root{
+        --cardWidth: 120px;
+        --cardHeight: 200px;
+    }   
+}
+
 * {
     box-sizing: border-box;
 }
@@ -169,8 +187,8 @@ body {
     background: var(--image-url);
     display: block;
     filter: sepia(0.3);
-    height: 300px;
-    width: 180px;
+    height: var(--cardHeight);
+    width: var(--cardWidth);
     backface-visibility: hidden;
     transform-style: preserve-3d;
     box-shadow: inset 0 0 4px 2px rgb(41, 22, 0);
@@ -179,11 +197,11 @@ body {
 .card::after{
     content: "";
     border-radius: 13px;
-    background: center/100% url("./assets/cards/card_backing.png");
+    background: center/100% url("./assets/cards/card_backing.jpg");
     display: block;
     margin-top: -300px;
-    height: 300px;
-    width: 180px;
+    height: var(--cardHeight);
+    width: var(--cardWidth);
     transform: rotateY(180deg);
     backface-visibility: hidden;
     transform-style: preserve-3d;
@@ -199,10 +217,14 @@ body {
 }
 
 .card-slot{
-    width: 1vw;
+    width: var(--cardWidth);
+    height: var(--cardHeight);
+    margin-left: calc((21vw - var(--cardWidth))/2);
+    margin-top: calc((60vh - var(--cardHeight))/2);
     text-align: center;
-    margin: 5vh 3vw;
     mix-blend-mode: multiply;
+    user-select: none;
+    pointer-events: none
 }
 
 .divider{
@@ -282,6 +304,27 @@ p {
     font-size: 16px;
     text-align: right;
     width: 21vw;
+}
+
+/* Projects Page */
+.ENC3241 {
+    position: absolute;
+    top:5vh;
+    right: 8vw;
+}
+.personal {
+    position: absolute;
+    top:5vh;
+    left: 8vw;
+}
+
+.instructions > img {
+    width: 90vw;
+    height: 107.6923vh;
+    border: 2px black solid;
+    border-radius: 20px;
+    transform: scale(0.65);
+    transform-origin: 0.0 0.0;
 }
 
 /* Global Attributes */

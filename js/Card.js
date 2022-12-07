@@ -50,7 +50,6 @@ const card_proto = {
     },
     showInfo(){
         if(this.hasIframe){
-            console.log("test");
             clearTimeout(this.iframeTimeout);
             this.infoElement.lastElementChild.src = config[this.name]();
         }
@@ -94,7 +93,7 @@ export function activate_card(ele) {
     
     /** The actual HTML element of the card */
     card.element = ele;
-    card.element.style.setProperty('--image-url', `center/100% url(assets/cards/${card.name}.png)`);
+    card.element.style.setProperty('--image-url', `center/100% url(assets/cards/${card.name}.jpg)`);
     card.element.classList.add("hand");
     card.element.classList.remove("down");
     card.element.addEventListener("mousedown", () => {card.pickUp()});
