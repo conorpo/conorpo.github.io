@@ -90,7 +90,6 @@ function init(){
   })
   requestAnimationFrame(updateCardPositions);
 
-  console.log(window.location.hash)
   if(window.location.hash) {
     const hash = window.location.hash.substring(1);
     console.log("hash");

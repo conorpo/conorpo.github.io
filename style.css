@@ -89,6 +89,33 @@ body {
     mix-blend-mode: multiply;
 }
 
+.title-text {
+    padding-top: 10px;
+    padding-left: 10vw;
+    margin-left: 30vw;
+    padding-right: 10vw;
+    width: 40vw;
+    font-family: 'MedievalSharp', cursive;
+    font-size: calc(20vw / 8);
+    color: rgba(0,0,0,0);
+    transform: rotate(0.05deg) scaleY(1.5);
+    transition: none;
+}
+
+
+::selection {
+    color: #C28E44;
+    background: #C28E44;
+}
+
+.title-text > span:nth-child(1) {
+    margin-right: -0.2vw;
+}
+
+.title-text > span:nth-child(2) {
+    letter-spacing: 2px;
+}
+
 
 .footer {
     font: 12px sans-serif;
@@ -99,6 +126,7 @@ body {
 }
 
 .corner {
+    user-select: none;
     position: absolute;
     margin: 30px;
     opacity: 0.63;
