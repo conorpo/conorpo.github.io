@@ -1,6 +1,12 @@
 import {config} from './config.js';
 import {state} from './state.js'
 
+
+/**
+ * @module transformHelper
+ * @description Helper functions for getting transform strings
+ */
+
 /**
  * Gets a transform for a card in the hand
  * @param {number} angle The angle of the card in the hand 

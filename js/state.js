@@ -1,4 +1,7 @@
-
+/**
+ * @module state
+ * @description Handles the state of the site
+ */
 
 /**
  * @typedef {Object} Mouse
@@ -17,6 +20,7 @@
  * @property {Array<string>} cardQueue A list of cards to add
  * @property {Array<Card>} cards All unlocked cards
  * @property {number} frame The current frame for animations
+ * @property {number} lastTime The last time that the update function was called
  */
 /**
  * The State of the Site 
@@ -28,7 +32,8 @@ export const state = {
     draggedCard: null,
     mouse_over_card: null,
     tableMode: false,
-    frame: 0
+    frame: 0,
+    lastTime: 0,
 }
   
 

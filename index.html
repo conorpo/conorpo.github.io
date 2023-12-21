@@ -8,9 +8,10 @@
   <script src="./js/config.js" type="module"></script>
   <script src="./js/state.js" type="module"></script>
   <script src="./js/Card.js" type="module"></script>
-  <script src="./js/Sound.js" type="module"></script>
+  <script src="./js/sounds.js" type="module"></script>
   <script src="./js/transformHelper.js" type="module"></script>
-  <script src="./js/main.js" type="module"></script>
+  <script src="./js/elements.js" type="module"></script>
+  <script src="./js/main.js" type="module" defer></script>
   <title>conorpo.github.io</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🃏</text></svg>">
 </head>
@@ -44,13 +45,13 @@
           </div>
         </div>
       </div>
-      <div id="projectsInfo" class="info projects hidden" data-cardsheld="mandelbulb thisSite instructions reflection proposal application">
+      <div id="projectsInfo" class="info projects hidden" data-cardsheld="mandelbulb thisSite knightHacks marchingcubes">
         <h1 class="personal">Personal</h1>
-        <h1 class="ENC3241">ENC3241</h1>
+        <iframe frameborder="0"></iframe>
       </div>
       <div id="resumeInfo" class="info hidden">
         <a href="./assets/resume.pdf"></a>
-        <iframe src="" frameborder="0"></iframe>
+        <iframe frameborder="0" src="./assets/resume.pdf" id="resume-iframe"></iframe>
       </div>
       <div id="contactInfo" class="info hidden">
         CONTACT
@@ -62,35 +63,21 @@
           <a href="https://conorpo.github.io/webgl_mandelbulb/" target="_blank"></a>
           <iframe id="mandelbulb-iframe"></iframe>
       </div>
-      <div id="reflectionInfo" class="info hidden">
-        <div class="reflectionText">
-          <h1>Reflection</h1>
-          <div>&emsp;&emsp;I think that my portfolio is coming together pretty nicely so far. Very happy with the layout and functionality thus far. I like my navigation system because I feel it is pretty unique, but not cumbersome enough to annoy users. My main gripe so far would probably be my font and text design. I feel that it breaks the illusion and vibe of the rest of my site. I was trying to go for a hand-drawn paper feel and the text really doesnt go with that. Developing the site has mainly challenged and improved my CSS abilities, even though most of my time has been taken up by creating the dynamic functionality in JavaScript. I guess my main question would be hoping to get your input on the text aswell as the navigation of the site. Did I take it too far with the "gamey" elements on the site or is it fine? What would be your best advicve on improving the look of the text? Other than that I'm pretty happy with the direction of my portfolio and I think I should be able to put the finishing touches on it before I officially submit. (Although I will probably end up working on it alot more even afterwards)  </div>
-        </div>
-      </div>
       <div id="climbingInfo" class="info hidden">
         CLIMBING
       </div>
-      <div id="applicationInfo" class="info hidden">
-        <a href="./assets/combinepdf.pdf" target="_blank"></a>
-        <iframe id="application-iframe"></iframe>
+      <div id="knightHacksInfo" class="info hidden">
+        <a href="https://knight-hacks.github.io/" target="_blank"></a>
+        <iframe id="knightHacks-iframe"></iframe>
       </div>
-      <div id="instructionsInfo" class="info instructions hidden">
-        <a href="https://medium.com/@conorpo/how-to-create-a-portfolio-website-from-scratch-5287d30cc9fd" target="_blank"></a>
-        &emsp;&emsp;This is an instructional article I wrote up that teaches readers how to create their portfolio site from scratch rather than using a website building tool. It was made as part of an assignment for ENC3241 - Writing for the Technical Professional. The article is hosted on Medium.com, a free blogging tool widely used in the tech industry.
-        <img src="./assets/pictures/instructions.png" alt="">
+      <div id="marchingcubesInfo" class="info hidden">
+        <a href="https://conorpo.github.io/webgl_marchingcubes/" target="_blank"></a>
+        <iframe id="marchingcubes-iframe"></iframe>
       </div>
-      <div id="proposalInfo" class="info proposal hidden">
-        <a href="./assets/proposal.pdf" target="_blank"></a>
-        &emsp;&emsp;This is a research grant proposal that I wrote which lays out the plans for research I would be doing involving the effect that Desert Exploration had on Military History.  It was made as part of an assignment for ENC3241 - Writing for the Technical Professional. I just chose something I was passionate about to write about, I doubt that the University would really consider research like this.
-        <iframe id="proposal-iframe"></iframe>
-      </div> 
     </div>
-    <div id="applicationCard" data-cardname="application" data-cardindex=11  class="card-container down hidden" style="transform: translate(76vw,36vh) rotate(0deg);"></div>
-    <div id="proposalCard" data-cardname="proposal" data-cardindex=10  class="card-container down hidden" style="transform: translate(74vw,34vh) rotate(0deg);"></div>
-    <div id="instructionsCard" data-cardname="instructions" data-cardindex=9  class="card-container down hidden" style="transform: translate(72vw,32vh) rotate(0deg);"></div>
-    <div id="reflectionCard" data-cardname="reflection" data-cardindex=8  class="card-container down hidden" style="transform: translate(70vw,30vh) rotate(0deg);"></div>
-
+    
+    <div id="marchingcubesCard" data-cardname="marchingcubes" data-cardindex=9 class="card-container down hidden" style="transform: translate(50vw,40vh) rotate(10deg);"></div>
+    <div id="knightHacksCard" data-cardname="knightHacks" data-cardindex=8 class="card-container down hidden" style="transform: translate(50vw,40vh) rotate(10deg);"></div>
     <div id="contactCard" data-cardname="contact" data-cardindex=7  class="card-container down hidden" style="transform: translate(77.3vw,58vh) rotate(90deg);"></div>
     <div id="climbingCard" data-cardname="climbing" data-cardindex=6  class="card-container down hidden" style="transform: translate(38vw,44vh) rotate(-10deg);"></div>
     <div id="thisSiteCard" data-cardname="thisSite" data-cardindex=5  class="card-container down hidden" style="transform: translate(40vw,30vh) rotate(-10deg);"></div>
@@ -98,7 +85,6 @@
     <div id="resumeCard" data-cardname="resume" data-cardindex=3  class="card-container down" style="transform: translate(52vw,46vh) rotate(-20deg);"></div>
     <div id="projectsCard" data-cardname="projects" data-cardindex=2  class="card-container down" style="transform: translate(40vw,41vh) rotate(30deg);"></div>
     <div id="aboutCard" data-cardname="about" data-cardindex=1 class="card-container down" style="transform: translate(47vw,35vh) rotate(-5deg);"></div>
-    
   </div>
   <div id="soundContainer"></div>
   </body>

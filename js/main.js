@@ -8,13 +8,13 @@
   Edit about page after contact card is taken
 */
 
-import {config, elements} from './config.js'
+import {config} from './config.js'
 import {state} from './state.js'
 import {getTransformStringDrag, getTransformStringHand} from './transformHelper.js';
 import {activate_card} from './Card.js';
-import {create_sound, sounds} from './Sound.js'
-
-window.config = config;
+import {createSoundElements, sounds} from './sounds.js'
+import {findElements, elements} from './elements.js';
+import { addMouseEventListeners } from './mouse.js';
 
 /**
  * Loads any possible state data from local storage
@@ -36,68 +36,36 @@ function save_data(){
 /**
  * Initiates the whole site
  */
-function init(){
+(async function init(){
   load_data();
 
-  Object.keys(elements).forEach(key => {
-    elements[key] = document.getElementById(key);
-  });
+  config.updateCSS();
 
-  Object.keys(sounds).forEach(key => {
-    sounds[key] = create_sound(`./assets/sounds/${key}.mp3`);
-    elements.soundContainer.appendChild(sounds[key].ele);
-  })
+  try {
+    await findElements(["globalContainer", "playingArea", "cardSlot", "soundContainer"]);
+    await createSoundElements(["flip.mp3","pickup.mp3","place.mp3","draw.mp3"], elements.get("soundContainer"));
+  } catch (error) {
+    console.error(error);
+    return;
+  }
 
-  //Updates DOM to any specific config elements
-  elements.cardSlot.style.transform = `scale(${config.activeScale*0.98})`
+  addMouseEventListeners();
 
   for(const ele of document.getElementsByClassName("card-container")){
-    ele.style.width = config.cardWidth + "px";
-    ele.style.height = config.cardHeight + "px";
-
     const actual_card = document.createElement("DIV");
     actual_card.classList.add("card");
     ele.appendChild(actual_card);
   };
 
-  elements.playingArea.addEventListener("mouseup", evt => {   
-    state.activeCard?.hideInfo();
-    state.activeCard?.backToHand();
-
-    state.draggedCard?.activate();
-    state.activeCard = state.draggedCard;
-    state.draggedCard = null;
-  });
-
-  elements.globalContainer.addEventListener("mouseup", evt=> {
-    state.draggedCard?.backToHand();
-    state.draggedCard = null;
-    elements.globalContainer.style.cursor = "auto";
-  });
-
-  elements.globalContainer.addEventListener("mousemove", evt => {
-    state.mouse.x = evt.clientX;
-    state.mouse.y = evt.clientY;
-    if(evt.target.classList.contains("card-container")){
-      state.mouse_over_card = evt.target;
-    }else if(evt.target.classList.contains("card")){
-      state.mouse_over_card = evt.target.parentElement;
-    }else{
-      state.mouse_over_card = null;
-    }
-    state.mouse.angle = Math.atan((state.mouse.x-window.innerWidth/2)/(window.innerHeight-state.mouse.y)) / Math.PI * 180;
-    state.mouse.distance = Math.sqrt(Math.pow((state.mouse.x-window.innerWidth/2),2) + Math.pow(window.innerHeight-state.mouse.y,2));
-  })
   requestAnimationFrame(updateCardPositions);
 
   if(window.location.hash) {
     const hash = window.location.hash.substring(1);
-    console.log("hash");
     state.cards.push(activate_card(document.getElementById(`${hash}Card`)));
     if(hash.localeCompare("about") != 0) state.cards.push(activate_card(document.getElementById(`aboutCard`)));
     if(hash.localeCompare("projects") != 0) state.cards.push(activate_card(document.getElementById(`projectsCard`)));
     if(hash.localeCompare("resume") != 0) state.cards.push(activate_card(document.getElementById(`resumeCard`)));
-    elements.globalContainer.classList.remove("start");
+    elements.get("globalContainer").classList.remove("start");
     document.getElementById(`${hash}Card`).classList.remove("hidden");
     state.activeCard = state.cards[0];
     state.cards[0].activate();
@@ -106,17 +74,15 @@ function init(){
     })
     
   }
-};
-window.addEventListener("load",init);
+})();
 
 /**
  * Updates the transform of every card (doesnt have to be too often thanks to css transitions)
- */
-let lastTime;
+*/
 function updateCardPositions(time){
   requestAnimationFrame(updateCardPositions);
-  if(lastTime != null && time - lastTime < config.updateInterval) return;
-  lastTime = time;
+  if(state.lastTime != null && time - state.lastTime < config.updateInterval) return;
+  state.lastTime = time;
 
   //Dragged Card
   if(state.draggedCard) {
@@ -130,7 +96,7 @@ function updateCardPositions(time){
   let draggedCardSkipped = false;
   for (const Card of state.cards){
     if(Card.status) continue;
-    if(!draggedCardSkipped &&state.draggedCard && state.mouse.distance < 300 && currentAngle > state.mouse.angle){
+    if(!draggedCardSkipped && state.draggedCard && state.mouse.distance < 300 && currentAngle > state.mouse.angle){
       currentAngle += angleDif;
       draggedCardSkipped = true;
     }
@@ -141,7 +107,7 @@ function updateCardPositions(time){
   if(state.mouse_over_card?.classList.contains("down")) {
     state.cards.push(activate_card(state.mouse_over_card));
     if(state.cards.length == 3) {
-      elements.globalContainer.classList.remove("start");
+      elements.get("globalContainer").classList.remove("start");
       sounds.draw.play();
     }
     state.cards.sort((a,b) => {

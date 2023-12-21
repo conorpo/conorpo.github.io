@@ -1,4 +1,9 @@
 /**
+ * @module config
+ * @description Holds the main config for the site
+ */
+
+/**
  * @typedef {Object} Config
  * @property {number} updateInterval The time between updates in ms
  * @property {number} cardDealSpeed The amount of updates between card deals
@@ -9,6 +14,8 @@
  * @property {number} wobbleIntensity The angle at which a dragged card wobbles in degrees
  * @property {number} wobbleSpeed An arbitrary value which is proportional to the speed at which a dragged card wobbles
  * @property {number} activeScale A multipler to the scale of dragged and active cards
+ * 
+ * @property {function} updateCSS Updates the css variables that are based on the config
  */
 /**
  * The main config settings
@@ -31,27 +38,13 @@ export const config = {
 
   thisSite: () => `index.html?${!location.search ? 1 : Number(location.search.split("?").pop()) + 1}`,
   mandelbulb: () => `https://conorpo.github.io/webgl_mandelbulb/`,
+  projects: () => `https://github.com/conorpo`,
   resume: () => `./assets/resume.pdf`,
-  instructions: () => `https://medium.com/@conorpo/how-to-create-a-portfolio-website-from-scratch-5287d30cc9fd`,
-  application: () => `./assets/combinepdf.pdf`,
-  proposal: () => `./assets/proposal.pdf`
+
+  /** Updates */
+  updateCSS() {
+    document.documentElement.style.setProperty('--cardWidth', this.cardWidth + "px");
+    document.documentElement.style.setProperty('--cardHeight', this.cardHeight + "px");
+    document.documentElement.style.setProperty('--activeScale', this.activeScale);
+  }
 };
-
-
-
-/**
- * @typedef {Object} Elements
- * @property {HTMLElement} globalContainer The html div that contains everything
- * @property {HTMLElement} playingArea The html div where cards can be played
- * @property {HTMLElement} thisSite The iframe that is used to display the site recursively
- * @property {HTMLElement} cardSlot The actual dashed out slot html div where active cards go
- * @property {HTMLElement} cardTemplate The HTML element to be copied when making cards
- */
-/**
- * A collection of HTML elements that we access often in code
- * @type {Elements}
- */
-export const elements = {
-  globalContainer: null, playingArea:null , thisSite:null , cardSlot:null, soundContainer:null
-}
-
