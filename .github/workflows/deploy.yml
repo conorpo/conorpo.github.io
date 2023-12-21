@@ -34,7 +34,7 @@ jobs:
       - name: Build Docs
         uses: andstor/jsdoc-action@v1
         with:
-          source_dir: ./js/*
+          source_dir: ./js
           recurse: true
           output_dir: ./docs
       - name: Setup Pages
