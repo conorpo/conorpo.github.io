@@ -16,12 +16,11 @@ export const sounds = new Map();
 
 /**
  * Creates sound elements
- * @param {string[]} names The names of the sounds to create
+ * @param {string[]} filenames The filenames of the sounds to create, include file extensions
  * @param {HTMLElement} parent The parent to append the sounds to
- * @returns {Map<String,Sound>} An object with the names as keys and the sound objects as values
 */
-export function createSoundElements(names, parent){
-    names.forEach(name => {
+export function createSoundElements(filenames, parent){
+    filenames.forEach(name => {
         const [soundName, fileType] = name.split(".")
         const sound = createSound(`./assets/sounds/${soundName}.${fileType}`);
         sounds.set(soundName, sound);
@@ -37,7 +36,7 @@ const sound_proto = {
         this.ele.play();
     },
     stop(){
-        this.ele.stop();
+        this.ele.fastSeek(0);
     },
 };
 

@@ -1,5 +1,6 @@
 import {config} from './config.js';
-import {state} from './state.js'
+import {state} from './state.js';
+import {mouse} from './mouse.js';
 
 
 /**
@@ -22,6 +23,5 @@ export function getTransformStringHand(angle, active){
  * @returns {string} The transform that will be applied to the card element
  */
 export function getTransformStringDrag(){
-    const angle = (state.frame*config.wobbleSpeed/1000)%(2*Math.PI);
-    return `translate(${state.mouse.x - config.cardWidth/2}px, ${state.mouse.y - config.cardHeight/2}px) scale(${config.activeScale})`;
+    return `translate(${mouse.x - config.cardWidth/2}px, ${mouse.y - config.cardHeight/2}px) scale(${config.activeScale})`;
 }

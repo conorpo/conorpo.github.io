@@ -35,16 +35,13 @@ export const config = {
   wobbleSpeed: 3,
 
   activeScale: 1.20,
-
-  thisSite: () => `index.html?${!location.search ? 1 : Number(location.search.split("?").pop()) + 1}`,
-  mandelbulb: () => `https://conorpo.github.io/webgl_mandelbulb/`,
-  projects: () => `https://github.com/conorpo`,
-  resume: () => `./assets/resume.pdf`,
-
   /** Updates */
   updateCSS() {
-    document.documentElement.style.setProperty('--cardWidth', this.cardWidth + "px");
-    document.documentElement.style.setProperty('--cardHeight', this.cardHeight + "px");
-    document.documentElement.style.setProperty('--activeScale', this.activeScale);
+    document.documentElement.style.setProperty('--cardWidth', `${this.cardWidth}px`);
+    document.documentElement.style.setProperty('--cardHeight', `${this.cardHeight}px`);
+    document.documentElement.style.setProperty('--activeScale', `${this.activeScale}`);
   }
 };
+
+// @ts-ignore
+window.config = config;

@@ -2,7 +2,7 @@
 /**
  * @module elements
  * @description Gets elements from the DOM
- */
+*/
 
 /** @type {Map<String,HTMLElement>} */
 export const elements = new Map();
