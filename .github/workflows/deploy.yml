@@ -31,12 +31,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Build Docs
-        uses: andstor/jsdoc-action@v1
-        with:
-          source_dir: ./js
-          recurse: true
-          output_dir: ./docs
+      # - name: Build Docs
+      #   uses: andstor/jsdoc-action@v1
+      #   with:
+      #     source_dir: ./js
+      #     recurse: true
+      #     output_dir: ./docs
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
