@@ -5,7 +5,7 @@
 
 /**
  * @typedef {Object} Config
- * @property {number} updateInterval The time between updates in ms
+ * @property {number} cardUpdateInterval The time between updates in ms
  * @property {number} cardDealSpeed The amount of updates between card deals
  * @property {number} cardHandAngle The total angle of the card hand facing directy up
  * @property {number} cardHandRadius The radius of the imaginary circle that the cards in the hand are on
@@ -23,11 +23,11 @@
  * @todo Move the 2 iframe url makers to a differnt object
  */
 export const config = {
-  updateInterval: 15,
+  cardUpdateInterval: 15,
   cardDealSpeed: 8,
 
   cardHandAngle: 40, 
-  cardHandRadius: 700,
+  cardHandRadius: 1100,
   cardWidth: window.matchMedia("(max-width:1399px)").matches ? 120 : 180,//(window.innerHeight/4)*(3/5),
   cardHeight: window.matchMedia("(max-width:1399px)").matches ? 200 : 300,//window.innerHeight/4,
 

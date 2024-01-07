@@ -30,6 +30,11 @@ body {
     align-items: center;
     background: repeat top/40% url("assets/background.webp");
     filter: saturate(0.8) contrast(0.9) brightness(1.06);
+    transition: transform 0.7s;
+}
+
+.global-container.focus {
+    transform: translate(-10vw, 0px) scale(1.2);
 }
 
 .global-container > * {
@@ -248,23 +253,36 @@ body {
     height: 70vh;
     opacity: 0.63;
     filter: blur(0.8px);
+    user-select: none;
 }
 
 
 /*Info*/
-.info-area{
+.info-container{
     width: 70vw;
     height: 100vh;
     padding: 15vh 5vw;
     padding-right: 10vw;
     font-family: 'Kaisei Tokumin', serif;
+    filter: grayscale(0.8) sepia(0.8) opacity(0.8);
+
+
 }
 
 .info {
-    transition: 1.0s, opacity 0.5s;
+    transition: 1.0s, opacity 0.1s;
     position: absolute;
+    margin-right:100px;
     opacity: 1.0;
     width: 55vw;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 70vh;
+    border: 5px rgba(0,0,0,0.8) inset;
+    background-color: rgba(0,0,0,0.05);
+    border-radius: 20px;
+    padding-right: 0px;
+    scrollbar-gutter: both-edges;
 }
 
 a {
@@ -276,12 +294,9 @@ a {
 
 iframe {
     /* Will end up being 65vw 70vh*/
-    width: 90vw;
-    height: 107.6923vh;
-    border: 2px black solid;
-    border-radius: 20px;
-    transform: scale(0.65);
-    transform-origin: 0.0 0.0;
+    width: 101%;
+    height: 100%;
+    margin:-2px;
 }
 
 p {
@@ -291,9 +306,11 @@ p {
 
 
 /*About Me Page*/
-.about {
+.about-info {
     width: 55vw;
     height: 70vh;
+    text-align: right;
+    
 }
 
 .aboutImage1 {
@@ -312,28 +329,21 @@ p {
     width:15vw;
 }
 
-
-
 .aboutText {
-    position: absolute;
-    right: 0px;
+    text-align: left;
+    display: inline-block;
     font-size: 16px;
-    text-align: right;
     width: 21vw;
+    margin-right: 1vw;
+}
+
+.resume-info {
+    width: 55vw;
+    padding-right: 6px;
+    overflow-y: hidden;
 }
 
 /* Projects Page */
-.ENC3241 {
-    position: absolute;
-    top:5vh;
-    right: 8vw;
-}
-.personal {
-    position: absolute;
-    top:5vh;
-    left: 8vw;
-}
-
 .instructions > img {
     width: 90vw;
     height: 100vh;

@@ -1,6 +1,7 @@
 import { elements } from "./elements.js";
-import { state } from "./state.js";
-import { element_card_map } from "./Card.js";
+import { dragged_card, set_status } from "./CardManager.js";
+import { CardState } from "./Card.js";
+import { config } from "./config.js";
 
 /**
  * @module mouse
@@ -18,41 +19,30 @@ import { element_card_map } from "./Card.js";
 /** @type {Mouse} */
 export const mouse = {x: 0, y: 0, angle: 0, distance: 0};
 
+export let focus_mode = false;
+
 /**
  * Adds mouse event listeners to the document
 */
 export function addMouseEventListeners() {
-    elements.get("playingArea").addEventListener("mouseup", releaseInPlayingArea);
-    elements.get("globalContainer").addEventListener("mouseup", releaseOutsidePlayingArea);
+    elements.get("playingArea").addEventListener("mouseup", (evt) => {
+        console.log(dragged_card)
+        if(dragged_card) set_status(dragged_card, CardState.ACTIVE);
+        evt.stopPropagation();
+    });
+    elements.get("globalContainer").addEventListener("mouseup", (evt) => {
+        if(dragged_card) set_status(dragged_card, CardState.IN_HAND);
+        evt.stopPropagation();
+    });
     elements.get("globalContainer").addEventListener("mousemove", mouseMove);
+
+    //Focus
+    elements.get("infoContainer").addEventListener("click", (evt) => {
+        focus_mode = !focus_mode;
+        elements.get("globalContainer").classList.toggle("focus");
+        evt.stopPropagation();
+    });
 };
-
-/**
- * Event Handler for when the mouse is released in the playing area
- * 
- * Removes the active card, replaces it with the dragged card, draggedCard becomes null
- * @param {MouseEvent} evt The mouse event
-*/
-const releaseInPlayingArea = (evt) => {
-    state.activeCard?.hideInfo();
-    state.activeCard?.backToHand();
-
-    state.draggedCard?.activate();
-    state.activeCard = state.draggedCard;
-    state.draggedCard = null;
-}
-
-/**
- * Event Handler for when the mouse is released outside the playing area
- * 
- * Returns the dragged card to the hand, draggedCard becomes null
- * @param {MouseEvent} evt The mouse event
- */
-const releaseOutsidePlayingArea = (evt) => {
-    state.draggedCard?.backToHand();
-    state.draggedCard = null;
-    elements.get("globalContainer").style.cursor = "auto";
-}
 
 /**
  * Event Handler for when the mouse is moved
@@ -64,8 +54,6 @@ const releaseOutsidePlayingArea = (evt) => {
 const mouseMove = (evt) => {
     mouse.x = evt.clientX;
     mouse.y = evt.clientY;
-
-    element_card_map.get(evt.target)?.find_card();
 
     mouse.angle = Math.atan((mouse.x-window.innerWidth/2)/(window.innerHeight-mouse.y)) / Math.PI * 180;
     mouse.distance = Math.sqrt(Math.pow((mouse.x-window.innerWidth/2),2) + Math.pow(window.innerHeight-mouse.y,2));

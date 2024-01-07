@@ -1,38 +1,38 @@
 import {config} from './config.js'
-import {state} from './state.js'
+
 import {getTransformStringDrag, getTransformStringHand} from './transformHelper.js';
-import { create_cards } from './Card.js';
+import { create_cards, update_cards } from './CardManager.js';
 import {createSoundElements, sounds} from './sounds.js'
 import {findElements, elements} from './elements.js';
 import { addMouseEventListeners } from './mouse.js';
 import { mouse } from './mouse.js';
 
-/**
- * Loads any possible state data from local storage
- * @todo Implement this function
- */
-function load_data(){
+// /**
+//  * Loads any possible state data from local storage
+//  * @todo Implement this function
+//  */
+// function load_data(){
 
-}
+// }
 
-/**
- * Saves state data to local storage
- * @todo Implement this function
- */
-function save_data(){
-  localStorage.cards = JSON.stringify(state.cards.map(card => card.name));
-}
+// /**
+//  * Saves state data to local storage
+//  * @todo Implement this function
+//  */
+// function save_data(){
+//   localStorage.cards = JSON.stringify(state.cards.map(card => card.name));
+// }
 
 /**
  * Initiates the whole site
 */
 (async function init(){
-  load_data();
+  // load_data();
 
   config.updateCSS();
 
   try {
-    await findElements(["globalContainer", "playingArea", "cardSlot", "soundContainer"]);
+    await findElements(["globalContainer", "playingArea", "cardSlot", "soundContainer","infoContainer"]);
     await createSoundElements(["flip.mp3","pickup.mp3","place.mp3","draw.mp3"], elements.get("soundContainer"));
     create_cards();
   } catch (error) {
@@ -48,7 +48,7 @@ function save_data(){
     ele.appendChild(actual_card);
   };
 
-  requestAnimationFrame(updateCardPositions);
+  requestAnimationFrame(updateLoop);
 
   // if(window.location.hash) {
   //   const hash = window.location.hash.substring(1);
@@ -69,29 +69,13 @@ function save_data(){
 /**
  * Updates the transform of every card (doesnt have to be too often thanks to css transitions)
 */
-function updateCardPositions(time){
-  if(state.lastTime != null && time - state.lastTime < config.updateInterval) return;
-  state.lastTime = time;
-
-  //Dragged Card
-  if(state.draggedCard) {
-    state.draggedCard.element.style.transform = getTransformStringDrag();
+let lastTime = performance.now();
+function updateLoop(time){
+  if(time - lastTime > config.cardUpdateInterval) {
+    lastTime = time;
+    update_cards();
   }
-  
-  //Cards in Hand
-  const amountOfCards = state.cards.length - (!!state.activeCard) - (state.draggedCard && mouse.distance > 300) - 1;
-  const angleDif = (amountOfCards) ? config.cardHandAngle/amountOfCards : 0;
-  let currentAngle = (amountOfCards) ? -config.cardHandAngle/2 : 0;
-  let draggedCardSkipped = false;
-  for (const Card of state.cards){
-    if(Card.status) continue;
-    if(!draggedCardSkipped && state.draggedCard && mouse.distance < 300 && currentAngle > mouse.angle){
-      currentAngle += angleDif;
-      draggedCardSkipped = true;
-    }
-    Card.element.style.transform = getTransformStringHand(currentAngle, Card.sameAs(state.mouse_over_card) && !state.draggedCard);
-    currentAngle+=angleDif;
-  };
 
-  requestAnimationFrame(updateCardPositions);
+
+  requestAnimationFrame(updateLoop);
 };
