@@ -32,7 +32,7 @@ import { mouse } from './mouse.js';
   config.updateCSS();
 
   try {
-    await findElements(["globalContainer", "playingArea", "cardSlot", "soundContainer","infoContainer"]);
+    await findElements(["globalContainer", "playingArea", "cardSlot", "soundContainer","infoContainer","cardSlot"]);
     await createSoundElements(["flip.mp3","pickup.mp3","place.mp3","draw.mp3"], elements.get("soundContainer"));
     create_cards();
   } catch (error) {

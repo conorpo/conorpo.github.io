@@ -33,7 +33,12 @@ export function getTransformStringDrag(){
  * @returns {string} The transform that will be applied to the card element
 */
 export function getTransformStringPlayingArea(){
-    return `translate(calc((21vw - ${config.cardWidth}px)/2 + 4vw), calc((60vh - ${config.cardHeight}px)/2 + 20vh)) scale(${config.activeScale})`;
+    const {marginLeft, marginTop, width, height} = window.getComputedStyle(elements.get("playingArea"));
+
+    const x = parseInt(marginLeft) + (parseInt(width) - config.cardWidth)/2;
+    const y = parseInt(marginTop) + (parseInt(height) - config.cardHeight)/2;
+
+    return `translate(${x}px, ${y}px) scale(${config.activeScale})`; //`;
 }
 
 /**

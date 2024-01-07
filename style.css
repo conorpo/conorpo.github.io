@@ -11,6 +11,7 @@
 
 * {
     box-sizing: border-box;
+    font: 38px 'P22DaVin-For', cursive;
 }
 
 body {
@@ -18,19 +19,23 @@ body {
     overflow: hidden;
     transform-style: preserve-3d;
     filter: blur(0.0px);
+    /* background: url("assets/backing.webp"); */
+    background-size: 100%;
+    background-repeat: no-repeat;
 }
 
 .global-container{
-    height: 100vh;
-    width: 100vw;
+    /* width: 80vw;
+    margin-left:10vw; */
     position: fixed;
     top: 0px;
-    box-shadow: inset 0 0 20px 8px rgb(41, 22, 0);
+    box-shadow: rgba(0,0,0) 0px 0px 50px 0px;
     display: flex;
     align-items: center;
     background: repeat top/40% url("assets/background.webp");
-    filter: saturate(0.8) contrast(0.9) brightness(1.06);
-    transition: transform 0.7s;
+
+    /* transform: translate(50px, 30px) scale(0.7) rotateZ(1deg); */
+    transition: transform 1s;
 }
 
 .global-container.focus {
@@ -76,18 +81,18 @@ body {
     mix-blend-mode: multiply;
 }
 
-.title-text {
+/* .title-text {
     padding-top: 10px;
     padding-left: 10vw;
     margin-left: 30vw;
     padding-right: 10vw;
     width: 40vw;
     font-family: 'MedievalSharp', cursive;
-    font-size: calc(20vw / 8);
+    font-size: calc(90vw / 8);
     color: rgba(0,0,0,0);
-    transform: rotate(0.05deg) scaleY(1.5);
+    transform: rotate(0.05deg) scaleY(0.2);
     transition: none;
-}
+} */
 
 
 ::selection {
@@ -230,59 +235,66 @@ body {
 
 /* Main Board */
 .playing-area{
-    width: 21vw;
+    width: 15vw;
     height: 60vh;
+
     margin: 20vh 2vw;
     margin-left: 4vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-slot{
     width: var(--cardWidth);
     height: var(--cardHeight);
-    margin-left: calc((21vw - var(--cardWidth))/2);
-    margin-top: calc((60vh - var(--cardHeight))/2);
+    margin: auto;
     text-align: center;
     mix-blend-mode: multiply;
     user-select: none;
     pointer-events: none;
-    transform: scale(calc(var(--activeScale) * 0.98));
+    transform: scale(var(--activeScale));
 }
 
 .divider{
     width:3vw;
-    height: 70vh;
+    height: 60vh;
     opacity: 0.63;
     filter: blur(0.8px);
     user-select: none;
+    transform: translate3d(0px, 0px,1px) scale(0.9) scaleY(0.8);
 }
 
 
 /*Info*/
 .info-container{
-    width: 70vw;
-    height: 100vh;
-    padding: 15vh 5vw;
-    padding-right: 10vw;
-    font-family: 'Kaisei Tokumin', serif;
-    filter: grayscale(0.8) sepia(0.8) opacity(0.8);
+    width: 62vw;
+    height: 70vh;
+    margin: 15vh 5vw;
+    margin-right: 9vw;
+    filter: sepia(0.6) opacity(0.9) blur(0.6px);
 
-
+    color: rgba(40,0,0,0.8);
+    mix-blend-mode: darken;
+    
 }
 
 .info {
-    transition: 1.0s, opacity 0.1s;
+    width: 100%;
+    height: 70vh;
+    
     position: absolute;
     margin-right:100px;
-    opacity: 1.0;
-    width: 55vw;
-    overflow-y: scroll;
+    padding: 20px;
+    
+    overflow-y: hidden;
     overflow-x: hidden;
-    height: 70vh;
-    border: 5px rgba(0,0,0,0.8) inset;
-    background-color: rgba(0,0,0,0.05);
-    border-radius: 20px;
-    padding-right: 0px;
-    scrollbar-gutter: both-edges;
+    
+    opacity: 1.0;
+    transition: 1.0s, opacity 0.1s;
+    mix-blend-mode:multiply;
+    
 }
 
 a {
@@ -299,20 +311,14 @@ iframe {
     margin:-2px;
 }
 
-p {
-    font-size: 12px;
-    font-family:Georgia, 'Times New Roman', Times, serif;
+h1 {
+    font-size: 48px;
+    margin: 2px;
 }
+
 
 
 /*About Me Page*/
-.about-info {
-    width: 55vw;
-    height: 70vh;
-    text-align: right;
-    
-}
-
 .aboutImage1 {
     position: absolute;
     mix-blend-mode: multiply;
@@ -332,9 +338,10 @@ p {
 .aboutText {
     text-align: left;
     display: inline-block;
-    font-size: 16px;
-    width: 21vw;
+
+    width: 55vw;
     margin-right: 1vw;
+
 }
 
 .resume-info {
