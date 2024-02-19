@@ -66,17 +66,23 @@ state_transition[CardState.DOWN_VISIBLE][CardState.IN_HAND] = (card) => {
 
     card.element.removeEventListener("mouseenter", card.findListener);
 
-    //Remove card from info_card_map, since it has been found
-    const new_attached_cards = info_card_map.get(played_card).filter(c => c != card);
-    info_card_map.set(played_card, new_attached_cards);
-    if(played_card == null && new_attached_cards.length == 0) {
-        //All cards on start page have been found
+    // Saves state to local storage
+    save_cards();
+
+    // Handles removing start state
+    if(elements.get("globalContainer").classList.contains("start") && info_card_map.get(null).every(card => card.status >= CardState.IN_HAND)) {
         elements.get("globalContainer").classList.remove("start");
+    }
+
+    // Handles updaing projects
+    if(info_card_map.get(cards.projects).every(card => card.status >= CardState.IN_HAND)){
+        cards.projects.infoElement.children[0].classList.remove("hidden");
     }
 };
 
 state_transition[CardState.IN_HAND][CardState.DRAGGING] = (card) => {
     card.element.classList.add("drag");
+    if(dragged_card?.status === CardState.DRAGGING) set_status(dragged_card, CardState.IN_HAND);
     dragged_card = card;
     
     sounds.get("pickup").play();
@@ -106,12 +112,17 @@ state_transition[CardState.DRAGGING][CardState.ACTIVE] = (card) => {
     //Info Element
     card.infoElement.classList.remove("hidden");
     if(card.iframeElement) card.iframeElement.src = card.iframeSrcFunc();
-    const attached_cards = info_card_map.get(card);
+    const attached_cards = info_card_map.get(card)?.filter(c => c.status === CardState.DOWN_NOT_VISIBLE);
     if(attached_cards) {
         for(const card of attached_cards){
             set_status(card, CardState.DOWN_VISIBLE);
         }
     }
+
+    //Save state
+    const url = new URL(window.location);
+    url.searchParams.set("card", card.name);
+    window.history.pushState(null, '', url.toString());
 };
 
 state_transition[CardState.ACTIVE][CardState.IN_HAND] = (card) => {
@@ -120,7 +131,7 @@ state_transition[CardState.ACTIVE][CardState.IN_HAND] = (card) => {
     
     card.infoElement.classList.add("hidden");
     if(card.iframeElement) card.iframeElement.src = "";
-    const attached_cards = info_card_map.get(card);
+    const attached_cards = info_card_map.get(card)?.filter(c => c.status === CardState.DOWN_VISIBLE);
     if(attached_cards) {
         for(const card of attached_cards){
             set_status(card, CardState.DOWN_NOT_VISIBLE);
@@ -131,6 +142,8 @@ state_transition[CardState.ACTIVE][CardState.IN_HAND] = (card) => {
 state_transition[CardState.ACTIVE][CardState.DRAGGING] = (card) => {
     card.element.classList.add("drag");
     card.element.classList.remove("active");
+
+
     dragged_card = card;
     played_card = null;
 
@@ -138,7 +151,7 @@ state_transition[CardState.ACTIVE][CardState.DRAGGING] = (card) => {
 
     card.infoElement.classList.add("hidden");
     if(card.iframeElement) card.iframeElement.src = "";
-    const attached_cards = info_card_map.get(card);
+    const attached_cards = info_card_map.get(card)?.filter(c => c.status === CardState.DOWN_VISIBLE);
     if(attached_cards) {
         for(const card of attached_cards){
             set_status(card, CardState.DOWN_NOT_VISIBLE);
@@ -154,35 +167,71 @@ state_transition[CardState.ACTIVE][CardState.DRAGGING] = (card) => {
 export function set_status(card, status) {
     // console.log(status);
     // console.log(card);
-    console.log(`Setting ${card.name} to ${Object.entries(CardState).find(([key, value]) => value == status)[0]}`);
-    if(!state_transition[card.status][status]) throw new Error(`No state transition from ${card.status} to ${status}`);
-    state_transition[card.status][status](card)
+    const old_status = card.status;
     card.status = status;
+    
+    const transition_handler = state_transition[old_status][status];
+    if(!transition_handler) throw new Error(`No state transition from ${card.status} to ${status}`);
+    transition_handler(card);
 };
+
+window.get_cards = () => cards;
 
 
 /**
  * All cards on the site are defined here (order is defined here too)
 */
 export function create_cards(){
-    cards.about = create_card("about")
+    //This is expected to be in the same order as the roman numerals at the bottom of each card
+    cards.about = create_card("about", null)
     cards.projects = create_card("projects")
     cards.resume = create_card("resume", () => "./assets/resume.pdf")
     cards.mandelbulb = create_card("mandelbulb", () => "https://conorpo.github.io/webgl_mandelbulb/")
     cards.thisSite = create_card("thisSite", () => `index.html?${!location.search ? 1 : Number(location.search.split("?").pop()) + 1}`)
-    cards.climbing = create_card("climbing")
+
     cards.contact = create_card("contact")
-    cards.knightHacks = create_card("knightHacks")
+    cards.jams = create_card("jams")
     cards.marchingcubes = create_card("marchingcubes", () => "https://conorpo.github.io/marching-cubes-webgpu")
-    cards.ptGpt = create_card("ptGpt", () => "https://pt-gpt.com/")
+    cards.ptgpt = create_card("ptgpt", () => "https://pt-gpt.com/")
+    cards.taeca = create_card("taeca", () => "https://conorpo.github.io/triangular-array-cellular-automaton/")
 
     info_card_map.set(null, [cards.about, cards.projects, cards.resume]);
-    info_card_map.set(cards.about, [cards.contact, cards.climbing]);
-    info_card_map.set(cards.projects, [cards.mandelbulb, cards.thisSite, cards.knightHacks, cards.marchingcubes, cards.ptGpt]);
+    info_card_map.set(cards.about, [cards.contact]);
+    info_card_map.set(cards.projects, [cards.mandelbulb, cards.thisSite, cards.jams, cards.marchingcubes, cards.ptgpt, cards.taeca]);
+        
+
+    // Handles any saved cards
+    if(Array.isArray(JSON.parse(localStorage.getItem("cards")))) {
+        for(const card_name of JSON.parse(localStorage.getItem("cards") || "[]")){
+            const card = cards[card_name];
+            console.log(card_name)
+            while(card.status < CardState.IN_HAND){
+                set_status(card, card.status + 1);
+            }
+        }
+    }
+ 
 
     info_card_map.get(null).forEach(card => {
-        set_status(card, CardState.DOWN_VISIBLE);
+        if(card.status === CardState.DOWN_NOT_VISIBLE) set_status(card, CardState.DOWN_VISIBLE);
     });
+
+    // Handles loading current card
+    const url = new URL(window.location);
+    const active_card_name = url.searchParams.get("card");
+    const active_card = cards[active_card_name];
+
+    if(active_card) {
+        info_card_map.get(null).forEach(card => {
+            if(card.status === CardState.DOWN_VISIBLE) set_status(card, CardState.IN_HAND);
+        });
+
+        while(active_card.status < CardState.ACTIVE){
+            set_status(active_card, active_card.status + 1);
+        }
+    }
+
+
 };
 
 /**
@@ -205,8 +254,17 @@ function create_card(name, iframeSrcFunc) {
     card.element.style.setProperty('--image-url', `center/100% url(assets/cards/${card.name}.webp)`);
     card.element.style.transform = getRandomTransformString();
 
-    card.element.addEventListener("mousedown", () => {set_status(card, CardState.DRAGGING)});
-    card.element.addEventListener("mouseup", () => {if(card.status == CardState.ACTIVE) {elements.get("playingArea").dispatchEvent(new Event('mouseup'))}});
+    card.element.addEventListener("mousedown", () => {set_status(card, CardState.DRAGGING)}, true);
+    card.element.addEventListener("mouseup", () => {
+        if(dragged_card) {
+            if(card.status === CardState.ACTIVE) {
+                set_status(card, CardState.IN_HAND);
+                set_status(dragged_card, CardState.ACTIVE);
+            } else {
+                set_status(dragged_card, CardState.IN_HAND);
+            }
+        }
+    });
     card.findListener = () => {set_status(card, CardState.IN_HAND)};
     card.element.addEventListener("mouseenter", card.findListener);
     card.element.addEventListener("mouseenter", () => {mouse_over_card = card});
@@ -246,6 +304,13 @@ export function update_cards() {
         currentAngle+=angleDif;
     };
 }
+
+
+function save_cards(){
+    localStorage.setItem("cards", JSON.stringify(Object.values(cards).filter(card => card.status >= CardState.IN_HAND).map(card => card.name)));
+}
+
+
 
 
 

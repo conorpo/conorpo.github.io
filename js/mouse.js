@@ -26,22 +26,21 @@ export let focus_mode = false;
 */
 export function addMouseEventListeners() {
     elements.get("playingArea").addEventListener("mouseup", (evt) => {
-        console.log(dragged_card)
         if(dragged_card) set_status(dragged_card, CardState.ACTIVE);
         evt.stopPropagation();
     });
-    elements.get("globalContainer").addEventListener("mouseup", (evt) => {
+    window.addEventListener("mouseup", (evt) => {
         if(dragged_card) set_status(dragged_card, CardState.IN_HAND);
         evt.stopPropagation();
     });
     elements.get("globalContainer").addEventListener("mousemove", mouseMove);
 
     //Focus
-    elements.get("infoContainer").addEventListener("click", (evt) => {
-        focus_mode = !focus_mode;
-        elements.get("globalContainer").classList.toggle("focus");
-        evt.stopPropagation();
-    });
+    // elements.get("infoContainer").addEventListener("click", (evt) => {
+    //     focus_mode = !focus_mode;
+    //     elements.get("globalContainer").classList.toggle("focus");
+    //     evt.stopPropagation();
+    // });
 };
 
 /**
@@ -54,7 +53,7 @@ export function addMouseEventListeners() {
 const mouseMove = (evt) => {
     mouse.x = evt.clientX;
     mouse.y = evt.clientY;
-
+    
     mouse.angle = Math.atan((mouse.x-window.innerWidth/2)/(window.innerHeight-mouse.y)) / Math.PI * 180;
     mouse.distance = Math.sqrt(Math.pow((mouse.x-window.innerWidth/2),2) + Math.pow(window.innerHeight-mouse.y,2));
 }

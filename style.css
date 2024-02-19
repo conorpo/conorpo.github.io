@@ -9,9 +9,23 @@
 4: Dragged Card
 */
 
+@font-face {
+    font-family: "Virgil";
+    src: url("./assets/fonts/Virgil/Virgil.woff2");
+}
+@font-face {
+    font-family: "Cascadia";
+    src: url("https://excalidraw.com/Cascadia.woff2");
+}
+@font-face {
+    font-family: "Assistant";
+    src: url("https://excalidraw.com/Assistant-Regular.woff2");
+}
+
 * {
     box-sizing: border-box;
-    font: 38px 'P22DaVin-For', cursive;
+    /* font: 38px 'P22DaVin-For', cursive; */
+    font-family: 'Virgil', serif;
 }
 
 body {
@@ -25,8 +39,7 @@ body {
 }
 
 .global-container{
-    /* width: 80vw;
-    margin-left:10vw; */
+    width: 100vw;
     position: fixed;
     top: 0px;
     box-shadow: rgba(0,0,0) 0px 0px 50px 0px;
@@ -96,11 +109,10 @@ body {
 
 
 ::selection {
-    color: #C28E44;
-    background-color: #C28E44;
+    background-color: #C28E4499;
     /* make work in chrome */
-    -webkit-text-fill-color: #C28E44;
-    -webkit-text-stroke-color: #C28E44;
+    /* -webkit-text-fill-color: #C28E44;
+    -webkit-text-stroke-color: #C28E44; */
 }
 
 .title-text > span:nth-child(1) {
@@ -235,7 +247,7 @@ body {
 
 /* Main Board */
 .playing-area{
-    width: 15vw;
+    width: 13vw;
     height: 60vh;
 
     margin: 20vh 2vw;
@@ -269,54 +281,32 @@ body {
 
 /*Info*/
 .info-container{
-    width: 62vw;
-    height: 70vh;
-    margin: 15vh 5vw;
-    margin-right: 9vw;
-    filter: sepia(0.6) opacity(0.9) blur(0.6px);
+    position: absolute;
+
+    right: 7vw;
+    top: calc((100vh - 36vw)/2);
+
+    width: 68vw;
+    height: 36vw;
+
+    filter: sepia(0.4) opacity(0.9);
 
     color: rgba(40,0,0,0.8);
-    mix-blend-mode: darken;
     
 }
 
 .info {
     width: 100%;
-    height: 70vh;
+    height: 100%;
     
     position: absolute;
-    margin-right:100px;
-    padding: 20px;
-    
+
     overflow-y: hidden;
     overflow-x: hidden;
     
     opacity: 1.0;
-    transition: 1.0s, opacity 0.1s;
-    mix-blend-mode:multiply;
-    
+    transition: 1.0s, opacity 0.1s;    
 }
-
-a {
-    position: absolute;
-    width:65vw;
-    height: 70vh;
-    z-index: 3;
-}
-
-iframe {
-    /* Will end up being 65vw 70vh*/
-    width: 101%;
-    height: 100%;
-    margin:-2px;
-}
-
-h1 {
-    font-size: 48px;
-    margin: 2px;
-}
-
-
 
 /*About Me Page*/
 .aboutImage1 {
@@ -344,34 +334,232 @@ h1 {
 
 }
 
-.resume-info {
-    width: 55vw;
-    padding-right: 6px;
-    overflow-y: hidden;
+#contactInfo {
+    font-size: 1.0vw;
 }
 
 /* Projects Page */
-.instructions > img {
-    width: 90vw;
-    height: 100vh;
-    border: 2px black solid;
-    border-radius: 20px;
-    transform: translateY(20px) scale(0.65);
-    transform-origin: 0.0 0.0;
+.projects-info  {
+    text-align: center;
 }
 
-.proposal > iframe {
-    width: 90vw;
-    height: 100vh;
-    border: 2px black solid;
+.projects-info > h2 {
+    font-size: 1.3vw;
+    margin-top: 25%;
+    opacity: 0.6;
+    transition: opacity 0.5s;
+}
+
+/* Pesume Page */
+#resumeIframe {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    height: 90%;
+    width: 90%;
+    mix-blend-mode: color-dodge;
+    transform: scale(1.0);
+
+}
+
+/* Desktop Pages */
+.desktop-text {
+    width: 40%;
+    padding-right: 20px;
+    font-size: 1.1vw;
+}
+
+.desktop-text > h2 {
+    margin-top: 0px;
+}
+
+.desktop-screen {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 60%;
+    z-index: 5;
+}
+
+.desktop-iframe {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    width: 60%;
+    height: 56.9%;
+    z-index: 4;
+    border: 0px;
+    overflow: hidden;
+    box-sizing: border-box;
+    filter: sepia(0.5) blur(0.5px) opacity(0.9);
+    border: 2px solid rgba(1,1,1,0.5);
+}
+
+.desktop-metadata {
+    position: absolute;
+    top: 63.8%;
+    right: 0px;
+
+    width: 60%;
+    height: auto;
+
+    overflow-y: auto;
+    display:flex;
+    justify-content: space-between;
+}
+
+.desktop-links {
+    padding-left: 1%;
+    width: 60%;
+}
+
+.desktop-links svg {
+    margin: 0px -5px;
+    width: 21%;
+}
+
+.desktop-tags {
+    height: 5.5vw;
+    margin-top: .6vh;
+}
+
+
+.mobile-text {
+    width:55%;
+    padding-right: 20px;
+    font-size: 1.1vw;
+}
+
+.mobile-screen {
+    position: absolute;
+
+    top: 0px;
+    right: 0px;
+
+    height: 100%;
+
     border-radius: 20px;
-    transform: translateY(20px) scale(0.65);
-    transform-origin: 0.0 0.0;
+    border: 1px solid black;
+}
+
+.mobile-iframe {
+    position: absolute;
+    
+    top: 6%;
+    right: 0px;
+
+    height: 94%;
+    width: 25.9%;
+
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: 1px solid black;
+
+    box-sizing: border-box;
+}
+
+.mobile-metadata {
+    position: absolute;
+    
+    top: 0px;
+    right: 26.2%;
+
+    height: 100%;
+    width: 18%;
+}
+
+.mobile-metadata > a > svg {
+    margin-left: auto;
+    margin-right: 5%;
+    margin-top: 5%;
+    
+    width: 32%;
+
+    display: block;
+
+}
+
+.mobile-tags {    
+    width: 100%;
+
+    margin-top: 25%;
+
+}
+
+/* Jams Page */
+.jam-entry {
+    width: 100%;
+    height: 50%;
+    
+    display: flex;
+    justify-content: space-between;
+
+    border-bottom: 1px rgba(30,0,0,0.7) solid;
+}
+
+.jam-entry-text {
+    flex:1.6;
+    padding: 1%;
+}
+
+.jam-entry-text > h2 {
+    margin-top: 0px;
+}
+
+.jam-entry-metadata {
+    flex:.4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: .5%;
+}
+
+.jam-entry-metadata > a {
+    margin-left: auto;
+    width: 45%;
+    float: right;    
+}
+
+.jam-tags {
+    margin-top:auto;
+    bottom:0px;
+    transform: translateX(-22%) scale(1.5) translateY(-10%);
+}
+
+.jam-entry-preview {
+    width: 46.7%;
+}
+
+.jam-entry-preview > img {
+    position: absolute;
+    right: 0px;
+    height: 44.0%;
+    width: 46.7%;
+    margin-bottom: 2.6%;
+}
+
+.jam-entry-preview > svg {
+    position: absolute;
+    right: 0px;
+    height: 49%;
+}
+
+.jam-entry-preview.top > * {
+    top:0px;
+}
+
+.jam-entry-preview.bottom > * {
+    bottom:0px;
+}
+    
+
+.jam-entry > h2 {
+    margin-top: 0px;
 }
 
 /* Global Attributes */
 .hidden {
-    opacity: 0.0;
+    opacity: 0.0 !important;
     pointer-events: none;
     z-index: -2;
 }
@@ -379,3 +567,37 @@ h1 {
 .sound {
     display: none;
 }
+
+/* .marchingCubesDesktop {
+    position: absolute;
+    background-color: transparent;
+    right: 1%;
+    top: 1%;
+    width: 59%;
+}
+
+iframe.marchingCubesDesktop {
+    z-index: -5;
+    height: 51.6%;
+    padding: .1%;
+}
+
+.marchingcubes-info > a {
+    position: absolute;
+    top:60%;
+    right: 41%;
+    font-size: 20px;
+    width: 22%
+}
+
+.marchingcubes-info > a > h2 {
+    display: inline-block;
+    padding-top: 0px;
+    margin-top:0px;
+    transform: translateY(-23px);
+}
+
+.githubLogo {
+    right: 51%;
+    width: 25%
+} */

@@ -28,8 +28,8 @@ export const config = {
 
   cardHandAngle: 40, 
   cardHandRadius: 1100,
-  cardWidth: window.matchMedia("(max-width:1399px)").matches ? 120 : 180,//(window.innerHeight/4)*(3/5),
-  cardHeight: window.matchMedia("(max-width:1399px)").matches ? 200 : 300,//window.innerHeight/4,
+  cardWidth: window.matchMedia("(max-width:1399px)").matches ? 90 : 150,//(window.innerHeight/4)*(3/5),
+  cardHeight: window.matchMedia("(max-width:1399px)").matches ? 150 : 250,//window.innerHeight/4,
 
   wobbleIntensity: 17,
   wobbleSpeed: 3,
