@@ -175,8 +175,6 @@ export function set_status(card, status) {
     transition_handler(card);
 };
 
-window.get_cards = () => cards;
-
 
 /**
  * All cards on the site are defined here (order is defined here too)
